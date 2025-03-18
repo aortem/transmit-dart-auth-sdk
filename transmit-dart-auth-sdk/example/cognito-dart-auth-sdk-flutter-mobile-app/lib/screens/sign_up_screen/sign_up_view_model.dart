@@ -1,9 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class SignUpViewModel extends ChangeNotifier {
-  final cognitoAuth _auth;
+  final transmitAuth _auth;
 
   SignUpViewModel(this._auth);
 

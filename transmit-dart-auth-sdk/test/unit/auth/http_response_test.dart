@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:cognito_dart_auth_sdk/src/http_response.dart';
+import 'package:transmit_dart_auth_sdk/src/http_response.dart';
 
 void main() {
   group('HttpResponse', () {

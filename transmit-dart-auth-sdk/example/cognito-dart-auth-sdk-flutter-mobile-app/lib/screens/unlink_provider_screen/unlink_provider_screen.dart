@@ -1,6 +1,6 @@
-import 'package:cognito/screens/unlink_provider_screen/unlink_provider_screen_view_model.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/screens/unlink_provider_screen/unlink_provider_screen_view_model.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -4,7 +4,7 @@ class OAuthSelectionScreen extends StatelessWidget {
   const OAuthSelectionScreen({super.key});
 
   void _selectProvider(BuildContext context, String providerUrl) async {
-    //final auth = cognitoApp.cognitoAuth;
+    //final auth = transmitApp.transmitAuth;
     // await auth?.signInWithRedirect(providerUrl);
     // try {
     //   final userInfo = await auth?.signInWithRedirectResult(providerUrl);

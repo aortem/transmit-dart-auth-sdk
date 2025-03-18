@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aortem.cognito.dart.admin.auth.sample.app">
+    package="com.aortem.transmit.dart.admin.auth.sample.app">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET"/>

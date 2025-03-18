@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
-import 'cognito_presistance.dart';
+import 'transmit_presistance.dart';
 
 class PersistenceSelectorDropdown extends StatefulWidget {
   const PersistenceSelectorDropdown({super.key});
@@ -31,7 +31,7 @@ class _PersistenceSelectorDropdownState
           if (newValue != null) {
             if (_selectedPersistence != null) {
               try {
-                await cognitoApp.cognitoAuth?.setPresistanceMethod(
+                await transmitApp.transmitAuth?.setPresistanceMethod(
                     _selectedPersistence!, 'firebasdartadminauthsdk');
                 //  log("response of pressitance $response");
               } catch (e) {
@@ -42,15 +42,15 @@ class _PersistenceSelectorDropdownState
         },
         items: const [
           DropdownMenuItem(
-            value: cognitoPersistence.local,
+            value: transmitPersistence.local,
             child: Text('Local'),
           ),
           DropdownMenuItem(
-            value: cognitoPersistence.session,
+            value: transmitPersistence.session,
             child: Text('Session'),
           ),
           DropdownMenuItem(
-            value: cognitoPersistence.none,
+            value: transmitPersistence.none,
             child: Text('None'),
           ),
         ],

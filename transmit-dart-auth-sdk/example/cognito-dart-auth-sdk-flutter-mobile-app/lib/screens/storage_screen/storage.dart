@@ -1,8 +1,8 @@
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/foundation.dart'; // for kIsWeb
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-// Your cognito SDK
+// Your transmit SDK
 
 class StorageExample extends StatefulWidget {
   const StorageExample({super.key});
@@ -12,7 +12,7 @@ class StorageExample extends StatefulWidget {
 }
 
 class _StorageExampleState extends State<StorageExample> {
-  final cognitoStorage storage = cognitoApp.instance.getStorage();
+  final transmitStorage storage = transmitApp.instance.getStorage();
   Uint8List? fileBytes; // File data
   String? fileName; // File name
 
@@ -66,7 +66,7 @@ class _StorageExampleState extends State<StorageExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('cognito Storage Example'),
+        title: const Text('transmit Storage Example'),
       ),
       body: Center(
         child: Column(
@@ -81,7 +81,7 @@ class _StorageExampleState extends State<StorageExample> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: uploadFile,
-              child: const Text('Upload File to cognito Storage'),
+              child: const Text('Upload File to transmit Storage'),
             ),
           ],
         ),

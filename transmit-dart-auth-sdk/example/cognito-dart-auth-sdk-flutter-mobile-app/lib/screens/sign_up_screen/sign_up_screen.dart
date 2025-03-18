@@ -1,7 +1,7 @@
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
-import 'package:cognito/screens/home_screen/home_screen.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
+import 'package:transmit/screens/home_screen/home_screen.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     return ChangeNotifierProvider(
       create: (context) => SignUpViewModel(auth),
       child: Consumer<SignUpViewModel>(

@@ -6,7 +6,7 @@ analyze_flutter_mobile:
   image: ghcr.io/cirruslabs/flutter:stable
   script:
     - echo "Analyzing example project..."
-    - cd cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app
+    - cd transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app
     - flutter pub get || { echo "Failed to install dependencies. Exiting..."; exit 1; }
     - dart analyze > analysis_report.txt 2> error_log.txt || true
 
@@ -46,7 +46,7 @@ analyze_flutter_mobile:
 
   artifacts:
     paths:
-      - cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app/info_issues.txt
-      - cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app/warning_issues.txt
-      - cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app/error_issues.txt
+      - transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/info_issues.txt
+      - transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/warning_issues.txt
+      - transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/error_issues.txt
     expire_in: 1h

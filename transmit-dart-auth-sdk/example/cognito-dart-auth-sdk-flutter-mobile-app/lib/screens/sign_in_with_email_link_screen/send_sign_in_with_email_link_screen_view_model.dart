@@ -1,12 +1,12 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class SendSignInWithEmailLinkScreenViewModel extends ChangeNotifier {
   bool loading = false;
   bool signingIn = false;
 
-  final cognitoAuth? _cognitoSdk = cognitoApp.cognitoAuth;
+  final transmitAuth? _transmitSdk = transmitApp.transmitAuth;
 
   void setLoading(bool load) {
     loading = load;
@@ -22,7 +22,7 @@ class SendSignInWithEmailLinkScreenViewModel extends ChangeNotifier {
     try {
       setLoading(true);
 
-      await _cognitoSdk?.sendSignInLinkToEmail(
+      await _transmitSdk?.sendSignInLinkToEmail(
         email,
       );
 
@@ -40,7 +40,7 @@ class SendSignInWithEmailLinkScreenViewModel extends ChangeNotifier {
       setSigningIn(true);
 
       final userCredential =
-          await _cognitoSdk?.signInWithEmailLink(email, emailLink);
+          await _transmitSdk?.signInWithEmailLink(email, emailLink);
 
       if (userCredential != null) {
         BotToast.showText(

@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -53,8 +53,9 @@ class _LinkPhoneNumberScreenState extends State<LinkPhoneNumberScreen> {
                     BotToast.showText(
                         text: 'Please enter atleast 11 digit number');
                   } else {
-                    await cognitoApp.cognitoAuth?.cognitoPhoneNumberLinkMethod(
-                        phoneLinkController.text, codeController.text);
+                    await transmitApp.transmitAuth
+                        ?.transmitPhoneNumberLinkMethod(
+                            phoneLinkController.text, codeController.text);
                   }
                 },
                 title: 'Send',

@@ -1,4 +1,4 @@
-import 'package:cognito/screens/sign_up_screen/sign_up_screen.dart';
+import 'package:transmit/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

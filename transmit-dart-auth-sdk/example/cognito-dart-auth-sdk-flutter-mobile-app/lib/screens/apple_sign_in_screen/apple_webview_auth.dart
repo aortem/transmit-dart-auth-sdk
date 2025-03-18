@@ -44,7 +44,7 @@ class _AppleWebViewAuthState extends State<AppleWebViewAuth> {
         Uri.parse('https://appleid.apple.com/auth/authorize?'
             'response_type=id_token&'
             'client_id=YOUR_SERVICES_ID&' // Replace with your Apple Services ID
-            'redirect_uri=${Uri.encodeComponent("https://your-cognito-project.cognitoapp.com/__/auth/handler")}&'
+            'redirect_uri=${Uri.encodeComponent("https://your-transmit-project.transmitapp.com/__/auth/handler")}&'
             'scope=email%20name&'
             'response_mode=fragment'),
       );

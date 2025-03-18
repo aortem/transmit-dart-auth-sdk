@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class UpdatePasswordScreenViewModel extends ChangeNotifier {
@@ -14,7 +14,7 @@ class UpdatePasswordScreenViewModel extends ChangeNotifier {
     try {
       setLoading(true);
 
-      await cognitoApp.cognitoAuth?.updatePassword(newPassowrd);
+      await transmitApp.transmitAuth?.updatePassword(newPassowrd);
       BotToast.showText(text: 'Password updated');
     } catch (e) {
       BotToast.showText(text: e.toString());

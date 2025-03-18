@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class SignInWithCustomTokenViewModel extends ChangeNotifier {
@@ -13,7 +13,7 @@ class SignInWithCustomTokenViewModel extends ChangeNotifier {
     try {
       setLoading(true);
 
-      await cognitoApp.cognitoAuth?.signInWithCustomToken(uid);
+      await transmitApp.transmitAuth?.signInWithCustomToken(uid);
 
       onSuccess();
     } catch (e) {

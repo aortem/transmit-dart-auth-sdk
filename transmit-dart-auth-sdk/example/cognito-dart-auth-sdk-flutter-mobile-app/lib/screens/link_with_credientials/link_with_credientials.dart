@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -48,7 +48,7 @@ class _LinkWithCredentialsState extends State<LinkWithCredentials> {
       log('Access Token: ${googleAuth.accessToken}');
       log('ID Token: ${googleAuth.idToken}');
       try {
-        var user = await cognitoApp.cognitoAuth?.linkAccountWithCredientials(
+        var user = await transmitApp.transmitAuth?.linkAccountWithCredientials(
             'http://localhost', googleAuth.accessToken ?? "", 'google.com');
 
         BotToast.showText(text: 'Account linked ');
@@ -73,7 +73,7 @@ class _LinkWithCredentialsState extends State<LinkWithCredentials> {
 
       log('Facebook Access Token: ${accessToken.token}');
       try {
-        var user = await cognitoApp.cognitoAuth?.linkAccountWithCredientials(
+        var user = await transmitApp.transmitAuth?.linkAccountWithCredientials(
             'http://localhost', accessToken.token, 'facebook.com');
 
         BotToast.showText(text: '${user?.user.email} just linked in');
@@ -88,7 +88,7 @@ class _LinkWithCredentialsState extends State<LinkWithCredentials> {
       } catch (e) {
         BotToast.showText(text: e.toString());
       }
-      // Use this token to authenticate with your backend or cognito
+      // Use this token to authenticate with your backend or transmit
     } else if (result.status == LoginStatus.cancelled) {
       log('Login cancelled');
     } else {

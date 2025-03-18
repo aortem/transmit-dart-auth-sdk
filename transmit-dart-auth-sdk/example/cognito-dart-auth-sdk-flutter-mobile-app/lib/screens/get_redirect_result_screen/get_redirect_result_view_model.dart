@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 
 class RedirectResult {
   final User? user;
@@ -66,13 +66,13 @@ class GetRedirectResultViewModel extends ChangeNotifier {
 
     try {
       // First check if we have a current user
-      final currentUser = cognitoApp.instance.getCurrentUser();
+      final currentUser = transmitApp.instance.getCurrentUser();
       if (currentUser == null) {
         _error = 'No signed-in user found';
         return;
       }
 
-      final result = await cognitoApp.cognitoAuth?.getRedirectResult();
+      final result = await transmitApp.transmitAuth?.getRedirectResult();
       log('Redirect result: $result');
 
       if (result != null) {
@@ -84,7 +84,7 @@ class GetRedirectResultViewModel extends ChangeNotifier {
       }
     } catch (e) {
       log('Error getting redirect result: $e');
-      _error = e is cognitoAuthException
+      _error = e is transmitAuthException
           ? e.message
           : 'Failed to get redirect result';
       BotToast.showText(text: 'Error: $_error');

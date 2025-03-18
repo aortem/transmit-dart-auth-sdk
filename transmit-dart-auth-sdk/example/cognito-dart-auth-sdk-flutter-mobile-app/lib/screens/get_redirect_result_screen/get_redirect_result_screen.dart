@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'get_redirect_result_view_model.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 
 class GetRedirectResultScreen extends StatefulWidget {
   const GetRedirectResultScreen({super.key});

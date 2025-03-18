@@ -2,43 +2,43 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito/screens/link_with_credientials/link_with_credientials.dart';
-import 'package:cognito/screens/verify_password_reset_code_screen/verify_password_reset_code.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
-import 'package:cognito/screens/apply_action_code_screen/apply_action_code_screen.dart';
-import 'package:cognito/screens/home_screen/home_screen_view_model.dart';
-import 'package:cognito/screens/parse_action_url_screen/parse_action_url.dart';
-import 'package:cognito/screens/set_language_code_screen/set_language_code_screen.dart';
-import 'package:cognito/screens/sign_up_screen/sign_up_screen.dart';
-import 'package:cognito/screens/storage_screen/storage.dart';
-import 'package:cognito/screens/unlink_provider_screen/unlink_provider_screen.dart';
-import 'package:cognito/screens/update_password_screen/update_password_screen.dart';
-import 'package:cognito/screens/update_profile_screen/update_profile_screen.dart';
-import 'package:cognito/screens/verify_before_email_update_screen/verify_before_email_update_screen.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/screens/link_with_credientials/link_with_credientials.dart';
+import 'package:transmit/screens/verify_password_reset_code_screen/verify_password_reset_code.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
+import 'package:transmit/screens/apply_action_code_screen/apply_action_code_screen.dart';
+import 'package:transmit/screens/home_screen/home_screen_view_model.dart';
+import 'package:transmit/screens/parse_action_url_screen/parse_action_url.dart';
+import 'package:transmit/screens/set_language_code_screen/set_language_code_screen.dart';
+import 'package:transmit/screens/sign_up_screen/sign_up_screen.dart';
+import 'package:transmit/screens/storage_screen/storage.dart';
+import 'package:transmit/screens/unlink_provider_screen/unlink_provider_screen.dart';
+import 'package:transmit/screens/update_password_screen/update_password_screen.dart';
+import 'package:transmit/screens/update_profile_screen/update_profile_screen.dart';
+import 'package:transmit/screens/verify_before_email_update_screen/verify_before_email_update_screen.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cognito_dart_auth_sdk/src/auth/auth_state_changed.dart'
+import 'package:transmit_dart_auth_sdk/src/auth/auth_state_changed.dart'
     as auth_state;
-import 'package:cognito_dart_auth_sdk/src/auth/id_token_changed.dart'
+import 'package:transmit_dart_auth_sdk/src/auth/id_token_changed.dart'
     as id_token;
 
 import '../link_wit_phone_number/link_with_phone_number.dart';
 import '../update_current_user/update_current_user.dart';
-import 'package:cognito/screens/get_redirect_result_screen/get_redirect_result_screen.dart';
-import 'package:cognito/screens/initialize_recaptcha_config_screen/initialize_recaptcha_config_screen.dart';
-import 'package:cognito/screens/multi_factor_resolver_screen/multi_factor_resolver_screen.dart';
-import 'package:cognito/screens/password_reset_screen/password_reset_screen.dart';
-import 'package:cognito/screens/fetch_sign_in_methods_for_email_screen/fetch_sign_in_methods_screen.dart';
-import 'package:cognito/screens/create_user_screen/create_user_screen.dart';
-import 'package:cognito/screens/confirm_password_reset_screen/confirm_password_reset_screen.dart';
-import 'package:cognito/screens/check_action_code_screen/check_action_code_screen.dart';
-import 'package:cognito/screens/is_sign_in_with_email_link_screen/is_sign_in_with_email_link_screen.dart';
-import 'package:cognito/screens/revoke_token_screen/revoke_token_screen.dart';
-import 'package:cognito/screens/on_Id_Token_Changed/on_id_token_changed.dart';
-import 'package:cognito/screens/auth_state_test_screen/auth_state_test_screen.dart';
+import 'package:transmit/screens/get_redirect_result_screen/get_redirect_result_screen.dart';
+import 'package:transmit/screens/initialize_recaptcha_config_screen/initialize_recaptcha_config_screen.dart';
+import 'package:transmit/screens/multi_factor_resolver_screen/multi_factor_resolver_screen.dart';
+import 'package:transmit/screens/password_reset_screen/password_reset_screen.dart';
+import 'package:transmit/screens/fetch_sign_in_methods_for_email_screen/fetch_sign_in_methods_screen.dart';
+import 'package:transmit/screens/create_user_screen/create_user_screen.dart';
+import 'package:transmit/screens/confirm_password_reset_screen/confirm_password_reset_screen.dart';
+import 'package:transmit/screens/check_action_code_screen/check_action_code_screen.dart';
+import 'package:transmit/screens/is_sign_in_with_email_link_screen/is_sign_in_with_email_link_screen.dart';
+import 'package:transmit/screens/revoke_token_screen/revoke_token_screen.dart';
+import 'package:transmit/screens/on_Id_Token_Changed/on_id_token_changed.dart';
+import 'package:transmit/screens/auth_state_test_screen/auth_state_test_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _setupAuthListeners() {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
 
     // Subscribe to ID token changes
     StreamSubscription<User?>? idTokenSubscription;
@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _fetchCurrentIdToken() async {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     final user = auth.currentUser;
     setState(() {
       _currentUser = user;
@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _connectToEmulator() {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     auth.connectAuthEmulator('localhost', 9099);
     setState(() {
       _isConnectedToEmulator = true;
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     return ChangeNotifierProvider(
       create: (context) => HomeScreenViewModel(),
       child: Consumer<HomeScreenViewModel>(
@@ -253,9 +253,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ActionTile(
                   onTap: () {
                     try {
-                      cognitoApp.cognitoAuth?.signOut();
-                      final cognitoApp = cognitoApp.instance;
-                      final currentUser = cognitoApp.getCurrentUser();
+                      transmitApp.transmitAuth?.signOut();
+                      final transmitApp = transmitApp.instance;
+                      final currentUser = transmitApp.getCurrentUser();
 
                       if (currentUser == null) {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -286,9 +286,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 10.vSpace,
                 ActionTile(
                   onTap: () {
-                    cognitoApp.cognitoAuth?.deletecognitoUser();
-                    final cognitoApp = cognitoApp.instance;
-                    final currentUser = cognitoApp.getCurrentUser();
+                    transmitApp.transmitAuth?.deletetransmitUser();
+                    final transmitApp = transmitApp.instance;
+                    final currentUser = transmitApp.getCurrentUser();
 
                     if (currentUser == null) {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -326,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 10.vSpace,
                 ActionTile(
                   onTap: () async {
-                    var tokenId = await cognitoApp.cognitoAuth?.getIdToken();
+                    var tokenId = await transmitApp.transmitAuth?.getIdToken();
                     setState(() {
                       userIdToken = tokenId!;
                     });
@@ -340,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ActionTile(
                   onTap: () async {
                     var tokenId =
-                        await cognitoApp.cognitoAuth?.getIdTokenResult();
+                        await transmitApp.transmitAuth?.getIdTokenResult();
 
                     if (kDebugMode) {
                       print("token result  $tokenId");
@@ -381,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 10.vSpace,
                 ActionTile(
                   onTap: () async {
-                    cognitoApp.cognitoAuth?.setLanguageCodeMethod(
+                    transmitApp.transmitAuth?.setLanguageCodeMethod(
                         'en', 'firebasdartadminauthsdk');
 
                     // log("token result  $tokenId");
@@ -404,7 +404,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ActionTile(
                   onTap: () async {
                     // var tokenId=
-                    cognitoApp.cognitoAuth
+                    transmitApp.transmitAuth
                         ?.getLanguageCodeMethod('firebasdartadminauthsdk');
 
                     // log("token result  $tokenId");
@@ -415,7 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ActionTile(
                   onTap: () async {
                     // var tokenId=
-                    cognitoApp.cognitoAuth?.getAuthBeforeChange();
+                    transmitApp.transmitAuth?.getAuthBeforeChange();
                   },
                   title: "Device Language",
                 ),

@@ -1,4 +1,4 @@
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class UpdateUserScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class UpdateUserScreenState extends State<UpdateUserScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-  final cognitoApp auth = cognitoApp.instance;
+  final transmitApp auth = transmitApp.instance;
 
   @override
   void dispose() {
@@ -30,7 +30,7 @@ class UpdateUserScreenState extends State<UpdateUserScreen> {
         User? user = auth.getCurrentUser();
 
         if (user != null) {
-          cognitoApp.cognitoAuth
+          transmitApp.transmitAuth
               ?.updateUserInformation(user.uid, user.idToken!, {
             'email': _emailController.text,
             'phoneNumber': _phoneNumberController.text,

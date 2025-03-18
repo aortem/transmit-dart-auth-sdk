@@ -12,7 +12,7 @@ unit_tests:
     - if: $CI_COMMIT_REF_NAME == "development" && $GITLAB_USER_LOGIN == "alphabetacreatives"
   script:
     - echo "Running Unit Tests..."
-    - cd cognito_dart_auth_sdk/test/test/unit
+    - cd transmit_dart_auth_sdk/test/test/unit
     - dart pub get
     - dart test test/unit/ --reporter expanded
   artifacts:

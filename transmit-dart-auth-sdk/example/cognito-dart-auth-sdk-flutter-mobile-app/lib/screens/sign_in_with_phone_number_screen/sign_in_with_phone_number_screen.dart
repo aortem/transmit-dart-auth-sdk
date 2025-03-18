@@ -1,6 +1,6 @@
-import 'package:cognito/screens/home_screen/home_screen.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/screens/home_screen/home_screen.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'sign_in_with_phone_number_view_model.dart';
@@ -83,7 +83,7 @@ class _SignInWithPhoneNumberScreenState
                   ],
                   20.vSpace,
                   const Text(
-                    'Use cognito test phone numbers like +16505550101',
+                    'Use transmit test phone numbers like +16505550101',
                     style: TextStyle(color: Colors.blue),
                     textAlign: TextAlign.center,
                   ),

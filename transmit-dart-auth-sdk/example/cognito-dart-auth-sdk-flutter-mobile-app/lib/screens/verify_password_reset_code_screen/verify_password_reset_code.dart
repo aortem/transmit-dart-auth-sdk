@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito/utils/extensions.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit/utils/extensions.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/button.dart';
@@ -34,7 +34,7 @@ class VerifyPasswordResetCode extends StatelessWidget {
                 onTap: () async {
                   try {
                     // Attempt to verify the password reset code
-                    var email = await cognitoApp.cognitoAuth
+                    var email = await transmitApp.transmitAuth
                         ?.verifyPasswordResetCode(
                             verifyPasswordRestController.text);
 

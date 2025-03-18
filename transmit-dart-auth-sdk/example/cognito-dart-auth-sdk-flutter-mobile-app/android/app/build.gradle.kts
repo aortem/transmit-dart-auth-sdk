@@ -28,7 +28,7 @@ val minSdkVersion = (project.findProperty("flutter.minSdkVersion") as? String)?.
 val targetSdkVersion = (project.findProperty("flutter.targetSdkVersion") as? String)?.toIntOrNull() ?: 35
 
 android {
-    namespace = "com.aortem.cognito.dart.admin.auth.sample.app"
+    namespace = "com.aortem.transmit.dart.admin.auth.sample.app"
     compileSdk = compileSdkVersion?.toInt() ?: 34
     ndkVersion = ndkVersion
 
@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.aortem.cognito.dart.admin.auth.sample.app"
+        applicationId = "com.aortem.transmit.dart.admin.auth.sample.app"
         minSdk = minSdkVersion
         targetSdk = targetSdkVersion
         versionCode = flutterVersionCode
@@ -61,16 +61,16 @@ flutter {
 }
 
 dependencies {
-    // Import the cognito BoM
-    implementation(platform("com.google.cognito:cognito-bom:33.5.1"))
+    // Import the transmit BoM
+    implementation(platform("com.google.transmit:transmit-bom:33.5.1"))
 
 
-    // TODO: Add the dependencies for cognito products you want to use
-    // When using the BoM, don't specify versions in cognito dependencies
-    implementation("com.google.cognito:cognito-analytics")
+    // TODO: Add the dependencies for transmit products you want to use
+    // When using the BoM, don't specify versions in transmit dependencies
+    implementation("com.google.transmit:transmit-analytics")
 
 
-    // Add the dependencies for any other desired cognito products
-    // https://cognito.google.com/docs/android/setup#available-libraries
+    // Add the dependencies for any other desired transmit products
+    // https://transmit.google.com/docs/android/setup#available-libraries
 }
 

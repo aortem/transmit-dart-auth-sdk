@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 
 class SignInWithPopupViewModel extends ChangeNotifier {
-  final cognitoAuth _auth;
+  final transmitAuth _auth;
   User? user;
   bool isLoading = false;
   String? errorMessage;
@@ -48,7 +48,7 @@ class SignInWithPopupViewModel extends ChangeNotifier {
 
       final userCredential = await _auth.signInWithPopup(provider, clientId);
       user = userCredential.user;
-    } on cognitoAuthException catch (e) {
+    } on transmitAuthException catch (e) {
       errorMessage = e.message;
     } catch (e) {
       errorMessage = 'An unexpected error occurred';

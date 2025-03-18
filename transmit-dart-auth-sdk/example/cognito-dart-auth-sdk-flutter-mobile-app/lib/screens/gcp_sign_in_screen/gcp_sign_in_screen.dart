@@ -1,8 +1,8 @@
-import 'package:cognito/screens/home_screen/home_screen.dart';
+import 'package:transmit/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'gcp_sign_in_view_model.dart';
 
 class GCPSignInScreen extends StatefulWidget {

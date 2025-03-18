@@ -1,10 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:cognito/screens/fetch_sign_in_methods_for_email_screen/fetch_sign_in_methods_view_model.dart';
+import 'package:transmit/screens/fetch_sign_in_methods_for_email_screen/fetch_sign_in_methods_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 
 class FetchSignInMethodsScreen extends StatefulWidget {
   const FetchSignInMethodsScreen({super.key});

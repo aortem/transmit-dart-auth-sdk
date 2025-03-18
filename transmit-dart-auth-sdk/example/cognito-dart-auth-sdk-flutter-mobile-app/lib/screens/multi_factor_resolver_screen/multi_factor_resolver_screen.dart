@@ -1,9 +1,9 @@
 // ignore_for_file: implementation_imports
 
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:provider/provider.dart';
-import 'package:cognito_dart_auth_sdk/src/auth/get_multi_factor.dart'
+import 'package:transmit_dart_auth_sdk/src/auth/get_multi_factor.dart'
     as multi_factor;
 
 class MultiFactorResolverScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class MultiFactorResolverScreenState extends State<MultiFactorResolverScreen> {
   multi_factor.MultiFactorResolver? resolver;
 
   Future<void> getMultiFactorResolver() async {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     try {
       final mockError = multi_factor.MultiFactorError(
         hints: [

@@ -1,13 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:label="cognito_dart_admin_auth_sample_app"
+        android:label="transmit_dart_admin_auth_sample_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
         <!-- Main Activity -->
         <activity
-            android:name="com.aortem.cognito.dart.admin.auth.sample.app.MainActivity"
+            android:name="com.aortem.transmit.dart.admin.auth.sample.app.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""

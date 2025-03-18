@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class UnlinkProviderScreenViewModel extends ChangeNotifier {
@@ -14,7 +14,7 @@ class UnlinkProviderScreenViewModel extends ChangeNotifier {
     try {
       setLoading(true);
 
-      await cognitoApp.cognitoAuth?.unlinkProvider(providerId);
+      await transmitApp.transmitAuth?.unlinkProvider(providerId);
 
       BotToast.showText(text: 'Provider Unlinked Successfully');
     } catch (e) {

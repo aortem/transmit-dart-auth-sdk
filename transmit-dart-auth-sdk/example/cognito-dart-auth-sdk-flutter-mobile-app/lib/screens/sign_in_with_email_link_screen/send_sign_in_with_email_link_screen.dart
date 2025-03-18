@@ -1,7 +1,7 @@
-import 'package:cognito/screens/home_screen/home_screen.dart';
-import 'package:cognito/screens/sign_in_with_email_link_screen/send_sign_in_with_email_link_screen_view_model.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/screens/home_screen/home_screen.dart';
+import 'package:transmit/screens/sign_in_with_email_link_screen/send_sign_in_with_email_link_screen_view_model.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

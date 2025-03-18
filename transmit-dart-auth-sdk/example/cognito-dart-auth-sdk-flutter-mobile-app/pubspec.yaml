@@ -1,5 +1,5 @@
-name: cognito
-description: "This sample app highlights the classes, methods,and functions used in the cognito Dart Amin Auth SDK."
+name: transmit_dart_auth_sdk
+description: "This sample app highlights the classes, methods,and functions used in the Transmit Dart Amin Auth SDK."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -34,8 +34,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
-  cognito_dart_auth_sdk:
-    path: ../../../cognito_dart_auth_sdk
+  transmit_dart_auth_sdk:
+    path: ../../../transmit_dart_auth_sdk
   provider: ^6.1.2
   bot_toast: ^4.1.3
   google_sign_in: ^6.2.1

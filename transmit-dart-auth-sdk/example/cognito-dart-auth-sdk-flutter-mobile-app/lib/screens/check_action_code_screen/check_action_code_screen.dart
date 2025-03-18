@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:provider/provider.dart';
 
 class CheckActionCodeScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _CheckActionCodeScreenState extends State<CheckActionCodeScreen> {
   String _status = '';
 
   Future<void> _sendPasswordResetEmail() async {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     try {
       await auth.sendPasswordResetEmail(_emailController.text);
       setState(() {
@@ -31,7 +31,7 @@ class _CheckActionCodeScreenState extends State<CheckActionCodeScreen> {
   }
 
   Future<void> _checkActionCode() async {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     try {
       // Parse the URL to extract the oobCode
       final uri = Uri.parse(_linkController.text);
@@ -56,7 +56,7 @@ class _CheckActionCodeScreenState extends State<CheckActionCodeScreen> {
   }
 
   Future<void> _resetPassword() async {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     try {
       final uri = Uri.parse(_linkController.text);
       final oobCode = uri.queryParameters['oobCode'];

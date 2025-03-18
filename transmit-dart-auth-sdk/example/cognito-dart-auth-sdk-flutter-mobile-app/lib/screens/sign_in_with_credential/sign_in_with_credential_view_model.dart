@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito/utils/platform_provider.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit/utils/platform_provider.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -46,7 +46,7 @@ class SignInWithCredentialViewModel extends ChangeNotifier {
         idToken: signInAuth.idToken,
       );
 
-      await cognitoApp.cognitoAuth?.signInWithCredential(credential);
+      await transmitApp.transmitAuth?.signInWithCredential(credential);
 
       onSuccess();
     } catch (e) {
@@ -65,10 +65,10 @@ class SignInWithCredentialViewModel extends ChangeNotifier {
 
       log('Facebook Access Token: ${accessToken.token}');
       try {
-        var user = await cognitoApp.cognitoAuth?.linkAccountWithCredientials(
+        var user = await transmitApp.transmitAuth?.linkAccountWithCredientials(
             'http://localhost', accessToken.token, 'facebook.com');
 
-        var user1 = await cognitoApp.cognitoAuth?.signInWithRedirect(
+        var user1 = await transmitApp.transmitAuth?.signInWithRedirect(
             'http://localhost', accessToken.token, 'facebook.com');
 
         BotToast.showText(text: '${user?.user.email} just linked in');
@@ -84,7 +84,7 @@ class SignInWithCredentialViewModel extends ChangeNotifier {
       } catch (e) {
         BotToast.showText(text: e.toString());
       }
-      // Use this token to authenticate with your backend or cognito
+      // Use this token to authenticate with your backend or transmit
     } else if (result.status == LoginStatus.cancelled) {
       log('Login cancelled');
     } else {
@@ -120,7 +120,7 @@ class SignInWithCredentialViewModel extends ChangeNotifier {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(accessToken)));
-      var user1 = await cognitoApp.cognitoAuth?.signInWithRedirect(
+      var user1 = await transmitApp.transmitAuth?.signInWithRedirect(
           'http://localhost', accessToken, 'microsoft.com');
 
       BotToast.showText(text: '${user1?.user.email} just linked in');

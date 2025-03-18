@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class SignInWithEmailAndPasswordViewModel extends ChangeNotifier {
@@ -14,7 +14,8 @@ class SignInWithEmailAndPasswordViewModel extends ChangeNotifier {
     try {
       setLoading(true);
 
-      await cognitoApp.cognitoAuth?.signInWithEmailAndPassword(email, password);
+      await transmitApp.transmitAuth
+          ?.signInWithEmailAndPassword(email, password);
 
       onSuccess();
     } catch (e) {

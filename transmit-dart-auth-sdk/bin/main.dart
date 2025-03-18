@@ -1,8 +1,8 @@
-//import 'package:transmit_dart_auth_sdk/src/cognito_auth.dart';
+//import 'package:transmit_dart_auth_sdk/src/transmit_auth.dart';
 
 void main() async {
   final auth =
-      cognitoAuth(apiKey: 'YOUR_API_KEY', projectId: 'YOUR_PROJECT_ID');
+      transmitAuth(apiKey: 'YOUR_API_KEY', projectId: 'YOUR_PROJECT_ID');
 
   try {
     // Sign up a new user

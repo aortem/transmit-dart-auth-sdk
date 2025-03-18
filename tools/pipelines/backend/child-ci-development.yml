@@ -9,7 +9,7 @@ analyze_main:
     - when: always
   script:
     - echo "Starting analysis for the main project..."
-    - cd cognito_dart_auth_sdk
+    - cd transmit_dart_auth_sdk
     - pwd
     - echo "Listing contents of the current directory..."
     - ls -la
@@ -56,9 +56,9 @@ analyze_main:
     - echo "Main project analysis complete. Check filtered_report.txt for details."
   artifacts:
     paths:
-      - cognito_dart_auth_sdk/analysis_report.txt
-      - cognito_dart_auth_sdk/error_log.txt
-      - cognito_dart_auth_sdk/filtered_report.txt
+      - transmit_dart_auth_sdk/analysis_report.txt
+      - transmit_dart_auth_sdk/error_log.txt
+      - transmit_dart_auth_sdk/filtered_report.txt
     expire_in: 1h
 
 # Analyze Example Project
@@ -69,7 +69,7 @@ analyze_example:
     - when: always
   script:
     - echo "Starting analysis for the example project..."
-    - cd cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app
+    - cd transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app
     - pwd
     - echo "Listing contents of the current directory..."
     - ls -la
@@ -118,7 +118,7 @@ analyze_example:
     - analyze_main
   artifacts:
     paths:
-      - cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app/analysis_report.txt
-      - cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app/error_log.txt
-      - cognito_dart_auth_sdk/example/cognito_dart_auth_sdk-sample-app/filtered_report.txt
+      - transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/analysis_report.txt
+      - transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/error_log.txt
+      - transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/filtered_report.txt
     expire_in: 1h

@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 
 class FetchSignInMethodsViewModel extends ChangeNotifier {
   bool loading = false;
@@ -20,7 +20,7 @@ class FetchSignInMethodsViewModel extends ChangeNotifier {
     try {
       setLoading(true);
       var fetchedResult =
-          await cognitoApp.cognitoAuth?.fetchSignInMethodsForEmail(email);
+          await transmitApp.transmitAuth?.fetchSignInMethodsForEmail(email);
       result = fetchedResult?.cast<String>(); // Explicitly cast to List<String>
       notifyListeners();
     } catch (e) {

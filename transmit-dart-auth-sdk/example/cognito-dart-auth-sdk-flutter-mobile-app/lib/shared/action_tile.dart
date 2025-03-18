@@ -1,4 +1,4 @@
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 class ActionTile extends StatelessWidget {

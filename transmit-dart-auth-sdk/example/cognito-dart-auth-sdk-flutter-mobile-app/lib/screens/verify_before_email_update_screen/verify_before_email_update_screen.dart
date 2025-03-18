@@ -1,7 +1,7 @@
-import 'package:cognito/screens/apply_action_code_screen/apply_action_code_screen.dart';
-import 'package:cognito/screens/verify_before_email_update_screen/verify_before_email_update_view_model.dart';
-import 'package:cognito/shared/shared.dart';
-import 'package:cognito/utils/extensions.dart';
+import 'package:transmit/screens/apply_action_code_screen/apply_action_code_screen.dart';
+import 'package:transmit/screens/verify_before_email_update_screen/verify_before_email_update_view_model.dart';
+import 'package:transmit/shared/shared.dart';
+import 'package:transmit/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

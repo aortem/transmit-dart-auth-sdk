@@ -1,4 +1,4 @@
-import 'package:cognito/screens/home_screen/home_screen.dart';
+import 'package:transmit/screens/home_screen/home_screen.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';

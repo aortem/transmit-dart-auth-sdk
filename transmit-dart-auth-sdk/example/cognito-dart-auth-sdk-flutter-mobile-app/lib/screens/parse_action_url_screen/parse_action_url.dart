@@ -1,4 +1,4 @@
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../shared/button.dart';
@@ -36,7 +36,7 @@ class _ParseActionUrlState extends State<ParseActionUrl> {
                 onTap: () async {
                   String actionCodeUrl = parseActionUrlController.text;
 
-                  parseUrlResult = await cognitoApp.cognitoAuth
+                  parseUrlResult = await transmitApp.transmitAuth
                       ?.parseActionCodeUrl(actionCodeUrl);
 
                   if (parseUrlResult != null) {

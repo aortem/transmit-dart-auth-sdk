@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:provider/provider.dart';
 
 class RevokeAccessTokenScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _RevokeAccessTokenScreenState extends State<RevokeAccessTokenScreen> {
     });
 
     try {
-      final auth = Provider.of<cognitoAuth>(context, listen: false);
+      final auth = Provider.of<transmitAuth>(context, listen: false);
 
       // Revoke the token
       await auth.revokeToken('');

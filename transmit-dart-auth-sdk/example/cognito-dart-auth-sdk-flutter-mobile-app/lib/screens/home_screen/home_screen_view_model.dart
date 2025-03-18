@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
-import 'package:cognito/utils/platform_provider.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
+import 'package:transmit/utils/platform_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -16,10 +16,10 @@ class HomeScreenViewModel extends ChangeNotifier {
   }
 
   void refreshUser() {
-    displayName = _cognitoSdk?.currentUser?.displayName ?? '';
-    displayImage = _cognitoSdk?.currentUser?.photoURL;
+    displayName = _transmitSdk?.currentUser?.displayName ?? '';
+    displayImage = _transmitSdk?.currentUser?.photoURL;
     numberOfLinkedProviders =
-        _cognitoSdk?.currentUser?.providerUserInfo?.length ?? 0;
+        _transmitSdk?.currentUser?.providerUserInfo?.length ?? 0;
     notifyListeners();
   }
 
@@ -33,7 +33,7 @@ class HomeScreenViewModel extends ChangeNotifier {
     scopes: scopes,
     signInOption: SignInOption.standard,
   );
-  final cognitoAuth? _cognitoSdk = cognitoApp.cognitoAuth;
+  final transmitAuth? _transmitSdk = transmitApp.transmitAuth;
 
   String displayName = '';
   String? displayImage;
@@ -48,7 +48,7 @@ class HomeScreenViewModel extends ChangeNotifier {
   Future<void> reloadUser() async {
     try {
       setLoading(true);
-      await _cognitoSdk?.reloadUser();
+      await _transmitSdk?.reloadUser();
       refreshUser();
       BotToast.showText(text: 'Reload Successful');
     } catch (e) {
@@ -69,7 +69,7 @@ class HomeScreenViewModel extends ChangeNotifier {
     try {
       setVerificationLoading(true);
 
-      await _cognitoSdk?.sendEmailVerificationCode();
+      await _transmitSdk?.sendEmailVerificationCode();
 
       onSuccess();
       BotToast.showText(text: 'Code Sent');
@@ -89,7 +89,7 @@ class HomeScreenViewModel extends ChangeNotifier {
   Future<void> getAdditionalUserInfo() async {
     try {
       setAdditionalInfoLoading(true);
-      await _cognitoSdk?.getAdditionalUserInfo();
+      await _transmitSdk?.getAdditionalUserInfo();
 
       BotToast.showText(text: 'Additional Info Gotten Successfully');
       refreshUser();
@@ -117,7 +117,7 @@ class HomeScreenViewModel extends ChangeNotifier {
       }
 
       var signInAuth = await signInAccount?.authentication;
-      await _cognitoSdk?.linkProviderToUser(
+      await _transmitSdk?.linkProviderToUser(
         getPlatformId(),
         signInAuth!.idToken!,
       );

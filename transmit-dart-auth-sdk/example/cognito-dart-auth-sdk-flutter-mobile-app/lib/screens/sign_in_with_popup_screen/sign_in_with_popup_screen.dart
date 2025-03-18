@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../home_screen/home_screen.dart';
 
@@ -39,7 +39,7 @@ class _SignInWithPopupScreenState extends State<SignInWithPopupScreen> {
 
       try {
         final provider = GoogleAuthProvider();
-        final userCredential = await cognitoApp.cognitoAuth?.signInWithPopup(
+        final userCredential = await transmitApp.transmitAuth?.signInWithPopup(
           provider,
           googleAuth.accessToken ?? "",
         );

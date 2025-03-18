@@ -1,4 +1,4 @@
-package com.aortem.cognito.dart.admin.auth.sample.app
+package com.aortem.transmit.dart.admin.auth.sample.app
 
 import io.flutter.embedding.android.FlutterActivity
 

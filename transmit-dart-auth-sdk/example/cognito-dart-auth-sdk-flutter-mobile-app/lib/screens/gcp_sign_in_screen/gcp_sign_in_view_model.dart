@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -25,7 +25,7 @@ class GCPSignInViewModel extends ChangeNotifier {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser == null) {
-        throw cognitoAuthException(
+        throw transmitAuthException(
           code: 'sign-in-cancelled',
           message: 'Sign in was cancelled by the user',
         );
@@ -35,8 +35,8 @@ class GCPSignInViewModel extends ChangeNotifier {
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
-      // Use tokens to sign in with cognito
-      await cognitoApp.cognitoAuth?.signInWithGCP(
+      // Use tokens to sign in with transmit
+      await transmitApp.transmitAuth?.signInWithGCP(
         clientId: googleAuth.accessToken!,
         clientSecret: googleAuth.idToken!,
       );
@@ -53,7 +53,7 @@ class GCPSignInViewModel extends ChangeNotifier {
       setLoading(true);
       await Future.wait([
         _googleSignIn.signOut(),
-        cognitoApp.cognitoAuth?.signOut() ?? Future.value(),
+        transmitApp.transmitAuth?.signOut() ?? Future.value(),
       ]);
     } catch (e) {
       BotToast.showText(text: e.toString());

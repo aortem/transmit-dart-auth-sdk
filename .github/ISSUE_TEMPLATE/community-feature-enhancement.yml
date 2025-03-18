@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for contributing to the cognito Dart Admin SDK! Please fill out this template to help us review your submission effectively.
+        Thanks for contributing to the transmit Dart Admin SDK! Please fill out this template to help us review your submission effectively.
         Be sure to include a link to your branch or forked repo where we can review your code.
   - type: input
     id: contact

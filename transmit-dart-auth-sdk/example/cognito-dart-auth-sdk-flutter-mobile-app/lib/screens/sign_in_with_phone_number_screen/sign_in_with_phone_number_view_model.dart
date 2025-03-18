@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:flutter/material.dart';
 
 class SignInWithPhoneNumberViewModel extends ChangeNotifier {
@@ -38,7 +38,7 @@ class SignInWithPhoneNumberViewModel extends ChangeNotifier {
       setLoading(true);
 
       if (smsCode != '123456') {
-        throw cognitoAuthException(
+        throw transmitAuthException(
           code: 'invalid-verification-code',
           message: 'Invalid verification code. Use 123456 for testing.',
         );

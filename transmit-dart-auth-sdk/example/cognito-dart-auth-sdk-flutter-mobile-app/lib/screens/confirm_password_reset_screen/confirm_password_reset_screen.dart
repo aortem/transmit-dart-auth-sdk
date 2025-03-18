@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmPasswordResetScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _ConfirmPasswordResetScreenState
   final TextEditingController _newPasswordController = TextEditingController();
 
   Future<void> _confirmPasswordReset() async {
-    final auth = Provider.of<cognitoAuth>(context, listen: false);
+    final auth = Provider.of<transmitAuth>(context, listen: false);
     try {
       String oobCode = _extractOobCode(_resetLinkController.text);
       await auth.confirmPasswordReset(oobCode, _newPasswordController.text);

@@ -5,29 +5,29 @@
   </picture>
 </p>
 
-<h2 align="center">cognito_dart_auth_sdk</h2>
+<h2 align="center">transmit_dart_auth_sdk</h2>
 
 <!-- x-hide-in-docs-end -->
 <p align="center" class="github-badges">
   <!-- Release Badge -->
-  <a href="https://github.com/aortem/cognito_dart_auth_sdk/tags">
+  <a href="https://github.com/aortem/transmit_dart_auth_sdk/tags">
     <img alt="Release" src="https://img.shields.io/static/v1?label=release&message=v0.0.1-pre+10&color=blue&style=for-the-badge" />
   </a>
   <br/>
   <!-- Dart-Specific Badges -->
-  <a href="https://pub.dev/packages/cognito_dart_auth_sdk">
-    <img alt="Pub Version" src="https://img.shields.io/pub/v/cognito_dart_auth_sdk.svg?style=for-the-badge" />
+  <a href="https://pub.dev/packages/transmit_dart_auth_sdk">
+    <img alt="Pub Version" src="https://img.shields.io/pub/v/transmit_dart_auth_sdk.svg?style=for-the-badge" />
   </a>
   <a href="https://dart.dev/">
     <img alt="Built with Dart" src="https://img.shields.io/badge/Built%20with-Dart-blue.svg?style=for-the-badge" />
   </a>
- <!-- cognito Badge -->
-   <a href="https://cognito.google.com/docs/reference/admin/node/cognito-admin.auth?_gl=1*1ewipg9*_up*MQ..*_ga*NTUxNzc0Mzk3LjE3MzMxMzk3Mjk.*_ga_CW55HF8NVT*MTczMzEzOTcyOS4xLjAuMTczMzEzOTcyOS4wLjAuMA..">
+ <!-- transmit Badge -->
+   <a href="https://transmit.google.com/docs/reference/admin/node/transmit-admin.auth?_gl=1*1ewipg9*_up*MQ..*_ga*NTUxNzc0Mzk3LjE3MzMxMzk3Mjk.*_ga_CW55HF8NVT*MTczMzEzOTcyOS4xLjAuMTczMzEzOTcyOS4wLjAuMA..">
     <img alt="API Reference" src="https://img.shields.io/badge/API-reference-blue.svg?style=for-the-badge" />
   <br/>
 <!-- Pipeline Badge -->
-<a href="https://github.com/aortem/cognito_dart_auth_sdk/actions">
-  <img alt="Pipeline Status" src="https://img.shields.io/github/actions/workflow/status/aortem/cognito_dart_auth_sdk/dart-analysis.yml?branch=main&label=pipeline&style=for-the-badge" />
+<a href="https://github.com/aortem/transmit_dart_auth_sdk/actions">
+  <img alt="Pipeline Status" src="https://img.shields.io/github/actions/workflow/status/aortem/transmit_dart_auth_sdk/dart-analysis.yml?branch=main&label=pipeline&style=for-the-badge" />
 </a>
 <!-- Code Coverage Badges -->
   </a>
@@ -45,81 +45,81 @@
 
 ### **Core Authentication Methods**
 
-# Firebase vs Amazon Cognito for Server-Side Dart SDK
+# Firebase vs Transmit for Server-Side Dart SDK
 
-This document provides a high-level comparison of Firebase Authentication and Amazon Cognito features tailored for building a server-side Dart SDK. The goal is to evaluate how a server-side Dart SDK could integrate Amazon Cognito and compare its capabilities to Firebase Authentication.
+This document provides a high-level comparison of Firebase Authentication and Transmit features tailored for building a server-side Dart SDK. The goal is to evaluate how a server-side Dart SDK could integrate Transmit and compare its capabilities to Firebase Authentication.
 
 
 ## **Feature Comparison Chart**
 
 ### **Core Authentication Methods**
 
-| Firebase Method                                  | Amazon Cognito Equivalent                       | Notes                                                                                  | Supported |
+| Firebase Method                                  | Transmit Equivalent                       | Notes                                                                                  | Supported |
 |--------------------------------------------------|------------------------------------------------|--------------------------------------------------------------------------------------- |-------------|
-| `FirebaseAuth.signInWithEmailAndPassword()`      | Cognito Admin: `AdminInitiateAuth`             | Authenticate user with email and password. Server-side API supports admin privileges.  | ✅         |
-| `FirebaseAuth.createUserWithEmailAndPassword()`  | Cognito Admin: `AdminCreateUser`               | Server-side method to create a new user in the user pool.                              | ✅         |
-| `FirebaseAuth.signOut()`                         | Not Applicable                                 | Cognito does not provide server-side logout; tokens must be invalidated by the client. | ❌         |
+| `FirebaseAuth.signInWithEmailAndPassword()`      | transmit Admin: `AdminInitiateAuth`             | Authenticate user with email and password. Server-side API supports admin privileges.  | ✅         |
+| `FirebaseAuth.createUserWithEmailAndPassword()`  | transmit Admin: `AdminCreateUser`               | Server-side method to create a new user in the user pool.                              | ✅         |
+| `FirebaseAuth.signOut()`                         | Not Applicable                                 | transmit does not provide server-side logout; tokens must be invalidated by the client. | ❌         |
 | `FirebaseAuth.setPersistence()`                  | Not Applicable                                 | Token persistence is a client-side feature.                                            | ❌         |
-| `FirebaseAuth.sendPasswordResetEmail()`          | Cognito Admin: `AdminResetUserPassword`        | Sends a reset password request to the user.                                            | ✅         |
-| `FirebaseAuth.connectAuthEmulator`               | Not Applicable                                 | Cognito does not support emulated authentication environments.                         | ❌         |
+| `FirebaseAuth.sendPasswordResetEmail()`          | transmit Admin: `AdminResetUserPassword`        | Sends a reset password request to the user.                                            | ✅         |
+| `FirebaseAuth.connectAuthEmulator`               | Not Applicable                                 | transmit does not support emulated authentication environments.                         | ❌         |
 
 ---
 
 ### **User Management**
 
-| Firebase Method                                  | Amazon Cognito Equivalent                      | Notes                                                                                   | Supported |
+| Firebase Method                                  | Transmit Equivalent                      | Notes                                                                                   | Supported |
 |--------------------------------------------------|------------------------------------------------|-----------------------------------------------------------------------------------------|-------------|
-| `FirebaseUser.updateEmail()`                     | Cognito Admin: `AdminUpdateUserAttributes`     | Updates the user's email or other attributes.                                           | ✅         |
-| `FirebaseUser.updatePassword()`                  | Cognito Admin: `AdminSetUserPassword`          | Updates the user's password.                                                            | ✅         |
-| `FirebaseUser.deleteUser()`                      | Cognito Admin: `AdminDeleteUser`               | Deletes the user account from the user pool.                                            | ✅         |
-| `FirebaseUser.updateProfile()`                   | Cognito Admin: `AdminUpdateUserAttributes`     | Updates custom attributes in the user's profile.                                        | ✅         |
-| `FirebaseUser.sendEmailVerification()`           | Not Applicable                                 | Cognito uses built-in email verification workflows; server-side triggering is indirect. | ❌         |
-| `FirebaseUser.reload()`                          | Cognito Admin: `AdminGetUser`                  | Refreshes the user profile information.                                                 | ✅         |
-| `FirebaseAuth.updateCurrentUser()`               | Cognito Admin: `AdminUpdateUserAttributes`     | Updates the current user's details, such as profile attributes.                         | ✅         |
+| `FirebaseUser.updateEmail()`                     | transmit Admin: `AdminUpdateUserAttributes`     | Updates the user's email or other attributes.                                           | ✅         |
+| `FirebaseUser.updatePassword()`                  | transmit Admin: `AdminSetUserPassword`          | Updates the user's password.                                                            | ✅         |
+| `FirebaseUser.deleteUser()`                      | transmit Admin: `AdminDeleteUser`               | Deletes the user account from the user pool.                                            | ✅         |
+| `FirebaseUser.updateProfile()`                   | transmit Admin: `AdminUpdateUserAttributes`     | Updates custom attributes in the user's profile.                                        | ✅         |
+| `FirebaseUser.sendEmailVerification()`           | Not Applicable                                 | transmit uses built-in email verification workflows; server-side triggering is indirect. | ❌         |
+| `FirebaseUser.reload()`                          | transmit Admin: `AdminGetUser`                  | Refreshes the user profile information.                                                 | ✅         |
+| `FirebaseAuth.updateCurrentUser()`               | transmit Admin: `AdminUpdateUserAttributes`     | Updates the current user's details, such as profile attributes.                         | ✅         |
 
 ---
 
 ### **Token Management**
 
-| Firebase Method                                  | Amazon Cognito Equivalent                      | Notes                                                                                 | Supported  |
+| Firebase Method                                  | Transmit Equivalent                      | Notes                                                                                 | Supported  |
 |--------------------------------------------------|------------------------------------------------|---------------------------------------------------------------------------------------|------------|
-| `FirebaseAuth.getIdToken()`                      | Cognito: `InitiateAuth`                        | Retrieves tokens for user sessions.                                                   | ✅         |
-| `FirebaseAuth.revokeAccessToken()`               | Cognito: `RevokeToken`                         | Revokes a user's refresh token.                                                       | ✅         |
-| `FirebaseAuth.signInWithCustomToken()`           | Not Applicable                                 | Cognito does not support custom tokens like Firebase.                                 | ❌         |
+| `FirebaseAuth.getIdToken()`                      | transmit: `InitiateAuth`                        | Retrieves tokens for user sessions.                                                   | ✅         |
+| `FirebaseAuth.revokeAccessToken()`               | transmit: `RevokeToken`                         | Revokes a user's refresh token.                                                       | ✅         |
+| `FirebaseAuth.signInWithCustomToken()`           | Not Applicable                                 | transmit does not support custom tokens like Firebase.                                 | ❌         |
 
 ---
 
 ### **Multi-Factor Authentication (MFA)**
 
-| Firebase Method                                  | Amazon Cognito Equivalent                      | Notes                                                                                | Supported   |
+| Firebase Method                                  | Transmit Equivalent                      | Notes                                                                                | Supported   |
 |--------------------------------------------------|------------------------------------------------|----------------------------------------------------------------------------------------|-------------|
-| `FirebaseAuth.getMultiFactorResolver()`          | Cognito Admin: `AdminSetUserMFAPreference`     | Retrieve MFA configurations and set user preferences.                                  | ✅         |
-| `FirebaseUser.multiFactor()`                     | Cognito: `AssociateSoftwareToken`              | Registers a user for software-based MFA (e.g., TOTP).                                  | ✅         |
-| `FirebaseUser.reauthenticateWithCredential()`    | Cognito: `InitiateAuth`                        | Reauthenticates the user with credentials.                                             | ✅         |
+| `FirebaseAuth.getMultiFactorResolver()`          | transmit Admin: `AdminSetUserMFAPreference`     | Retrieve MFA configurations and set user preferences.                                  | ✅         |
+| `FirebaseUser.multiFactor()`                     | transmit: `AssociateSoftwareToken`              | Registers a user for software-based MFA (e.g., TOTP).                                  | ✅         |
+| `FirebaseUser.reauthenticateWithCredential()`    | transmit: `InitiateAuth`                        | Reauthenticates the user with credentials.                                             | ✅         |
 
 ---
 
 ### **Sign-In Methods**
 
-| Firebase Method                                 | Amazon Cognito Equivalent                      | Notes                                                                                  | Supported |
+| Firebase Method                                 | Transmit Equivalent                      | Notes                                                                                  | Supported |
 |-------------------------------------------------|------------------------------------------------|---------------------------------------------------------------------------------------|-----------|
-| `FirebaseAuth.signInWithPopup()`                | Not Applicable                                 | Cognito does not support popup-based authentication flows.                             | ❌         |
-| `FirebaseAuth.signInWithRedirect()`             | Cognito: `HostedUI`                            | Hosted UI provides OAuth-based sign-in with redirect support.                          | ✅         |
-| `FirebaseAuth.signInWithPhoneNumber()`          | Cognito: `InitiateAuth`                        | Phone-based authentication is supported via custom attributes.                        | ✅         |
+| `FirebaseAuth.signInWithPopup()`                | Not Applicable                                 | transmit does not support popup-based authentication flows.                             | ❌         |
+| `FirebaseAuth.signInWithRedirect()`             | transmit: `HostedUI`                            | Hosted UI provides OAuth-based sign-in with redirect support.                          | ✅         |
+| `FirebaseAuth.signInWithPhoneNumber()`          | transmit: `InitiateAuth`                        | Phone-based authentication is supported via custom attributes.                        | ✅         |
 
 ---
 
 ### **Action Code Handling**
 
-| Firebase Method                                  | Amazon Cognito Equivalent                      | Notes                                                                                  | Supported |
+| Firebase Method                                  | Transmit Equivalent                      | Notes                                                                                  | Supported |
 |--------------------------------------------------|------------------------------------------------|---------------------------------------------------------------------------------------|-----------|
-| `FirebaseAuth.applyActionCode()`                 | Not Applicable                                 | Cognito does not use action codes.                                                    | ❌         |
-| `FirebaseAuth.checkActionCode()`                 | Not Applicable                                 | Cognito does not use action codes.                                                    | ❌         |
-| `FirebaseAuth.verifyPasswordResetCode()`         | Cognito: `AdminResetUserPassword`              | Password reset is handled via workflows, not codes.                                   | ✅         |
+| `FirebaseAuth.applyActionCode()`                 | Not Applicable                                 | transmit does not use action codes.                                                    | ❌         |
+| `FirebaseAuth.checkActionCode()`                 | Not Applicable                                 | transmit does not use action codes.                                                    | ❌         |
+| `FirebaseAuth.verifyPasswordResetCode()`         | transmit: `AdminResetUserPassword`              | Password reset is handled via workflows, not codes.                                   | ✅         |
 
 ---
 
-### **Enterprise Features Unique to Amazon Cognito**
+### **Enterprise Features Unique to Transmit**
 
 | Feature                                          | Description                                                                            | Supported |
 |--------------------------------------------------|----------------------------------------------------------------------------------------|-----------|
@@ -131,17 +131,17 @@ This document provides a high-level comparison of Firebase Authentication and Am
 
 ---
 
-## **Key Differences Between Firebase and Amazon Cognito**
+## **Key Differences Between Firebase and Transmit**
 
-1. **Server-Side Capabilities:** Amazon Cognito provides robust server-side APIs (e.g., Admin APIs), while Firebase is primarily client-focused.
-2. **Enterprise Features:** Cognito supports advanced features like Lambda triggers and adaptive authentication, which are absent in Firebase.
-3. **Custom Token Support:** Firebase enables custom token generation for integration with external systems, while Cognito lacks this feature.
+1. **Server-Side Capabilities:** Transmit provides robust server-side APIs (e.g., Admin APIs), while Firebase is primarily client-focused.
+2. **Enterprise Features:** transmit supports advanced features like Lambda triggers and adaptive authentication, which are absent in Firebase.
+3. **Custom Token Support:** Firebase enables custom token generation for integration with external systems, while transmit lacks this feature.
 
 ---
 
 ## **Next Steps**
 
-1. Design the Dart SDK for server-side integration with Amazon Cognito Admin APIs.
+1. Design the Dart SDK for server-side integration with Transmit Admin APIs.
 2. Implement key features such as user management, MFA, and token management.
 3. Provide documentation and examples to facilitate adoption for both mobile and web developers.
 
@@ -153,26 +153,26 @@ Let me know if you'd like to explore specific areas further!
 
 ## Available Versions
 
-cognito Dart Admin Auth SDK is available in two versions to cater to different needs:
+transmit Dart Admin Auth SDK is available in two versions to cater to different needs:
 
 1. **Main - Stable Version**: Usually one release a month.  This version attempts to keep stability without introducing breaking changes.
 2. **Pre-Release - Edge Version**: Provided as an early indication of a release when breaking changes are expect.  This release is inconsistent. Use only if you are looking to test new features.
 
 ## Documentation
 
-For detailed guides, API references, and example projects, visit our [cognito Dart Admin Auth SDK Documentation](https://aortem.gitbook.io/cognito-dart-auth-admin-sdk). Start building with  cognito Dart Admin Auth SDK today and take advantage of its robust features and elegant syntax.
+For detailed guides, API references, and example projects, visit our [transmit Dart Admin Auth SDK Documentation](https://aortem.gitbook.io/transmit-dart-auth-admin-sdk). Start building with  transmit Dart Admin Auth SDK today and take advantage of its robust features and elegant syntax.
 
 ## Examples
 
-Explore the `/example` directory in this repository to find sample applications demonstrating  cognito Dart Admin Auth SDK's capabilities in real-world scenarios.
+Explore the `/example` directory in this repository to find sample applications demonstrating  transmit Dart Admin Auth SDK's capabilities in real-world scenarios.
 
 ## Contributing
 
-We welcome contributions of all forms from the community! If you're interested in helping improve  cognito Dart Admin Auth SDK, please fork the repository and submit your pull requests. For more details, check out our [CONTRIBUTING.md](CONTRIBUTING.md) guide.  Our team will review your pull request. Once approved, we will integrate your changes into our primary repository and push the mirrored changes on the main github branch.
+We welcome contributions of all forms from the community! If you're interested in helping improve  transmit Dart Admin Auth SDK, please fork the repository and submit your pull requests. For more details, check out our [CONTRIBUTING.md](CONTRIBUTING.md) guide.  Our team will review your pull request. Once approved, we will integrate your changes into our primary repository and push the mirrored changes on the main github branch.
 
 ## Support Tiers
 
-cognito Dart Admin Auth SDK offers various support tiers for our open-source products with an Initial Response Service Level Agreement (IRSLA):
+transmit Dart Admin Auth SDK offers various support tiers for our open-source products with an Initial Response Service Level Agreement (IRSLA):
 
 ### Community Support
 - **Cost**: Free
@@ -211,9 +211,9 @@ cognito Dart Admin Auth SDK offers various support tiers for our open-source pro
 
 ## Licensing
 
-All  cognito Dart Admin Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, which are licensed from third party software  Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE.md) file for more details.
+All  transmit Dart Admin Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, which are licensed from third party software  Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE.md) file for more details.
 
 
-## Enhance with cognito Dart Admin Auth SDK
+## Enhance with transmit Dart Admin Auth SDK
 
-We hope the cognito Dart Admin Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!  test
+We hope the transmit Dart Admin Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!  test

@@ -3,10 +3,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 
 class AuthStateTestScreen extends StatefulWidget {
-  final cognitoAuth auth;
+  final transmitAuth auth;
 
   const AuthStateTestScreen({super.key, required this.auth});
 

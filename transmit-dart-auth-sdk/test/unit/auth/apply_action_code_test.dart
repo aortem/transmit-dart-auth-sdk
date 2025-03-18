@@ -1,13 +1,13 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
 import 'package:mockito/mockito.dart';
-import '../../mocks/cognito_auth_mock.dart';
+import '../../mocks/transmit_auth_mock.dart';
 
 void main() {
-  group('cognitoAuth Tests', () {
-    late MockcognitoAuth mockcognitoAuth;
+  group('transmitAuth Tests', () {
+    late MocktransmitAuth mocktransmitAuth;
 
     setUp(() {
-      mockcognitoAuth = MockcognitoAuth();
+      mocktransmitAuth = MocktransmitAuth();
     });
 
     test('performRequest handles typed arguments correctly', () async {
@@ -19,17 +19,17 @@ void main() {
         body: {'message': 'Success'},
       );
 
-      when(mockcognitoAuth.performRequest(endpoint, body))
+      when(mocktransmitAuth.performRequest(endpoint, body))
           .thenAnswer((_) async => expectedResponse);
 
       // Act
-      final result = await mockcognitoAuth.performRequest(endpoint, body);
+      final result = await mocktransmitAuth.performRequest(endpoint, body);
 
       // Assert
       expect(result.statusCode, equals(200));
       expect(result.body, containsPair('message', 'Success'));
 
-      verify(mockcognitoAuth.performRequest(endpoint, body)).called(1);
+      verify(mocktransmitAuth.performRequest(endpoint, body)).called(1);
     });
   });
 }

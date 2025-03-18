@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:cognito_dart_auth_sdk/cognito_dart_auth_sdk.dart';
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
 import 'package:provider/provider.dart';
 import '../../shared/shared.dart';
 import 'apple_sign_in_view_model.dart';
@@ -33,9 +33,9 @@ class _AppleSignInScreenState extends State<AppleSignInScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize the view model with cognito Auth instance
+    // Initialize the view model with transmit Auth instance
     _viewModel = AppleSignInViewModel(
-      auth: context.read<cognitoAuth>(),
+      auth: context.read<transmitAuth>(),
     );
   }
 
