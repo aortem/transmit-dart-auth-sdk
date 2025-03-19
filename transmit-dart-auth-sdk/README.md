@@ -1,132 +1,110 @@
-# transmit Dart Admin Auth SDK
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aortem/logos/main/Aortem-logo-small.png" />
+    <img align="center" alt="Aortem Logo" src="https://raw.githubusercontent.com/aortem/logos/main/Aortem-logo-small.png" />
+  </picture>
+</p>
 
-## Overview
+<h2 align="center">Transmit_dart_auth_sdk</h2>
 
-The transmit Dart Admin Auth SDK offers a robust and flexible set of tools to perform authentication procedures within Dart or Flutter projects. This is a Dart implementation of transmit Authentication.
+<!-- x-hide-in-docs-end -->
+<p align="center" class="github-badges">
+  <!-- Release Badge -->
+  <a href="https://github.com/aortem/Transmit_dart_auth_sdk/tags">
+    <img alt="Release" src="https://img.shields.io/static/v1?label=release&message=v0.0.1-pre+10&color=blue&style=for-the-badge" />
+  </a>
+  <br/>
+  <!-- Dart-Specific Badges -->
+  <a href="https://pub.dev/packages/Transmit_dart_auth_sdk">
+    <img alt="Pub Version" src="https://img.shields.io/pub/v/Transmit_dart_auth_sdk.svg?style=for-the-badge" />
+  </a>
+  <a href="https://dart.dev/">
+    <img alt="Built with Dart" src="https://img.shields.io/badge/Built%20with-Dart-blue.svg?style=for-the-badge" />
+  </a>
+ <!-- Transmit Badge -->
+   <a href="https://Transmit.google.com/docs/reference/admin/node/Transmit-admin.auth?_gl=1*1ewipg9*_up*MQ..*_ga*NTUxNzc0Mzk3LjE3MzMxMzk3Mjk.*_ga_CW55HF8NVT*MTczMzEzOTcyOS4xLjAuMTczMzEzOTcyOS4wLjAuMA..">
+    <img alt="API Reference" src="https://img.shields.io/badge/API-reference-blue.svg?style=for-the-badge" />
+  <br/>
+<!-- Pipeline Badge -->
+<a href="https://github.com/aortem/Transmit_dart_auth_sdk/actions">
+  <img alt="Pipeline Status" src="https://img.shields.io/github/actions/workflow/status/aortem/Transmit_dart_auth_sdk/dart-analysis.yml?branch=main&label=pipeline&style=for-the-badge" />
+</a>
+<!-- Code Coverage Badges -->
+  </a>
+  <a href="https://codecov.io/gh/open-feature/dart-server-sdk">
+    <img alt="Code Coverage" src="https://codecov.io/gh/open-feature/dart-server-sdk/branch/main/graph/badge.svg?token=FZ17BHNSU5" />
+<!-- Open Source Badge -->
+  </a>
+  <a href="https://bestpractices.coreinfrastructure.org/projects/6601">
+    <img alt="CII Best Practices" src="https://bestpractices.coreinfrastructure.org/projects/6601/badge?style=for-the-badge" />
+  </a>
+</p>
+<!-- x-hide-in-docs-start -->
 
-## Features:
+## **Feature Comparison Chart**
 
-- **User Management:** Manage user accounts seamlessly with a suite of comprehensive user management functionalities.
-- **Custom Token Minting:** Integrate transmit authentication with your backend services by generating custom tokens.
-- **Generating Email Action Links:** Perform authentication by creating and sending email action links to users emails for email verification, password reset, etc.
-- **ID Token verification:** Verify ID tokens securely to ensure that application users are authenticated and authorised to use app.
-- **Managing SAML/OIDC Provider Configuration**: Manage and configure SAML and ODIC providers to support authentication and simple sign-on solutions.
+Coming Soon.
+## Available Versions
 
-## Getting Started
+Transmit Dart Admin Auth SDK is available in two versions to cater to different needs:
 
-If you want to use the transmit Dart Admin Auth SDK for implementing a transmit authentication in your Flutter projects follow the instructions on how to set up the auth SDK.
+1. **Main - Stable Version**: Usually one release a month.  This version attempts to keep stability without introducing breaking changes.
+2. **Pre-Release - Edge Version**: Provided as an early indication of a release when breaking changes are expect.  This release is inconsistent. Use only if you are looking to test new features.
 
-- Ensure you have a Flutter or Dart (3.4.x) SDK installed in your system.
-- Set up a transmit project and service account.
-- Set up a Flutter project.
-
-## Installation
-
-For Flutter use:
-
-```javascript
-flutter pub add transmit_dart_auth_sdk
-```
-
-You can manually edit your `pubspec.yaml `file this:
-
-```yaml
-dependencies:
-  transmit_dart_auth_sdk: ^0.0.1-pre+11
-```
-
-You can run a `flutter pub get` for Flutter respectively to complete installation.
-
-**NB:** SDK version might vary.
-
-## Usage
-
-**Example:**
-
-```
-import 'dart:io';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:transmit/screens/splash_screen/splash_screen.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
-import 'package:flutter/services.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  try {
-    if (kIsWeb) {
-      // Initialize for web
-      debugPrint('Initializing transmit for Web...');
-      transmitApp.initializeAppWithEnvironmentVariables(
-        apiKey: 'YOUR-API-KEY',
-        projectId: 'YOUR-PROJECT-ID',
-        bucketName: 'Your Bucket Name',
-      );
-      debugPrint('transmit initialized for Web.');
-    } else {
-      if (Platform.isAndroid || Platform.isIOS) {
-        debugPrint('Initializing transmit for Mobile...');
-
-        // Load the service account JSON
-        String serviceAccountContent = await rootBundle.loadString(
-          'assets/service_account.json',
-        );
-        debugPrint('Service account loaded.');
-
-        // Initialize transmit with the service account content
-        await transmitApp.initializeAppWithServiceAccount(
-          serviceAccountContent: serviceAccountContent,
-        );
-        debugPrint('transmit initialized for Mobile.');
-      }
-    }
-
-    // Access transmit Auth instance
-    final auth = transmitApp.instance.getAuth();
-    debugPrint('transmit Auth instance obtained.');
-
-    runApp(const MyApp());
-  } catch (e, stackTrace) {
-    debugPrint('Error initializing transmit: $e');
-    debugPrint('StackTrace: $stackTrace');
-  }
-}
-
-```
-
-- Import the package into your Dart or Flutter project:
-  ```
-  import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
-  ```
-  For Flutter web initialize transmit app as follows:
-  ```
-  transmitApp.initializeAppWithEnvironmentVariables(
-    apiKey: 'YOUR-API-KEY',
-    projectId: 'YOUR-PROJECT-ID',
-    bucketName: 'Your Bucket Name',
-  );
-  ```
-
-- For Flutter mobile:
-    - Load the service account JSON
-    ```
-       String serviceAccountContent = await rootBundle.loadString(
-         'assets/service_account.json',
-       );
-    ```
-    - Initialize Flutter mobile with service account content
-    ```
-      await transmitApp.initializeAppWithServiceAccount(
-        serviceAccountContent: serviceAccountContent,
-      );
-    ```
-
-- Access transmit Auth instance.
-  ```
-     final auth = transmitApp.instance.getAuth();
-  ```
 ## Documentation
 
-For more refer to Gitbook for prelease [documentation here](https://aortem.gitbook.io/transmit-dart-auth-admin-sdk/).
+For detailed guides, API references, and example projects, visit our [Transmit Dart Admin Auth SDK Documentation](https://aortem.gitbook.io/Transmit-dart-auth-admin-sdk). Start building with  Transmit Dart Admin Auth SDK today and take advantage of its robust features and elegant syntax.
+
+## Examples
+
+Explore the `/example` directory in this repository to find sample applications demonstrating Transmit Dart Admin Auth SDK's capabilities in real-world scenarios.
+
+## Contributing
+
+We welcome contributions of all forms from the community! If you're interested in helping improve  Transmit Dart Admin Auth SDK, please fork the repository and submit your pull requests. For more details, check out our [CONTRIBUTING.md](CONTRIBUTING.md) guide.  Our team will review your pull request. Once approved, we will integrate your changes into our primary repository and push the mirrored changes on the main github branch.
+
+## Support Tiers
+
+Transmit Dart Admin Auth SDK offers various support tiers for our open-source products with an Initial Response Service Level Agreement (IRSLA):
+
+### Community Support
+- **Cost**: Free
+- **Features**: Access to community forums, basic documentation.
+- **Ideal for**: Individual developers or small startups.
+- **SLA**: NA
+
+### Standard Support
+- **Cost**: $10/month - Billed Annually.
+- **Features**: Extended documentation.
+- **Ideal for**: Growing startups and small businesses.
+- **SLA**: 10 business days (Monday-Friday) IRSLANA
+- [Subscribe](https://aortem.io/support/)
+
+### Enhanced Support
+- **Cost**: $100/month - Billed Annually
+- **Features**: Access to roadmap, 72-hour response SLA, access to feature request.
+- **Ideal for**: Medium-sized enterprises requiring frequent support.
+- **SLA**: 5 business days IRSLA
+- [Subscribe](https://aortem.io/support/)
+
+### Enterprise Support
+- **Cost**: 450/month
+- **Features**: 
+  - 48-hour response SLA, 
+  - Priority feature request:
+  - Comprehensive support for all Aortem Open Source products.
+  - Early access to beta programs.
+- **Ideal for**: Large organizations and enterprises with complex needs.
+- **SLA**: 48-hour IRSLA
+- [Subscribe](https://aortem.io/support/)
+
+*Enterprise Support is designed for businesses, agencies, and partners seeking top-tier support across a wide range of Dart backend and server-side projects.  All Open Source projects that are part of the Aortem Collective are included in the Enterprise subscription, with more projects being added soon.
+
+## Licensing
+
+All  Transmit Dart Admin Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, which are licensed from third party software  Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE.md) file for more details.
+
+
+## Enhance with Transmit Dart Admin Auth SDK
+
+We hope the Transmit Dart Admin Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!  test
