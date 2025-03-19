@@ -7,7 +7,7 @@ unit_tests:
   image: dart:stable
   script:
     - echo "Running Unit Tests..."
-    - cd firebase-dart-admin-auth-sdk/test/unit/
+    - cd transmit-dart-auth-sdk/test/unit/
     - dart pub get
     - dart test . --coverage=coverage --reporter expanded || echo "Some tests failed, proceeding with coverage upload..."
     - echo "Uploading coverage report to Codecov..."
