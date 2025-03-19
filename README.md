@@ -113,11 +113,11 @@ We welcome contributions of all forms from the community! If you're interested i
 
 ## Support
 
-For support across all Aortem open-source products, including this SDK, visit our Support Page.
+For support across all Aortem open-source products, including this SDK, visit our [Support Page](https://aortem.io/support).
 
 ## Licensing
 
-The **EntraID Dart Auth SDK** is licensed under a dual-license approach:
+The **Transmit Dart Auth SDK** is licensed under a dual-license approach:
 
 1. **BSD-3 License**:
    - Applies to all packages and libraries in the SDK.
