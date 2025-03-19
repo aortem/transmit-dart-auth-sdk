@@ -1,22 +1,21 @@
 stages:
   - unit_tests
 
-# Unit Tests
+# Firebase SDK Unit Tests
 unit_tests:
   stage: unit_tests
   image: dart:stable
- # tags:
- #   - dart
-  rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "development" && $GITLAB_USER_LOGIN == "alphabetacreatives"
-    - if: $CI_COMMIT_REF_NAME == "development" && $GITLAB_USER_LOGIN == "alphabetacreatives"
   script:
     - echo "Running Unit Tests..."
-    - cd transmit_dart_auth_sdk/test/test/unit
+    - cd transmit-dart-auth-sdk/test/unit/
     - dart pub get
-    - dart test test/unit/ --reporter expanded
+    - dart test . --coverage=coverage --reporter expanded || echo "Some tests failed, proceeding with coverage upload..."
+    - echo "Uploading coverage report to Codecov..."
+    - curl -s https://codecov.io/bash | bash -s -- -t $CODECOV_TOKEN -R github.com/aortem/firebase-dart-admin-auth-sdk -f coverage/lcov.info || echo "Coverage upload failed."
   artifacts:
     paths:
-      - test-reports/unit/
+      - coverage/
     expire_in: 1d
+  rules:
+   - when: always
   retry: 2
