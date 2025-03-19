@@ -83,7 +83,7 @@ validate_dart_sdk_version:
   script:
     - echo "Validating Dart SDK versions in all pubspec.yaml files..."
     - apk add --no-cache grep
-    - cd transmit_dart_auth_sdk
+    - cd transmit-dart-auth-sdk
 
     # Find all pubspec.yaml files (recursively, all levels)
     - PUBSPEC_FILES=$(find . -name "pubspec.yaml")
@@ -137,7 +137,7 @@ analyze_main:
     - validate_commit_messages
   script:
     - echo "Analyzing main project..."
-    - cd transmit_dart_auth_sdk
+    - cd transmit-dart-auth-sdk
     - dart pub get || { echo "Failed to install dependencies. Exiting..."; exit 1; }
     - dart analyze lib/ > analysis_report.txt 2> error_log.txt || true
 
@@ -174,9 +174,9 @@ analyze_main:
     - echo "Main project analysis complete. Check categorized issue files for details."
   artifacts:
     paths:
-      - transmit_dart_auth_sdk/info_issues.txt
-      - transmit_dart_auth_sdk/warning_issues.txt
-      - transmit_dart_auth_sdk/error_issues.txt
+      - transmit-dart-auth-sdk/info_issues.txt
+      - transmit-dart-auth-sdk/warning_issues.txt
+      - transmit-dart-auth-sdk/error_issues.txt
     expire_in: 1h
   rules:
    - when: always
