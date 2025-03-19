@@ -1,4 +1,4 @@
-flutterstages:
+stages:
   - validate
   - analyze
 
