@@ -4,7 +4,7 @@ version: 0.0.1-pre+1
 repository: https://github.com/aortem/trasmit_dart_auth_sdk
 
 environment:
-  sdk: ^3.7.2
+  sdk: 3.7.2
 
 # Add regular dependencies here.
 
@@ -20,7 +20,7 @@ dependencies:
 #------------------ TESTING FEATURES---------------------------------
 
 dev_dependencies:
-  ds_tools_testing: ^0.0.1-pre+2 #Standard Dart Team Testing Tools
+  ds_tools_testing: ^0.0.1 #Standard Dart Team Testing Tools
   test_reporter: any #required to generate JUnit report 
   http: any
   git_hooks: any
