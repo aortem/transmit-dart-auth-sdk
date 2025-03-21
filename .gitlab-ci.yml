@@ -2,7 +2,6 @@ stages:
   - setup
   - validation
   - analyze_sample_apps
-  - package_deployment
 
 # The pipeline covers a series of triggers to ensure full testing and coverage
 
