@@ -1,6 +1,7 @@
 # Ignore all IDE settings
 .idea/
 .vscode/
+.dart_tool
 # Ignore Flutter plugin files in example project
 /transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/.flutter-plugins
 /transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/.flutter-plugins-dependencies
