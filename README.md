@@ -5,8 +5,6 @@
   </picture>
 </p>
 
-<h2 align="center">Transmit Dart Auth SDK</h2>
-
 <!-- x-hide-in-docs-end -->
 <p align="center" class="github-badges">
   <!-- GitHub Tag Badge -->
