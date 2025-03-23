@@ -1,6 +1,5 @@
 # Add your own git ignore rules.
 
-
 # Ignore Flutter plugin files in example project
 /transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/.flutter-plugins
 /transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/.flutter-plugins-dependencies
