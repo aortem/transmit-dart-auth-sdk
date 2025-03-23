@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:http/http.dart'
+import 'package:ds_standard_features/ds_standard_features.dart'
     as http; // Ensure the correct HTTP package is used
 
 /// A service class for handling authorization with the Transmit Security API.
@@ -21,9 +21,10 @@ class AortemTransmitAuthorization {
   /// - Optionally accepts a custom [baseUrl] for API calls.
   ///
   /// Throws an [ArgumentError] if [apiKey] is empty.
-  AortemTransmitAuthorization(
-      {required this.apiKey,
-      this.baseUrl = 'https://api.transmitsecurity.com'}) {
+  AortemTransmitAuthorization({
+    required this.apiKey,
+    this.baseUrl = 'https://api.transmitsecurity.com',
+  }) {
     if (apiKey.isEmpty) {
       throw ArgumentError('API key cannot be empty.');
     }
@@ -43,8 +44,10 @@ class AortemTransmitAuthorization {
   /// Throws:
   /// - [ArgumentError] if [accessToken] is empty.
   /// - [Exception] if authorization fails due to invalid credentials or API errors.
-  Future<Map<String, dynamic>> authorize(String accessToken,
-      {List<String>? requiredScopes}) async {
+  Future<Map<String, dynamic>> authorize(
+    String accessToken, {
+    List<String>? requiredScopes,
+  }) async {
     if (accessToken.isEmpty) {
       throw ArgumentError('Access token cannot be empty.');
     }
@@ -68,7 +71,8 @@ class AortemTransmitAuthorization {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
       throw Exception(
-          'Authorization failed: ${response.statusCode} ${response.body}');
+        'Authorization failed: ${response.statusCode} ${response.body}',
+      );
     }
   }
 }

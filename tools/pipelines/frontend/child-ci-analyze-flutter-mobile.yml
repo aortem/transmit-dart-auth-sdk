@@ -6,7 +6,7 @@ analyze_flutter_mobile:
   image: ghcr.io/cirruslabs/flutter:stable
   script:
     - echo "Analyzing example project..."
-    - cd transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app
+    - cd transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app
     - flutter pub get || { echo "Failed to install dependencies. Exiting..."; exit 1; }
     - dart analyze > analysis_report.txt 2> error_log.txt || true
 

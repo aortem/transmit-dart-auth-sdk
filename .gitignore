@@ -1,26 +1,10 @@
+# Global Repo Rules
+
 # Ignore all IDE settings
-.idea/
+.idea
+.vscode
 
-# Ignore Flutter plugin files in example project
-/transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/.flutter-plugins
-/transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/.flutter-plugins-dependencies
+# Ignore Dart clocal build tools
+.dart_tool
+pubspec.lock
 
-# Ignore macOS generated files in example project
-/transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/macos/Flutter/GeneratedPluginRegistrant.swift
-
-#Ignore Release Key
-/transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/transmit_dart_auth_sdk-release-key.jks
-
-#Ignore Service Account JSON Key
-/transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/assets/service_account.json
-
-#Ignore Gradle Properties
-/transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/android/gradle.properties
-
-#Ignore Gradle Wrapper Properties
-/transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/android/gradle/wrapper/gradle-wrapper.properties
-
-
-# Optional: Ignore pubspec.lock in the library root (if this is a library, not an application)
-# Uncomment the line below if transmit_dart_auth_sdk is a package:
-# pubspec.lock
