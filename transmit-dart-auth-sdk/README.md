@@ -42,7 +42,7 @@ Transmit Dart Auth SDK is available in two versions to cater to different needs:
 
 ## Documentation
 
-For detailed guides, API references, and example projects, visit our [Transmit Dart Admin Auth SDK Documentation](https://aortem.gitbook.io/Transmit-dart-auth-admin-sdk). Start building with  Transmit Dart Admin Auth SDK today and take advantage of its robust features and elegant syntax.
+For detailed guides, API references, and example projects, visit our [Transmit Dart Admin Auth SDK Documentation](https://sdks.aortem.io/transmit-dart-auth-sdk). Start building with  Transmit Dart Admin Auth SDK today and take advantage of its robust features and elegant syntax.
 
 ## Examples
 
