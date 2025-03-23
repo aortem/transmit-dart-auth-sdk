@@ -1,7 +1,7 @@
 stages:
   - unit_tests
 
-# Firebase SDK Unit Tests
+# Transmit SDK Unit Tests
 unit_tests:
   stage: unit_tests
   image: dart:stable
