@@ -11,28 +11,17 @@
 <p align="center" class="github-badges">
   <!-- Release Badge -->
   <a href="https://github.com/aortem/Transmit_dart_auth_sdk/tags">
-    <img alt="Release" src="https://img.shields.io/static/v1?label=release&message=v0.0.1-pre+10&color=blue&style=for-the-badge" />
+    <img alt="Github Tag" src="https://img.shields.io/github/v/tag/aortem/transmit-dart-auth-sdk?style=for-the-badge" />
   </a>
   <br/>
   <!-- Dart-Specific Badges -->
   <a href="https://pub.dev/packages/Transmit_dart_auth_sdk">
-    <img alt="Pub Version" src="https://img.shields.io/pub/v/Transmit_dart_auth_sdk.svg?style=for-the-badge" />
+    <img alt="Pub Version" src="https://img.shields.io/pub/v/transmit_dart_auth_sdk.svg?style=for-the-badge" />
   </a>
   <a href="https://dart.dev/">
     <img alt="Built with Dart" src="https://img.shields.io/badge/Built%20with-Dart-blue.svg?style=for-the-badge" />
   </a>
- <!-- Transmit Badge -->
-   <a href="https://Transmit.google.com/docs/reference/admin/node/Transmit-admin.auth?_gl=1*1ewipg9*_up*MQ..*_ga*NTUxNzc0Mzk3LjE3MzMxMzk3Mjk.*_ga_CW55HF8NVT*MTczMzEzOTcyOS4xLjAuMTczMzEzOTcyOS4wLjAuMA..">
-    <img alt="API Reference" src="https://img.shields.io/badge/API-reference-blue.svg?style=for-the-badge" />
   <br/>
-<!-- Pipeline Badge -->
-<a href="https://github.com/aortem/Transmit_dart_auth_sdk/actions">
-  <img alt="Pipeline Status" src="https://img.shields.io/github/actions/workflow/status/aortem/Transmit_dart_auth_sdk/dart-analysis.yml?branch=main&label=pipeline&style=for-the-badge" />
-</a>
-<!-- Code Coverage Badges -->
-  </a>
-  <a href="https://codecov.io/gh/open-feature/dart-server-sdk">
-    <img alt="Code Coverage" src="https://codecov.io/gh/open-feature/dart-server-sdk/branch/main/graph/badge.svg?token=FZ17BHNSU5" />
 <!-- Open Source Badge -->
   </a>
   <a href="https://bestpractices.coreinfrastructure.org/projects/6601">
