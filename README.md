@@ -21,18 +21,7 @@
   <a href="https://dart.dev/">
     <img alt="Built with Dart" src="https://img.shields.io/badge/Built%20with-Dart-blue.svg?style=for-the-badge" />
   </a>
- <!-- Transmit Badge -->
-   <a href="https://Transmit.google.com/docs/reference//node/Transmit-.auth?_gl=1*1ewipg9*_up*MQ..*_ga*NTUxNzc0Mzk3LjE3MzMxMzk3Mjk.*_ga_CW55HF8NVT*MTczMzEzOTcyOS4xLjAuMTczMzEzOTcyOS4wLjAuMA..">
-    <img alt="API Reference" src="https://img.shields.io/badge/API-reference-blue.svg?style=for-the-badge" />
   <br/>
-<!-- Pipeline Badge -->
-<a href="https://github.com/aortem/Transmit-dart--auth-sdk/actions">
-  <img alt="Pipeline Status" src="https://img.shields.io/github/actions/workflow/status/aortem/Transmit-dart--auth-sdk/dart-analysis.yml?branch=main&label=pipeline&style=for-the-badge" />
-</a>
-<!-- Code Coverage Badges -->
-  </a>
-  <a href="https://codecov.io/gh/open-feature/dart-server-sdk">
-    <img alt="Code Coverage" src="https://codecov.io/gh/open-feature/dart-server-sdk/branch/main/graph/badge.svg?token=FZ17BHNSU5" />
 <!-- Open Source Badge -->
   </a>
   <a href="https://bestpractices.coreinfrastructure.org/projects/6601">
