@@ -9,14 +9,14 @@
 
 <!-- x-hide-in-docs-end -->
 <p align="center" class="github-badges">
-  <!-- Release Badge -->
-  <a href="https://github.com/aortem/Transmit-dart--auth-sdk/tags">
-    <img alt="Release" src="https://img.shields.io/static/v1?label=release&message=v0.0.1-pre+13&color=blue&style=for-the-badge" />
+  <!-- GitHub Tag Badge -->
+  <a href="https://github.com/aortem/Transmit-dart-auth-sdk/tags">
+    <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/aortem/Transmit-dart-auth-sdk?style=for-the-badge" />
   </a>
   <br/>
   <!-- Dart-Specific Badges -->
-  <a href="https://pub.dev/packages/Transmit_dart__auth_sdk">
-    <img alt="Pub Version" src="https://img.shields.io/pub/v/Transmit_dart__auth_sdk.svg?style=for-the-badge" />
+  <a href="https://pub.dev/packages/Transmit_dart_auth_sdk">
+    <img alt="Pub Version" src="https://img.shields.io/pub/v/transmit_dart_auth_sdk.svg?style=for-the-badge" />
   </a>
   <a href="https://dart.dev/">
     <img alt="Built with Dart" src="https://img.shields.io/badge/Built%20with-Dart-blue.svg?style=for-the-badge" />
