@@ -11,11 +11,11 @@
 <p align="center" class="github-badges">
   <!-- GitHub Tag Badge -->
   <a href="https://github.com/aortem/Transmit-dart-auth-sdk/tags">
-    <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/aortem/Transmit-dart-auth-sdk?style=for-the-badge" />
+    <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/aortem/transmit-dart-auth-sdk?style=for-the-badge" />
   </a>
   <br/>
   <!-- Dart-Specific Badges -->
-  <a href="https://pub.dev/packages/Transmit_dart_auth_sdk">
+  <a href="https://pub.dev/packages/transmit_dart_auth_sdk">
     <img alt="Pub Version" src="https://img.shields.io/pub/v/transmit_dart_auth_sdk.svg?style=for-the-badge" />
   </a>
   <a href="https://dart.dev/">
