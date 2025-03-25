@@ -22,11 +22,6 @@
     <img alt="Built with Dart" src="https://img.shields.io/badge/Built%20with-Dart-blue.svg?style=for-the-badge" />
   </a>
   <br/>
-<!-- Open Source Badge -->
-  </a>
-  <a href="https://bestpractices.coreinfrastructure.org/projects/6601">
-    <img alt="CII Best Practices" src="https://bestpractices.coreinfrastructure.org/projects/6601/badge?style=for-the-badge" />
-  </a>
 </p>
 <!-- x-hide-in-docs-start -->
 
@@ -42,19 +37,19 @@ Transmit Dart Auth SDK is available in two versions to cater to different needs:
 
 ## Documentation
 
-For detailed guides, API references, and example projects, visit our [Transmit Dart Admin Auth SDK Documentation](https://sdks.aortem.io/transmit-dart-auth-sdk). Start building with  Transmit Dart Admin Auth SDK today and take advantage of its robust features and elegant syntax.
+For detailed guides, API references, and example projects, visit our [Transmit Dart Auth SDK Documentation](https://sdks.aortem.io/transmit-dart-auth-sdk). Start building with  Transmit Dart Auth SDK today and take advantage of its robust features and elegant syntax.
 
 ## Examples
 
-Explore the `/example` directory in this repository to find sample applications demonstrating Transmit Dart Admin Auth SDK's capabilities in real-world scenarios.
+Explore the `/example` directory in this repository to find sample applications demonstrating Transmit Dart Auth SDK's capabilities in real-world scenarios.
 
 ## Contributing
 
-We welcome contributions of all forms from the community! If you're interested in helping improve  Transmit Dart Admin Auth SDK, please fork the repository and submit your pull requests. For more details, check out our [CONTRIBUTING.md](CONTRIBUTING.md) guide.  Our team will review your pull request. Once approved, we will integrate your changes into our primary repository and push the mirrored changes on the main github branch.
+We welcome contributions of all forms from the community! If you're interested in helping improve  Transmit Dart Auth SDK, please fork the repository and submit your pull requests. For more details, check out our [CONTRIBUTING.md](CONTRIBUTING.md) guide.  Our team will review your pull request. Once approved, we will integrate your changes into our primary repository and push the mirrored changes on the main github branch.
 
 ## Support Tiers
 
-Transmit Dart Admin Auth SDK offers various support tiers for our open-source products with an Initial Response Service Level Agreement (IRSLA):
+Transmit Dart Auth SDK offers various support tiers for our open-source products with an Initial Response Service Level Agreement (IRSLA):
 
 ### Community Support
 - **Cost**: Free
@@ -91,9 +86,9 @@ Transmit Dart Admin Auth SDK offers various support tiers for our open-source pr
 
 ## Licensing
 
-All  Transmit Dart Admin Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, which are licensed from third party software  Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE.md) file for more details.
+All  Transmit Dart Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, which are licensed from third party software  Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE.md) file for more details.
 
 
-## Enhance with Transmit Dart Admin Auth SDK
+## Enhance with Transmit Dart Auth SDK
 
-We hope the Transmit Dart Admin Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!  test
+We hope the Transmit Dart Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!  test

@@ -18,8 +18,3 @@
 
 #Ignore Gradle Wrapper Properties
 /transmit_dart_auth_sdk/example/transmit_dart_auth_sdk-sample-app/android/gradle/wrapper/gradle-wrapper.properties
-
-
-# Optional: Ignore pubspec.lock in the library root (if this is a library, not an application)
-# Uncomment the line below if transmit_dart_auth_sdk is a package:
-# pubspec.lock

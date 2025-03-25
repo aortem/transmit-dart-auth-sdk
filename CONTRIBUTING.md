@@ -4,7 +4,7 @@ Thank you for considering contributing to the Transmit Dart Authentication SDK, 
 
 ## Quicklinks
 
-- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Code of Conduct](#code-of-conduct)
 - [What We Are Looking For](#what-we-are-looking-for)
 - [How to Contribute](#how-to-contribute)
 - [Getting Started](#getting-started)
@@ -12,14 +12,13 @@ Thank you for considering contributing to the Transmit Dart Authentication SDK, 
 - [Reporting Bugs](#reporting-bugs)
 - [Feature Requests](#feature-requests)
 - [Improving Documentation](#improving-documentation)
-- [Support Tiers](#support-tiers)
-- [SDKs and Aortem Integration](#sdks-and-aortem-integration)
 - [Available Versions](#available-versions)
-- [Community](#community)
+- [Licensing](#licensing)
+- [Acknowledgements](#acknowledgments)
 
 ## Code of Conduct
 
-By participating and contributing to Transmit Dart Admin Auth SDK, you are expected to uphold our [Code of Conduct](CODE_OF_CONDUCT.md).
+By participating and contributing to Transmit Dart Auth SDK, you are expected to uphold our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## What We Are Looking For
 
@@ -87,23 +86,17 @@ Your contributions to improve or clarify documentation are always welcome. Wheth
 
 ## Available Versions
 
-Transmit Dart Admin Auth SDK is available in two versions to cater to different needs and scales:
+Transmit Dart Auth SDK is available in two versions to cater to different needs and scales:
 
 1. **Main - Stable Version**: Usually one release a month.  This version attempts to keep stability without introducing breaking changes.
 2. **Pre-Release - Edge Version**: Provided as an early indication of a release when breaking changes are expect.  This release is inconsistent. Use only if you are looking to test new features.
 
-## Community
-
-Join the discussion on issues, contribute to pull requests, or reach out through our [Join our Discord channel](https://discord.gg/tcSdBSzT) for more informal discussions. Your input is crucial to the project's success.
-
-
 ## Licensing
 
-All Transmit Dart Admin Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, and are licensed from third party software Aortem Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE.md) file for more details.
+All Transmit Dart Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, and are licensed from third party software Aortem Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE) file for more details.
 
 ## Acknowledgments
 
-- Inspired by the simplicity of [Transmit_Dart](#).
 - Thanks to the Dart community for continuous support and inspiration.
 
 We would like to extend our gratitude to all the developers and contributors who have made this Transmit Dart SDK possible and continue to support its growth.
