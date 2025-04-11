@@ -7,4 +7,4 @@
 # Ignore Dart clocal build tools
 **/.dart_tool/
 **/pubspec.lock
-
+**/tmp/pana_*
