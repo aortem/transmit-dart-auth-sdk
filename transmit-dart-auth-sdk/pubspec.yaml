@@ -12,7 +12,7 @@ dependencies:
 #------------------ STANDARD FEATURES---------------------------------
 ## There are three standard libraries.  Each one can be used with a different xxx 
 
-  ds_standard_features: ^0.0.1-pre+11 #Standard Dart Team Utilities For HTTP //Default
+  ds_standard_features: ^0.0.3 #Standard Dart Team Utilities For HTTP //Default
   build_web_compilers: ^4.0.11
   jwt_generator: ^0.0.3
 

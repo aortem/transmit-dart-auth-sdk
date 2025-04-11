@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-<h2 align="center">Transmit_dart_auth_sdk</h2>
+<h2 align="center">Transmit_Dart_Auth_SDK</h2>
 
 <!-- x-hide-in-docs-end -->
 <p align="center" class="github-badges">
