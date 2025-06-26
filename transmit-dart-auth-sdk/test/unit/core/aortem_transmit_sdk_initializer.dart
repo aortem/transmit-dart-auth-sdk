@@ -50,7 +50,9 @@ class AortemTransmitAuth {
   /// - [ArgumentError] if [username] or [password] is empty.
   /// - [Exception] if authentication fails (e.g., invalid credentials or API errors).
   Future<Map<String, dynamic>> authenticate(
-      String username, String password) async {
+    String username,
+    String password,
+  ) async {
     if (username.isEmpty || password.isEmpty) {
       throw ArgumentError('Username and password cannot be empty.');
     }

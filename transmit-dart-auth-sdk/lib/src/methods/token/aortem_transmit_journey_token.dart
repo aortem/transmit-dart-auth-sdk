@@ -58,7 +58,8 @@ class AortemTransmitJourneyToken {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
       throw Exception(
-          'Journey token processing failed: ${response.statusCode} ${response.body}');
+        'Journey token processing failed: ${response.statusCode} ${response.body}',
+      );
     }
   }
 
@@ -77,7 +78,8 @@ class AortemTransmitJourneyToken {
   /// Throws:
   /// - [ArgumentError] if the [journeyToken] is empty.
   Future<Map<String, dynamic>> processJourneyTokenStub(
-      String journeyToken) async {
+    String journeyToken,
+  ) async {
     if (journeyToken.isEmpty) {
       throw ArgumentError('Journey token must not be empty.');
     }

@@ -65,7 +65,8 @@ class AortemTransmitTokenService {
       return AortemTransmitTokenMetadata.fromJson(data);
     } else {
       throw Exception(
-          'Failed to retrieve token details: ${response.statusCode} ${response.body}');
+        'Failed to retrieve token details: ${response.statusCode} ${response.body}',
+      );
     }
   }
 

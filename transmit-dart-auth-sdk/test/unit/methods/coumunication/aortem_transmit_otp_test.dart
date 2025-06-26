@@ -20,8 +20,9 @@ void main() {
   setUp(() {
     mockHttpClient = MockHttpClient();
     transmitOTP = AortemTransmitOTP(
-        apiKey: 'valid-api-key',
-        httpClient: mockHttpClient); // Inject mock client
+      apiKey: 'valid-api-key',
+      httpClient: mockHttpClient,
+    ); // Inject mock client
   });
 
   test('sends OTP with valid identifier (mocked response)', () async {
@@ -32,11 +33,13 @@ void main() {
       'message': 'Mocked OTP sent successfully.',
     });
 
-    when(() => mockHttpClient.post(
-          any(),
-          headers: any(named: 'headers'),
-          body: any(named: 'body'),
-        )).thenAnswer((_) async => http.Response(fakeResponse, 200));
+    when(
+      () => mockHttpClient.post(
+        any(),
+        headers: any(named: 'headers'),
+        body: any(named: 'body'),
+      ),
+    ).thenAnswer((_) async => http.Response(fakeResponse, 200));
 
     final result = await transmitOTP.sendOTP(identifier);
     expect(result['tempToken'], equals('mock-temp-token'));

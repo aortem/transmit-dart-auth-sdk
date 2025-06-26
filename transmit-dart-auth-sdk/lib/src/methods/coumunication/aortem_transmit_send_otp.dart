@@ -3,8 +3,8 @@ import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
 /// A service for sending One-Time Passwords (OTP) using Transmit Security.
 ///
-/// This class handles OTP requests by making HTTP POST requests to the 
-/// Transmit Security backend API. It allows dependency injection of an 
+/// This class handles OTP requests by making HTTP POST requests to the
+/// Transmit Security backend API. It allows dependency injection of an
 /// `http.Client` for testing purposes.
 class AortemTransmitOTP {
   /// API key for authentication with Transmit Security.
@@ -18,7 +18,7 @@ class AortemTransmitOTP {
   /// - [apiKey] is required to authenticate the requests.
   /// - [httpClient] is optional and can be injected for testing purposes.
   AortemTransmitOTP({required this.apiKey, http.Client? httpClient})
-      : httpClient = httpClient ?? http.Client();
+    : httpClient = httpClient ?? http.Client();
 
   /// Sends an OTP to the specified [identifier] (e.g., email or phone number).
   ///
@@ -38,7 +38,9 @@ class AortemTransmitOTP {
     }
 
     final response = await httpClient.post(
-      Uri.parse('https://api.transmitsecurity.com/backend-one-time-login/sendOTP'),
+      Uri.parse(
+        'https://api.transmitsecurity.com/backend-one-time-login/sendOTP',
+      ),
       headers: {'Authorization': 'Bearer $apiKey'},
       body: {'identifier': identifier},
     );

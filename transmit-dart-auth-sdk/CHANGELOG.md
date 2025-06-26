@@ -8,7 +8,7 @@
 - Update README
 - Refine folder naming conventions
 - Ensure required files are in place.
-- Update the pubspec and Dart version (now 3.7.2)
+- Update the pubspec and Dart version (now 3.7.3)
 - Add .gitignore entries - including removal of extraneous git checkin files.
 - Implement SDK setup
 - Token management (including sending magic links)

@@ -39,7 +39,10 @@ class AortemTransmitToken {
   /// Throws:
   /// - [ArgumentError] if [clientId] or [clientSecret] is empty.
   /// - [Exception] if the API request fails with a non-200 status code.
-  Future<Map<String, dynamic>> issueToken(String clientId, String clientSecret) async {
+  Future<Map<String, dynamic>> issueToken(
+    String clientId,
+    String clientSecret,
+  ) async {
     if (clientId.isEmpty || clientSecret.isEmpty) {
       throw ArgumentError('Client ID and Client Secret cannot be empty.');
     }
@@ -63,7 +66,9 @@ class AortemTransmitToken {
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
-      throw Exception('Token issuance failed: ${response.statusCode} ${response.body}');
+      throw Exception(
+        'Token issuance failed: ${response.statusCode} ${response.body}',
+      );
     }
   }
 
@@ -80,7 +85,10 @@ class AortemTransmitToken {
   ///
   /// Throws:
   /// - [ArgumentError] if [clientId] or [clientSecret] is empty.
-  Future<Map<String, dynamic>> issueTokenStub(String clientId, String clientSecret) async {
+  Future<Map<String, dynamic>> issueTokenStub(
+    String clientId,
+    String clientSecret,
+  ) async {
     if (clientId.isEmpty || clientSecret.isEmpty) {
       throw ArgumentError('Client ID and Client Secret cannot be empty.');
     }

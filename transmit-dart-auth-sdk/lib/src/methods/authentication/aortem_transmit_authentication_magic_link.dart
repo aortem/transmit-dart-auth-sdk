@@ -65,12 +65,16 @@ class TransmitMagicLinkAuth {
   ///
   /// Throws an [ArgumentError] if the [magicLinkToken] is empty.
   /// Throws an [Exception] if the API request fails with an error response.
-  Future<Map<String, dynamic>> authenticateMagicLink(String magicLinkToken) async {
+  Future<Map<String, dynamic>> authenticateMagicLink(
+    String magicLinkToken,
+  ) async {
     if (magicLinkToken.isEmpty) {
       throw ArgumentError('Magic link token cannot be empty.');
     }
 
-    final url = Uri.parse('$baseUrl/backend-one-time-login/authenticateMagicLink');
+    final url = Uri.parse(
+      '$baseUrl/backend-one-time-login/authenticateMagicLink',
+    );
 
     final response = await httpClient.post(
       url,
@@ -84,7 +88,9 @@ class TransmitMagicLinkAuth {
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
-      throw Exception('Authentication failed: ${response.statusCode} ${response.body}');
+      throw Exception(
+        'Authentication failed: ${response.statusCode} ${response.body}',
+      );
     }
   }
 }

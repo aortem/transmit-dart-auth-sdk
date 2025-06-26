@@ -20,9 +20,10 @@ class AortemTransmitSearchQueryService {
   /// - Optionally accepts a custom [baseUrl] for API calls.
   ///
   /// Throws an [ArgumentError] if [apiKey] is empty.
-  AortemTransmitSearchQueryService(
-      {required this.apiKey,
-      this.baseUrl = 'https://api.transmitsecurity.com'}) {
+  AortemTransmitSearchQueryService({
+    required this.apiKey,
+    this.baseUrl = 'https://api.transmitsecurity.com',
+  }) {
     if (apiKey.isEmpty) {
       throw ArgumentError('API key cannot be empty.');
     }
@@ -37,15 +38,18 @@ class AortemTransmitSearchQueryService {
   /// - [ArgumentError] if [searchCriteria] is empty.
   /// - [Exception] if the API request fails.
   Future<List<Map<String, dynamic>>> search(
-      Map<String, dynamic> searchCriteria) async {
+    Map<String, dynamic> searchCriteria,
+  ) async {
     if (searchCriteria.isEmpty) {
       throw ArgumentError('Search criteria cannot be empty.');
     }
 
     final uri = Uri.parse('$baseUrl/search');
-    final queryParams = Uri(queryParameters: searchCriteria.map((key, value) {
-      return MapEntry(key, value.toString());
-    }));
+    final queryParams = Uri(
+      queryParameters: searchCriteria.map((key, value) {
+        return MapEntry(key, value.toString());
+      }),
+    );
 
     final url = uri.replace(queryParameters: queryParams.queryParameters);
 
@@ -61,7 +65,8 @@ class AortemTransmitSearchQueryService {
       return List<Map<String, dynamic>>.from(json.decode(response.body));
     } else {
       throw Exception(
-          'Search query failed: ${response.statusCode} ${response.body}');
+        'Search query failed: ${response.statusCode} ${response.body}',
+      );
     }
   }
 }

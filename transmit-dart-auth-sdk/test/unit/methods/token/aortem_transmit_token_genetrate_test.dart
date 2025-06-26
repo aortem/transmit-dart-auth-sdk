@@ -8,10 +8,14 @@ void main() {
     final clientSecret = 'your-client-secret';
 
     test('throws error for empty client ID or secret', () {
-      expect(() => transmitToken.issueToken('', clientSecret),
-          throwsA(isA<ArgumentError>()));
-      expect(() => transmitToken.issueToken(clientId, ''),
-          throwsA(isA<ArgumentError>()));
+      expect(
+        () => transmitToken.issueToken('', clientSecret),
+        throwsA(isA<ArgumentError>()),
+      );
+      expect(
+        () => transmitToken.issueToken(clientId, ''),
+        throwsA(isA<ArgumentError>()),
+      );
     });
   });
 
@@ -21,17 +25,23 @@ void main() {
     final clientSecret = 'your-client-secret';
 
     test('returns dummy token for valid credentials', () async {
-      final tokenData =
-          await transmitToken.issueTokenStub(clientId, clientSecret);
+      final tokenData = await transmitToken.issueTokenStub(
+        clientId,
+        clientSecret,
+      );
       expect(tokenData['token'], isNotEmpty);
       expect(tokenData['tokenType'], equals('Bearer'));
     });
 
     test('throws error for empty client ID or secret (stub)', () {
-      expect(() => transmitToken.issueTokenStub('', clientSecret),
-          throwsA(isA<ArgumentError>()));
-      expect(() => transmitToken.issueTokenStub(clientId, ''),
-          throwsA(isA<ArgumentError>()));
+      expect(
+        () => transmitToken.issueTokenStub('', clientSecret),
+        throwsA(isA<ArgumentError>()),
+      );
+      expect(
+        () => transmitToken.issueTokenStub(clientId, ''),
+        throwsA(isA<ArgumentError>()),
+      );
     });
   });
 }

@@ -19,7 +19,10 @@ class AortemTransmitTokenRefresh {
   /// - Optionally accepts a custom [baseUrl] for API calls.
   ///
   /// Throws an [ArgumentError] if [apiKey] is empty.
-  AortemTransmitTokenRefresh({required this.apiKey, this.baseUrl = 'https://api.transmitsecurity.com'}) {
+  AortemTransmitTokenRefresh({
+    required this.apiKey,
+    this.baseUrl = 'https://api.transmitsecurity.com',
+  }) {
     if (apiKey.isEmpty) {
       throw ArgumentError('API key cannot be empty.');
     }
@@ -45,9 +48,7 @@ class AortemTransmitTokenRefresh {
     }
 
     final url = Uri.parse('$baseUrl/token/refresh');
-    final body = {
-      'refreshToken': refreshToken,
-    };
+    final body = {'refreshToken': refreshToken};
 
     final response = await http.post(
       url,
@@ -61,7 +62,9 @@ class AortemTransmitTokenRefresh {
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
-      throw Exception('Token refresh failed: ${response.statusCode} ${response.body}');
+      throw Exception(
+        'Token refresh failed: ${response.statusCode} ${response.body}',
+      );
     }
   }
 

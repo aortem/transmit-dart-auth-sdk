@@ -38,7 +38,10 @@ class AortemTransmitTokenReset {
   /// Throws:
   /// - [ArgumentError] if [resetToken] or [newPassword] is empty.
   /// - [Exception] if the API request fails with a non-200 status code.
-  Future<Map<String, dynamic>> resetPassword(String resetToken, String newPassword) async {
+  Future<Map<String, dynamic>> resetPassword(
+    String resetToken,
+    String newPassword,
+  ) async {
     if (resetToken.isEmpty || newPassword.isEmpty) {
       throw ArgumentError('Reset token and new password cannot be empty.');
     }
@@ -46,10 +49,7 @@ class AortemTransmitTokenReset {
     // Construct the API endpoint for password reset.
     final url = Uri.parse('$baseUrl/token/reset');
 
-    final body = {
-      'resetToken': resetToken,
-      'newPassword': newPassword,
-    };
+    final body = {'resetToken': resetToken, 'newPassword': newPassword};
 
     final response = await http.post(
       url,
@@ -63,7 +63,9 @@ class AortemTransmitTokenReset {
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
-      throw Exception('Password reset failed: ${response.statusCode} ${response.body}');
+      throw Exception(
+        'Password reset failed: ${response.statusCode} ${response.body}',
+      );
     }
   }
 
@@ -80,7 +82,10 @@ class AortemTransmitTokenReset {
   ///
   /// Throws:
   /// - [ArgumentError] if [resetToken] or [newPassword] is empty.
-  Future<Map<String, dynamic>> resetPasswordStub(String resetToken, String newPassword) async {
+  Future<Map<String, dynamic>> resetPasswordStub(
+    String resetToken,
+    String newPassword,
+  ) async {
     if (resetToken.isEmpty || newPassword.isEmpty) {
       throw ArgumentError('Reset token and new password cannot be empty.');
     }
