@@ -1,3 +1,7 @@
+## 0.0.1
+
+- Update to Dart 3.8.1
+
 ## 0.0.1-pre+4
 
 - Update Readme
