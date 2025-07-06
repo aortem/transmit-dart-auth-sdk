@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.2
+## 0.0.1
 
 ### Added
 - **Local Dev Tools**  
@@ -39,9 +39,6 @@
   - Renamed 214 files from  
     `example/cognito-dart-auth-sdk-sample-app/…` →  
     `example/cognito-dart-auth-sdk-flutter-mobile-app/…`.
-
-
-## 0.0.1
 
 - Update to Dart 3.8.1
 
