@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:http/http.dart'
+import 'package:ds_standard_features/ds_standard_features.dart'
     as http; // Ensure the correct HTTP package is used
 
 /// A service class for handling authorization with the Transmit Security API.
