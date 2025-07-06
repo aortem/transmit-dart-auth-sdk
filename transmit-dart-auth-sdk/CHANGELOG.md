@@ -1,3 +1,46 @@
+# Changelog
+
+## 0.0.2
+
+### Added
+- **Local Dev Tools**  
+  - New scripts in `local_dev_tools/` (`validate_branch.dart`, `validate_commit_msg.dart`) to enforce branch and commit-message conventions.  
+- **Core SDK CLI**  
+  - Added `bin/main.dart` as the CLI entry point for the Cognito Dart Auth SDK.  
+- **Tests**  
+  - Unit tests under `test/unit/` covering core logic.  
+  - Integration tests under `test/integration/` validating end-to-end authentication and storage flows.  
+- **Authentication Modules**  
+  - Initial AWS Cognito flows implemented in `lib/src/auth/` (sign-up, sign-in, token management, MFA).
+
+### Changed
+- **Example App Restructure**  
+  - Renamed and reorganized 214 files from  
+    `example/cognito-dart-auth-sdk-sample-app/…` →  
+    `example/cognito-dart-auth-sdk-flutter-mobile-app/…`.  
+- **CI/CD Pipeline**  
+  - Moved child-CI configs from `tools/pipelines/` →  
+    `tools/pipelines/backend/` and `tools/pipelines/frontend/`.  
+- **Project Metadata**  
+  - Updated `.gitignore`, `.gitlab-ci.yml`, `cloudbuild.yaml`, `.firebaserc`, and `README.md`.  
+- **Pubspec & Lockfile**  
+  - Bumped SDK version and refreshed dependencies in `pubspec.yaml`/`pubspec.lock`.  
+- **GitHub Issue Templates**  
+  - Revised `.github/ISSUE_TEMPLATE/config.yml` and removed deprecated `workflows/dart-analysis.yml`.
+
+### Removed
+- **Deprecated Example Files**  
+  - Deleted 84 legacy files under the old `example/...-sample-app/` path.  
+- **Obsolete Workflow**  
+  - Removed `.github/ISSUE_TEMPLATE/workflows/dart-analysis.yml`.
+
+### Renamed
+- **Example Directory**  
+  - Renamed 214 files from  
+    `example/cognito-dart-auth-sdk-sample-app/…` →  
+    `example/cognito-dart-auth-sdk-flutter-mobile-app/…`.
+
+
 ## 0.0.1
 
 - Update to Dart 3.8.1

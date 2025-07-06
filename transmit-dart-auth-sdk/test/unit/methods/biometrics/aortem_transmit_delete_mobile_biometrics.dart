@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:http/http.dart' as http;
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
 import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_api_client.dart';
