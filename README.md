@@ -8,7 +8,7 @@
 <!-- x-hide-in-docs-end -->
 <p align="center" class="github-badges">
   <!-- GitHub Tag Badge -->
-  <a href="https://github.com/aortem/Transmit-dart-auth-sdk/tags">
+  <a href="https://github.com/aortem/transmit-dart-auth-sdk/tags">
     <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/aortem/transmit-dart-auth-sdk?style=for-the-badge" />
   </a>
   <!-- Dart-Specific Badges -->
