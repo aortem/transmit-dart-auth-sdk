@@ -6,23 +6,13 @@ stages:
 debug_merge_request:
   stage: validate
   script:
-    - echo "Basic Merge Request Variables..." 
-    - echo "CI_MERGE_REQUEST_IID is '$CI_MERGE_REQUEST_IID'"
-    - echo "CI_MERGE_REQUEST_SOURCE_BRANCH_NAME is $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
-    - echo "CI_MERGE_REQUEST_TARGET_BRANCH_NAME is $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
-    - echo "CI_MERGE_REQUEST_EVENT_TYPE is $CI_MERGE_REQUEST_EVENT_TYPE"
-    
-    - echo "Commit Information Variables..."
-    - echo "CI_COMMIT_REF_NAME is $CI_COMMIT_REF_NAME"
-    - echo "CI_COMMIT_BRANCH is $CI_COMMIT_BRANCH"
-    - echo "CI_COMMIT_MESSAGE is $CI_COMMIT_MESSAGE" 
-
+    - echo "Debugging merge request..."
+    - echo "CI_COMMIT_BRANCH $CI_COMMIT_BRANCH"
+    - echo "CI_MERGE_REQUEST_SOURCE_BRANCH_NAME $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+    - echo "CI_COMMIT_REF_NAME $CI_COMMIT_REF_NAME"
     - echo "Determining branch name..."
     - BRANCH_NAME=${CI_COMMIT_BRANCH:-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-$CI_COMMIT_REF_NAME}}
     - echo "Branch name determined $BRANCH_NAME"
-
-    - echo "Pipeline Metadata..."
-    - echo "CI_PIPELINE_SOURCE is $CI_PIPELINE_SOURCE"
 
 
 validate_branch_name:
@@ -38,7 +28,7 @@ validate_branch_name:
       elif echo "$BRANCH_NAME" | grep -Eq "^(feat|fix|hotfix|chore|test|refactor|release|docs)/[a-z0-9_-]+$"; then
         echo "✅ Branch name follows naming convention: $BRANCH_NAME."
       elif echo "$BRANCH_NAME" | grep -Eq "^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9_-]+)?(\+[0-9]+)?$"; then
-        echo "✅ Valid release branch name: $BRANCH_NAME."
+        echo "✅ Valid release branch name: $BRANCH_NAME."  
       else
         echo "❌ Invalid branch name: $BRANCH_NAME."
         echo "Expected format: <type>/<branch-name>. Valid types: feat, fix, hotfix, chore, test, refactor, release, docs, development, qa, beta, main."
@@ -104,7 +94,7 @@ validate_dart_sdk_version:
     - echo "$PUBSPEC_FILES"
 
     # Define the minimum required Dart SDK version
-    - MINIMUM_VERSION="3.7.3"
+    - MINIMUM_VERSION="3.8.1"
     - ALL_VALID="true"
 
     # Iterate over each pubspec.yaml file
@@ -143,6 +133,42 @@ validate_dart_sdk_version:
         exit 1
       else
         echo "✅ All pubspec.yaml files have a valid Dart SDK version."
+      fi
+  rules:
+    - when: always
+
+validate_format:
+  stage: validate
+  image: dart:stable
+  script:
+    - echo "🔍 Fetching Dart deps…"
+    - cd transmit-dart-auth-sdk
+    - dart pub get
+
+    # # if you have a Flutter example, fetch its deps too:
+    # - |
+    #   if [ -d example/transmit-dart-auth-sdk-flutter-mobile-app ]; then
+    #     echo "🔍 Fetching Flutter example deps…"
+    #     cd example/transmit-dart-auth-sdk-flutter-mobile-app
+    #     flutter pub get
+    #     cd - >/dev/null
+    #   fi
+
+    - echo "🔧 Running pub.dev/Pana–style format check…"
+    # silent check, exit code tells us pass/fail
+    - echo "🧹 Running dart format dry-run check..."
+    - |
+      UNFORMATTED=$(dart format --output=none --set-exit-if-changed . 2>&1)
+      if [ $? -ne 0 ]; then
+        echo "❌ Formatting issues detected!"
+        echo "$UNFORMATTED"
+        echo "🛠️ Please run 'dart format .' locally and commit the changes."
+        # Show list of files needing formatting
+        echo "📂 Files to fix:"
+        dart format --dry-run .
+        exit 1
+      else
+        echo "✅ All Dart files are properly formatted."
       fi
   rules:
     - when: always
