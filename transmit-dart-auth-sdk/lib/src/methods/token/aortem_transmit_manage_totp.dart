@@ -102,4 +102,20 @@ class AortemTransmitRevokeTOTPManagement {
       'Management API error ($statusCode - $errorCode): $errorMessage',
     );
   }
+
+  /// Mock implementation for testing TOTP revocation
+  Future<Map<String, dynamic>> mockRevoke({required String userId}) async {
+    if (userId.isEmpty) {
+      throw ArgumentError('User ID must not be empty');
+    }
+
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    return {
+      'status': 'success',
+      'message': 'TOTP revoked successfully (mock)',
+      'userId': userId,
+      'timestamp': DateTime.now().toIso8601String(),
+    };
+  }
 }

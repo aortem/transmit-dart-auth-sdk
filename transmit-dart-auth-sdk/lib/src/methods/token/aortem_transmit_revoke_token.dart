@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
 /// A service for revoking Time-based One-Time Password (TOTP) authenticators
@@ -93,5 +92,20 @@ class AortemTransmitRevokeTOTP {
         'Failed to revoke TOTP (Status: ${response.statusCode}) - ${response.body}',
       );
     }
+  }
+
+  /// Mock implementation for testing TOTP revocation
+  Future<Map<String, dynamic>> revokeTOTPStub({required String userId}) async {
+    if (userId.isEmpty) {
+      throw ArgumentError('userId cannot be empty');
+    }
+
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    return {
+      'status': 'success',
+      'message': 'TOTP revoked successfully (stub)',
+      'timestamp': DateTime.now().toIso8601String(),
+    };
   }
 }

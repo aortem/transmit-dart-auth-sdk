@@ -34,7 +34,7 @@ import 'package:ds_standard_features/ds_standard_features.dart' as http;
 ///   print('Token refresh failed: $e');
 /// }
 /// ```
-class AortemTransmitRefreshBackendAuthToken {
+class AortemTransmitRefreshUserSession {
   /// The API key used for service authentication
   final String apiKey;
 
@@ -45,7 +45,7 @@ class AortemTransmitRefreshBackendAuthToken {
   ///
   /// [apiKey]: Required API key for service authentication
   /// [baseUrl]: Required base URL for the API endpoint
-  AortemTransmitRefreshBackendAuthToken({
+  AortemTransmitRefreshUserSession({
     required this.apiKey,
     required this.baseUrl,
   });

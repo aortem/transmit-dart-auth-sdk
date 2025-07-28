@@ -132,3 +132,21 @@ class AortemTransmitAuthenticateMagicLink {
     };
   }
 }
+
+/// Simple stub for testing without API calls
+Future<Map<String, dynamic>> mockCall({
+  required Map<String, dynamic> credentialResponse,
+}) async {
+  if (credentialResponse.isEmpty) {
+    throw ArgumentError('Credential response cannot be empty');
+  }
+
+  await Future.delayed(const Duration(milliseconds: 200));
+
+  return {
+    'access_token': 'mock_access_token',
+    'id_token': 'mock_id_token',
+    'refresh_token': 'mock_refresh_token',
+    'expires_in': 3600,
+  };
+}
