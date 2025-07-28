@@ -3,7 +3,7 @@ import 'package:transmit_dart_auth_sdk/src/methods/sessions/aortem_transmit_logo
 
 void main() {
   group('BackendSessionManager Tests', () {
-    final sessionManager = BackendSessionManager(
+    final sessionManager = AortemTransmitLogoutBackendSession(
       apiKey: 'test-api-key',
       baseUrl: 'https://api.example.com',
     );
@@ -24,7 +24,7 @@ void main() {
     });
 
     test('Should handle API failure gracefully', () async {
-      final sessionManagerWithInvalidUrl = BackendSessionManager(
+      final sessionManagerWithInvalidUrl = AortemTransmitLogoutBackendSession(
         apiKey: 'test-api-key',
         baseUrl:
             'https://invalid-api.example.com', // Invalid URL to simulate failure

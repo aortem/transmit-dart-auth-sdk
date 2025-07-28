@@ -1,43 +1,50 @@
 import 'dart:convert';
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-/// A class responsible for authenticating users via magic link tokens.
+/// Handles authentication using Transmit Security's magic link tokens.
 ///
-/// This class provides methods to send authentication requests to the
-/// Transmit Security API using a magic link token.
+/// This service verifies magic link tokens and exchanges them for
+/// access tokens that can be used to authenticate users.
+/// Includes both production and stub implementations for testing.
 ///
-/// Example usage:
+/// Example Usage:
 /// ```dart
-/// final auth = TransmitMagicLinkAuth(apiKey: 'your-api-key');
-/// final response = await auth.authenticateMagicLink('your-magic-link-token');
-/// print(response);
+/// final authService = AortemTransmitAuthenticateMagicLink(
+///   apiKey: 'your-api-key-here',
+/// );
+///
+/// try {
+///   final authResult = await authService.authenticateMagicLink('token-from-email');
+///   print('Authenticated! Access token: ${authResult['accessToken']}');
+/// } catch (e) {
+///   print('Authentication failed: $e');
+/// }
 /// ```
-class TransmitMagicLinkAuth {
-  /// The API key used for authenticating requests.
+class AortemTransmitAuthenticateMagicLink {
+  /// The API key used to authenticate with Transmit Security's services.
+  ///
+  /// Must be a non-empty string. The constructor will throw an [ArgumentError]
+  /// if this is empty.
   final String apiKey;
 
-  /// The base URL of the Transmit Security API.
+  /// The base URL for Transmit Security's API endpoints.
   ///
-  /// Defaults to `'https://api.transmitsecurity.com'`.
+  /// Defaults to 'https://api.transmitsecurity.com' but can be customized
+  /// for testing or different environments.
   final String baseUrl;
 
-  /// The HTTP client used for making requests.
+  /// Creates a magic link authentication service instance.
   ///
-  /// This allows dependency injection for testing purposes.
-  final http.Client httpClient;
-
-  /// Creates an instance of `TransmitMagicLinkAuth`.
+  /// Parameters:
+  /// - [apiKey]: Required API key for authentication (must not be empty)
+  /// - [baseUrl]: Optional base URL (defaults to production endpoint)
   ///
-  /// - [apiKey]: The API key for authentication (required).
-  /// - [baseUrl]: The base URL of the API (optional, defaults to Transmit Security API).
-  /// - [httpClient]: A custom HTTP client for testing (optional).
-  ///
-  /// Throws an [ArgumentError] if the provided [apiKey] is empty.
-  TransmitMagicLinkAuth({
+  /// Throws:
+  /// - [ArgumentError] if apiKey is empty
+  AortemTransmitAuthenticateMagicLink({
     required this.apiKey,
     this.baseUrl = 'https://api.transmitsecurity.com',
-    http.Client? httpClient,
-  }) : httpClient = httpClient ?? http.Client() {
+  }) {
     if (apiKey.isEmpty) {
       throw ArgumentError('API key cannot be empty.');
     }
@@ -45,26 +52,22 @@ class TransmitMagicLinkAuth {
 
   /// Authenticates a user using a magic link token.
   ///
-  /// Sends a `POST` request to the Transmit Security API to verify the magic link token
-  /// and retrieve authentication details.
+  /// This method verifies the provided token with Transmit Security's backend
+  /// and returns authentication tokens if successful.
   ///
-  /// - [magicLinkToken]: The magic link token received via email (required).
+  /// Parameters:
+  /// - [magicLinkToken]: The one-time use token from the magic link email
   ///
-  /// Returns a `Map<String, dynamic>` containing authentication details,
-  /// including access tokens and session metadata.
+  /// Returns:
+  /// - A [Future] that resolves to a [Map] containing:
+  ///   - accessToken: The bearer token for API requests
+  ///   - idToken: The user identity token
+  ///   - expiresIn: Token validity duration in seconds
+  ///   - Other authentication metadata
   ///
-  /// Example response:
-  /// ```json
-  /// {
-  ///   "accessToken": "mock-access-token",
-  ///   "idToken": "mock-id-token",
-  ///   "expiresIn": 3600,
-  ///   "message": "Magic link authentication successful."
-  /// }
-  /// ```
-  ///
-  /// Throws an [ArgumentError] if the [magicLinkToken] is empty.
-  /// Throws an [Exception] if the API request fails with an error response.
+  /// Throws:
+  /// - [ArgumentError] if magicLinkToken is empty
+  /// - [Exception] if authentication fails (contains status code and error details)
   Future<Map<String, dynamic>> authenticateMagicLink(
     String magicLinkToken,
   ) async {
@@ -75,8 +78,7 @@ class TransmitMagicLinkAuth {
     final url = Uri.parse(
       '$baseUrl/backend-one-time-login/authenticateMagicLink',
     );
-
-    final response = await httpClient.post(
+    final response = await http.post(
       url,
       headers: {
         'Authorization': 'Bearer $apiKey',
@@ -89,8 +91,44 @@ class TransmitMagicLinkAuth {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
       throw Exception(
-        'Authentication failed: ${response.statusCode} ${response.body}',
+        'Authenticate Magic Link failed: ${response.statusCode} ${response.body}',
       );
     }
+  }
+
+  /// Testing stub that simulates magic link authentication.
+  ///
+  /// Mimics the production flow without making actual API calls:
+  /// - Validates input parameters
+  /// - Simulates network latency
+  /// - Returns consistent mock authentication data
+  ///
+  /// Parameters:
+  /// - [magicLinkToken]: The token to validate (must not be empty)
+  ///
+  /// Returns:
+  /// - A [Future] that resolves after a short delay with mock auth data:
+  ///   - accessToken: 'mock-access-token'
+  ///   - idToken: 'mock-id-token'
+  ///   - expiresIn: 3600
+  ///   - message: Success confirmation
+  ///
+  /// Throws:
+  /// - [ArgumentError] if magicLinkToken is empty
+  Future<Map<String, dynamic>> authenticateMagicLinkStub(
+    String magicLinkToken,
+  ) async {
+    if (magicLinkToken.isEmpty) {
+      throw ArgumentError('Magic link token cannot be empty.');
+    }
+
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    return {
+      'accessToken': 'mock-access-token',
+      'idToken': 'mock-id-token',
+      'expiresIn': 3600,
+      'message': 'Magic link authentication successful (stub).',
+    };
   }
 }

@@ -1,76 +1,72 @@
 import 'dart:convert';
+import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_api_client.dart';
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_errors.dart';
+/// Handles starting a WebAuthn cross-device authentication process.
+class AortemTransmitWebAuthnCrossDeviceAuthenticateStart {
+  final String apiKey;
+  final String baseUrl;
 
-/// Initiates WebAuthn cross-device authentication for a user.
-///
-/// This class sends a request to the Transmit Security API to begin
-/// the WebAuthn authentication process for a given user.
-class WebAuthnCrossDeviceAuthenticateStart {
-  /// API client used for making HTTP requests.
-  final ApiClient apiClient;
+  AortemTransmitWebAuthnCrossDeviceAuthenticateStart({
+    required this.apiKey,
+    required this.baseUrl,
+  });
 
-  /// Constructs an instance of [WebAuthnCrossDeviceAuthenticateStart].
+  /// Starts WebAuthn cross-device authentication.
   ///
-  /// - [apiClient]: An instance of `ApiClient` for API communication.
-  WebAuthnCrossDeviceAuthenticateStart(this.apiClient);
-
-  /// Starts the WebAuthn cross-device authentication process.
+  /// Required:
+  /// - [crossDeviceTicketId] – ID returned when initializing the cross-device flow.
   ///
-  /// - [userId]: The unique identifier of the user.
-  /// - [mock]: If `true`, returns a mock authentication response.
-  ///
-  /// Returns a `Map<String, dynamic>` containing the authentication challenge,
-  /// session details, and allowed credentials.
-  ///
-  /// Throws:
-  /// - `ArgumentError` if [userId] is empty.
-  /// - `ApiException` if the API request fails.
+  /// Returns authentication initiation options (challenge, session ID, allowed credentials).
   Future<Map<String, dynamic>> startAuthentication({
-    required String userId,
-    bool mock = false,
+    required String crossDeviceTicketId,
   }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError('User ID cannot be empty.');
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
     }
 
-    if (mock) {
-      return _mockResponse();
-    }
+    final url = '$baseUrl/v1/auth/webauthn/cross-device/authenticate/start';
+    final headers = {
+      'Authorization': 'Bearer $apiKey',
+      'Content-Type': 'application/json',
+    };
+    final body = {'cross_device_ticket_id': crossDeviceTicketId};
 
-    const String endpoint = '/webauthn-cross-device-authenticate-start';
-    final String body = jsonEncode({'userId': userId});
+    final response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: jsonEncode(body),
+    );
 
-    try {
-      final response = await apiClient.post(endpoint: endpoint, body: body);
-      final Map<String, dynamic> responseData = jsonDecode(response.body);
-
-      if (response.statusCode == 200) {
-        return responseData;
-      } else {
-        throw ApiException(
-          responseData['error'] ?? 'Unknown error occurred',
-          response.statusCode,
-        );
-      }
-    } catch (e) {
-      throw ApiException('Failed to start WebAuthn authentication: $e');
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 400) {
+      throw Exception("Invalid crossDeviceTicketId provided.");
+    } else if (response.statusCode == 404) {
+      throw Exception("Cross-device ticket not found.");
+    } else {
+      throw Exception(
+        "Failed to start WebAuthn cross-device authentication [${response.statusCode}]: ${response.body}",
+      );
     }
   }
 
-  /// Generates a mock response for WebAuthn authentication.
-  ///
-  /// Used for testing purposes when [mock] is enabled.
-  ///
-  /// Returns a `Map<String, dynamic>` containing a simulated authentication challenge.
-  Map<String, dynamic> _mockResponse() {
+  /// Mock version for testing.
+  Future<Map<String, dynamic>> mockStartAuthentication({
+    required String crossDeviceTicketId,
+  }) async {
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
+    }
+
     return {
-      'status': 'success',
-      'challenge': 'mock-challenge-123',
-      'sessionId': 'mock-session-456',
-      'timeout': 60000, // Timeout in milliseconds (1 minute)
-      'allowedCredentials': ['mock-credential-789'],
+      'credential_request_options': {
+        'challenge': 'dummyChallenge123',
+        'timeout': 60000,
+        'allowCredentials': [
+          {'id': 'cred123', 'type': 'public-key'},
+        ],
+      },
+      'session_id': 'mock-session-123',
     };
   }
 }

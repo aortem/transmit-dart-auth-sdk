@@ -1,95 +1,56 @@
 import 'dart:convert';
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_api_client.dart';
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_errors.dart';
+import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-/// A service class for attaching a registered device to an ongoing WebAuthn cross-device session.
-///
-/// This class facilitates linking a device to a session for WebAuthn-based authentication.
-/// It communicates with the API client to send the required data and receive responses.
-///
-/// Example usage:
-/// ```dart
-/// final apiClient = ApiClient(apiKey: 'your-api-key');
-/// final webAuthn = WebAuthnCrossDeviceAttachDevice(apiClient: apiClient);
-///
-/// final response = await webAuthn.attachDevice(
-///   userIdentifier: 'user_123',
-///   deviceId: 'device_456',
-/// );
-/// print(response);
-/// ```
-class WebAuthnCrossDeviceAttachDevice {
-  /// The API client responsible for making HTTP requests.
-  final ApiClient apiClient;
+/// Handles attaching a device to an ongoing WebAuthn cross-device session.
+class AortemTransmitWebAuthnCrossDeviceAttachDevice {
+  final String apiKey;
+  final String baseUrl;
 
-  /// The API endpoint for attaching a device.
-  static const String endpoint = '/webauthn-cross-device-attach-device';
+  AortemTransmitWebAuthnCrossDeviceAttachDevice({
+    required this.apiKey,
+    required this.baseUrl,
+  });
 
-  /// Creates an instance of [WebAuthnCrossDeviceAttachDevice] with a required [apiClient].
-  WebAuthnCrossDeviceAttachDevice({required this.apiClient});
-
-  /// Attaches a registered device to an ongoing WebAuthn cross-device session.
+  /// Attaches a device to a WebAuthn cross-device session.
   ///
-  /// - [userIdentifier]: The unique identifier of the user.
-  /// - [deviceId]: The unique identifier of the device.
-  /// - [useMock]: If `true`, returns a mock response instead of making an actual API request.
+  /// - [crossDeviceTicketId]: The ticket ID of the ongoing cross-device session.
   ///
-  /// Throws an [ArgumentError] if `userIdentifier` or `deviceId` is empty.
-  /// Throws an [ApiException] if the API request fails.
+  /// Returns the backend response containing updated session status and metadata.
   ///
-  /// Example:
-  /// ```dart
-  /// final response = await webAuthn.attachDevice(
-  ///   userIdentifier: 'user_123',
-  ///   deviceId: 'device_456',
-  /// );
-  /// print(response);
-  /// ```
+  /// Throws:
+  /// - `ArgumentError` if [crossDeviceTicketId] is empty.
+  /// - `Exception` if the API request fails.
   Future<Map<String, dynamic>> attachDevice({
-    required String userIdentifier,
-    required String deviceId,
-    bool useMock = false,
+    required String crossDeviceTicketId,
   }) async {
-    if (userIdentifier.isEmpty || deviceId.isEmpty) {
-      throw ArgumentError('User identifier and device ID cannot be empty');
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
     }
 
-    if (useMock) {
-      return _mockResponse();
-    }
+    final String url = "$baseUrl/webauthn-cross-device-attach-device";
+    final headers = {
+      "Authorization": "Bearer $apiKey",
+      "Content-Type": "application/json",
+    };
 
-    final payload = jsonEncode({
-      'userIdentifier': userIdentifier,
-      'deviceId': deviceId,
-    });
+    final body = jsonEncode({"cross_device_ticket_id": crossDeviceTicketId});
 
     try {
-      final response = await apiClient.post(endpoint: endpoint, body: payload);
-      return jsonDecode(response.body) as Map<String, dynamic>;
-    } catch (e) {
-      throw ApiException('Failed to attach device: $e');
-    }
-  }
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: body,
+      );
 
-  /// Returns a mock response for testing without making an actual API call.
-  ///
-  /// This method simulates a successful device attachment for WebAuthn cross-device authentication.
-  ///
-  /// Example response:
-  /// ```json
-  /// {
-  ///   "sessionId": "mock-session-id",
-  ///   "deviceId": "mock-device-id",
-  ///   "status": "attached",
-  ///   "message": "Device successfully attached to the session"
-  /// }
-  /// ```
-  Map<String, dynamic> _mockResponse() {
-    return {
-      'sessionId': 'mock-session-id',
-      'deviceId': 'mock-device-id',
-      'status': 'attached',
-      'message': 'Device successfully attached to the session',
-    };
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
+          "Failed to attach device: ${response.statusCode} - ${response.body}",
+        );
+      }
+    } catch (e) {
+      throw Exception("Error while attaching device: $e");
+    }
   }
 }

@@ -1,7 +1,7 @@
 library;
 
 // Core Managers
-export 'src/core/aortem_transmit_auth_manager.dart';
+
 export 'src/core/aortem_transmit_token_manager.dart';
 export 'src/core/aortem_transmit_session_manager.dart';
 export 'src/core/aortem_transmit_api_client.dart';

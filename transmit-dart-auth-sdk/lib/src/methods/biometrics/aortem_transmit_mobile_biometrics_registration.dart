@@ -1,79 +1,190 @@
 import 'dart:convert';
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_api_client.dart';
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_errors.dart';
+import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-/// Handles user registration for mobile biometrics authentication.
+/// A service for registering mobile biometric authenticators with Transmit Security's API.
 ///
-/// This class enables registering a user’s biometric data with the Transmit Security API.
-class MobileBiometricsRegistration {
-  /// API client instance for making HTTP requests.
-  final ApiClient apiClient;
+/// This class handles the secure registration of biometric authenticators by:
+/// - Storing public keys for cryptographic verification
+/// - Validating device attestation (when available)
+/// - Establishing trusted communication channels
+///
+/// ## Security Considerations
+/// - Requires valid API credentials
+/// - Verifies cryptographic attestation when available
+/// - Implements secure key storage
+/// - Should be used with HTTPS only
+/// - Biometric data never leaves the device
+///
+/// ## Registration Flow
+/// 1. Device generates cryptographic key pair
+/// 2. Client collects attestation data (platform-dependent)
+/// 3. Service registers public key and verifies attestation
+/// 4. System enables biometric authentication for user
+///
+/// ## Example Usage
+/// ```dart
+/// final biometricReg = AortemTransmitMobileBiometricsRegistration(
+///   apiKey: 'your-api-key',
+///   baseUrl: 'https://api.transmitsecurity.com',
+/// );
+///
+/// try {
+///   final result = await biometricReg.registerMobileBiometrics(
+///     publicKey: 'generated_public_key',
+///     publicKeyId: 'key_123',
+///     os: 'ios',
+///     attestationEncodedResult: 'attestation_data',
+///   );
+///   print('Biometric registration successful: ${result['publicKeyId']}');
+/// } catch (e) {
+///   print('Registration failed: $e');
+/// }
+/// ```
+class AortemTransmitMobileBiometricsRegistration {
+  /// The API key used for service authentication
+  final String apiKey;
 
-  /// Constructs an instance of [MobileBiometricsRegistration].
-  ///
-  /// - [apiClient]: The API client responsible for handling network requests.
-  MobileBiometricsRegistration({required this.apiClient});
+  /// The base URL for the biometric registration API endpoint
+  final String baseUrl;
 
-  /// Registers a user for mobile biometrics authentication.
+  /// Creates a biometric registration service instance
   ///
-  /// - [userId]: The unique identifier for the user (e.g., email or user ID).
-  /// - [biometricData]: A JSON object containing biometric registration data.
-  /// - [mock]: If `true`, returns a stub response for testing purposes.
+  /// [apiKey]: Required API key for service authentication
+  /// [baseUrl]: Required base URL for the API endpoint
+  AortemTransmitMobileBiometricsRegistration({
+    required this.apiKey,
+    required this.baseUrl,
+  });
+
+  /// Registers a mobile biometric authenticator for secure authentication
   ///
-  /// Returns a `Map<String, dynamic>` containing registration confirmation details.
+  /// Parameters:
+  /// [publicKey]: Base64-encoded public key (required)
+  /// [publicKeyId]: Unique identifier for the key (required)
+  /// [os]: Operating system type ('android' or 'ios') (required)
+  /// [encryptionType]: Cryptographic algorithm ('rsa' or 'ec') (default: 'rsa')
+  /// [challenge]: Server-generated challenge for attestation
+  /// [attestationEncodedResult]: Platform-specific attestation data
+  ///
+  /// Returns:
+  /// A [Future] that resolves to a Map containing:
+  /// - `status`: Registration status
+  /// - `publicKeyId`: Registered key identifier
+  /// - `registeredAt`: ISO-8601 timestamp of registration
+  /// - Additional verification metadata
   ///
   /// Throws:
-  /// - `ArgumentError` if [userId] or [biometricData] is empty.
-  /// - `ApiException` if the API request fails.
-  Future<Map<String, dynamic>> register({
-    required String userId,
-    required Map<String, dynamic> biometricData,
-    bool mock = false,
+  /// - [ArgumentError] if required parameters are empty
+  /// - [Exception] if registration fails (contains status code and error details)
+  Future<Map<String, dynamic>> registerMobileBiometrics({
+    required String publicKey,
+    required String publicKeyId,
+    required String os,
+    String encryptionType = "rsa",
+    String? challenge,
+    String? attestationEncodedResult,
   }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError('User ID must not be empty.');
+    if (publicKey.isEmpty || publicKeyId.isEmpty || os.isEmpty) {
+      throw ArgumentError('publicKey, publicKeyId, and os must not be empty');
     }
-
-    if (biometricData.isEmpty) {
-      throw ArgumentError('Biometric data must not be empty.');
-    }
-
-    if (mock) {
-      return _mockResponse(userId);
-    }
-
-    final String endpoint = '/mobile-biometrics-registration';
-    final String body = jsonEncode({
-      'userId': userId,
-      'biometricData': biometricData,
-    });
 
     try {
-      final response = await apiClient.post(endpoint: endpoint, body: body);
-      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final url = Uri.parse('$baseUrl/v1/auth/biometrics/native/register');
+
+      final headers = {
+        'Authorization': 'Bearer $apiKey',
+        'Content-Type': 'application/json',
+        'X-Request-ID': DateTime.now().millisecondsSinceEpoch.toString(),
+      };
+
+      final body = <String, dynamic>{
+        'publicKey': publicKey,
+        'publicKeyId': publicKeyId,
+        'os': os.toLowerCase(),
+        'encryptionType': encryptionType.toLowerCase(),
+        if (challenge != null) 'challenge': challenge,
+        if (attestationEncodedResult != null)
+          'attestation_encoded_result': attestationEncodedResult,
+      };
+
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode(body),
+      );
 
       if (response.statusCode == 200) {
-        return responseData;
+        return jsonDecode(response.body) as Map<String, dynamic>;
       } else {
-        throw ApiException(
-          responseData['error'] ?? 'Failed to register biometrics',
-          response.statusCode,
-        );
+        throw _createRegistrationException(response);
       }
-    } catch (e) {
-      throw ApiException('Unexpected error during biometrics registration: $e');
+    } on FormatException catch (e) {
+      throw Exception('Failed to parse registration response: ${e.message}');
+    } on http.ClientException catch (e) {
+      throw Exception(
+        'Network error during biometric registration: ${e.message}',
+      );
     }
   }
 
-  /// Generates a mock response for testing.
+  /// Mock implementation for testing biometric registration
   ///
-  /// Returns a `Map<String, dynamic>` with simulated biometric registration details.
-  Map<String, dynamic> _mockResponse(String userId) {
+  /// Simulates successful registration without API calls.
+  Future<Map<String, dynamic>> mockRegisterMobileBiometrics({
+    required String publicKey,
+    required String publicKeyId,
+    required String os,
+  }) async {
+    await Future.delayed(
+      const Duration(milliseconds: 150),
+    ); // Simulate network delay
+
     return {
       'status': 'success',
-      'message': 'Biometric registration completed (mock mode).',
-      'userId': userId,
+      'message': 'Biometrics registered successfully (mock)',
+      'publicKeyId': publicKeyId,
       'registeredAt': DateTime.now().toIso8601String(),
+      'os': os,
+      'encryptionType': 'rsa',
+      'mock': true,
     };
+  }
+
+  /// Creates a detailed exception from registration failures
+  Exception _createRegistrationException(http.Response response) {
+    try {
+      final error = jsonDecode(response.body) as Map<String, dynamic>;
+      final statusCode = response.statusCode;
+      final errorCode = error['error'] ?? 'registration_failed';
+      final description =
+          error['error_description'] ?? 'No description provided';
+
+      switch (statusCode) {
+        case 400:
+          return Exception(
+            'Invalid registration: $description (code: $errorCode)',
+          );
+        case 401:
+          return Exception(
+            'Unauthorized registration attempt (code: $errorCode)',
+          );
+        case 403:
+          return Exception('Registration not permitted (code: $errorCode)');
+        case 404:
+          return Exception(
+            'User not found for registration (code: $errorCode)',
+          );
+        case 409:
+          return Exception('Key already registered (code: $errorCode)');
+        default:
+          return Exception(
+            'Registration error ($statusCode): $description (code: $errorCode)',
+          );
+      }
+    } on FormatException {
+      return Exception(
+        'Registration failed (${response.statusCode}): ${response.body}',
+      );
+    }
   }
 }

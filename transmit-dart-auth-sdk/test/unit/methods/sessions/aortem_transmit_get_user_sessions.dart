@@ -12,11 +12,11 @@ void main() {
     const String testApiKey = 'test-api-key';
     const String testBaseUrl = 'https://api.transmitsecurity.com';
     const String testUserId = 'user_123';
-    late UserSessionManager sessionManager;
+    late AortemTransmitGetUserSessions sessionManager;
     late MockClient mockClient;
 
     setUp(() {
-      sessionManager = UserSessionManager(
+      sessionManager = AortemTransmitGetUserSessions(
         apiKey: testApiKey,
         baseUrl: testBaseUrl,
       );

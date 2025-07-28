@@ -1,84 +1,54 @@
 import 'dart:convert';
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-import 'package:transmit_dart_auth_sdk/src/methods/webauthn/aortem_tranmit_webauth_exception.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/webauthn/aortem_transmt_webauthn_endpoints.dart';
-import 'package:transmit_dart_auth_sdk/src/models/aortem_transmit_webauthn_data.dart';
-
-/// Handles WebAuthn cross-device authentication operations.
-class WebAuthnService {
-  /// API key for authenticating requests.
+/// Handles aborting an ongoing WebAuthn cross-device operation.
+class AortemTransmitWebAuthnCrossDeviceAbort {
   final String apiKey;
-
-  /// Base URL for the Transmit Security API.
   final String baseUrl;
 
+  AortemTransmitWebAuthnCrossDeviceAbort({
+    required this.apiKey,
+    required this.baseUrl,
+  });
+
+  /// Aborts an ongoing WebAuthn cross-device session.
   ///
-  /// - [apiKey]: Required for API authentication.
-  /// - [baseUrl]: The API's base URL.
-
-  WebAuthnService({required this.baseUrl, required this.apiKey});
-
-  /// **WebAuthn Cross Device Status Method**
-  Future<WebAuthnStatusResponse> checkCrossDeviceStatus({
-    required String userId,
-    String? sessionToken,
+  /// - [crossDeviceTicketId]: The ticket ID of the ongoing cross-device session.
+  ///
+  /// Returns a confirmation response (empty for 204 No Content).
+  ///
+  /// Throws:
+  /// - `ArgumentError` if [crossDeviceTicketId] is empty.
+  /// - `Exception` if the API request fails.
+  Future<void> abortCrossDeviceSession({
+    required String crossDeviceTicketId,
   }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError("User ID cannot be empty.");
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
     }
 
-    final Uri url = Uri.parse("$baseUrl${WebAuthnEndpoints.crossDeviceStatus}");
-    final Map<String, String> headers = {
-      'Authorization': 'Bearer $apiKey',
-      'Content-Type': 'application/json',
+    final String url = "$baseUrl/webauthn-cross-device-abort";
+    final headers = {
+      "Authorization": "Bearer $apiKey",
+      "Content-Type": "application/json",
     };
-    final Map<String, String> queryParams = {'user_id': userId};
-    if (sessionToken != null) {
-      queryParams['session_token'] = sessionToken;
-    }
 
-    final response = await http.get(
-      url.replace(queryParameters: queryParams),
-      headers: headers,
-    );
+    final body = jsonEncode({"cross_device_ticket_id": crossDeviceTicketId});
 
-    if (response.statusCode == 200) {
-      return WebAuthnStatusResponse.fromJson(json.decode(response.body));
-    } else {
-      throw WebAuthnException("Failed to get status: ${response.body}");
-    }
-  }
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: body,
+      );
 
-  /// **WebAuthn Cross Device Abort Method**
-  Future<WebAuthnAbortResponse> abortCrossDeviceOperation({
-    required String userId,
-    String? sessionToken,
-  }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError("User ID cannot be empty.");
-    }
-
-    final Uri url = Uri.parse("$baseUrl${WebAuthnEndpoints.crossDeviceAbort}");
-    final Map<String, String> headers = {
-      'Authorization': 'Bearer $apiKey',
-      'Content-Type': 'application/json',
-    };
-    final Map<String, dynamic> body = {'user_id': userId};
-    if (sessionToken != null) {
-      body['session_token'] = sessionToken;
-    }
-
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: json.encode(body),
-    );
-
-    if (response.statusCode == 200) {
-      return WebAuthnAbortResponse.fromJson(json.decode(response.body));
-    } else {
-      throw WebAuthnException("Failed to abort operation: ${response.body}");
+      if (response.statusCode != 204) {
+        throw Exception(
+          "Failed to abort cross-device session: ${response.statusCode} - ${response.body}",
+        );
+      }
+    } catch (e) {
+      throw Exception("Error while aborting cross-device session: $e");
     }
   }
 }

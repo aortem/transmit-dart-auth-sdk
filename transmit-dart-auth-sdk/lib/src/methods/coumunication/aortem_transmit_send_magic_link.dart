@@ -1,23 +1,47 @@
 import 'dart:convert';
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-/// A class responsible for sending magic link authentication emails
-/// through Transmit Security.
+/// A service for sending magic link authentication emails via Transmit Security's API.
 ///
-/// This class allows users to authenticate using a magic link sent to their email.
-/// It provides both a real API request and a stub implementation for testing.
-class AortemTransmitMagicLink {
-  /// The API key required for authentication with Transmit Security.
+/// This class handles the communication with Transmit Security's backend to send
+/// one-time login magic links to users' email addresses. It includes both the
+/// production implementation and a stub version for testing purposes.
+///
+/// Example usage:
+/// ```dart
+/// final magicLinkService = AortemTransmitSendMagicLink(
+///   apiKey: 'your-secure-api-key',
+/// );
+///
+/// try {
+///   final result = await magicLinkService.sendMagicLinkEmail('user@example.com');
+///   print('Magic link sent: ${result['message']}');
+/// } catch (e) {
+///   print('Error sending magic link: $e');
+/// }
+/// ```
+class AortemTransmitSendMagicLink {
+  /// The API key used for authenticating with Transmit Security's services.
+  ///
+  /// Must be a non-empty string. The constructor will throw an [ArgumentError]
+  /// if this is empty.
   final String apiKey;
 
-  /// The base URL of the Transmit Security API.
-  /// Defaults to `'https://api.transmitsecurity.com'`.
+  /// The base URL for the Transmit Security API endpoints.
+  ///
+  /// Defaults to the production endpoint 'https://api.transmitsecurity.com'
+  /// if not specified. Can be overridden for testing or different environments.
   final String baseUrl;
 
-  /// Creates an instance of [AortemTransmitMagicLink].
+  /// Creates a new [AortemTransmitSendMagicLink] instance.
   ///
-  /// Throws an [ArgumentError] if the provided [apiKey] is empty.
-  AortemTransmitMagicLink({
+  /// Parameters:
+  /// [apiKey] - Required API key for authentication (must not be empty)
+  /// [baseUrl] - Optional base URL for the API (defaults to production endpoint)
+  ///
+  /// Throws:
+  /// [ArgumentError] if the apiKey is empty
+  AortemTransmitSendMagicLink({
     required this.apiKey,
     this.baseUrl = 'https://api.transmitsecurity.com',
   }) {
@@ -26,35 +50,35 @@ class AortemTransmitMagicLink {
     }
   }
 
-  /// Sends a magic link email to the user.
+  /// Sends a magic link authentication email to the specified email address.
   ///
-  /// The [email] parameter represents the recipient's email address.
-  /// Returns a [Future] containing a `Map<String, dynamic>` with
-  /// confirmation details, such as a temporary token and message.
+  /// This method makes an authenticated POST request to Transmit Security's
+  /// magic link endpoint with the provided email address.
   ///
-  /// Throws an [ArgumentError] if the email is empty.
-  /// Throws an [Exception] if the API request fails.
+  /// Parameters:
+  /// [email] - The recipient's email address (must not be empty)
+  ///
+  /// Returns:
+  /// A [Future] that completes with a [Map] containing the API response data
+  ///
+  /// Throws:
+  /// [ArgumentError] if the email is empty
+  /// [Exception] if the API request fails (includes status code and response body)
   Future<Map<String, dynamic>> sendMagicLinkEmail(String email) async {
     if (email.isEmpty) {
       throw ArgumentError('Email cannot be empty.');
     }
 
-    // API endpoint for sending the magic link email.
     final url = Uri.parse('$baseUrl/backend-one-time-login/sendMagicLinkEmail');
-
-    final body = json.encode({'email': email});
-
-    // Make the HTTP POST request.
     final response = await http.post(
       url,
       headers: {
         'Authorization': 'Bearer $apiKey',
         'Content-Type': 'application/json',
       },
-      body: body,
+      body: json.encode({'email': email}),
     );
 
-    // Process the response.
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
@@ -64,24 +88,27 @@ class AortemTransmitMagicLink {
     }
   }
 
-  /// Simulated version of [sendMagicLinkEmail] for testing and debugging.
+  /// Testing stub that simulates sending a magic link email.
   ///
-  /// This method does not make a real API call. Instead, it returns a
-  /// mock response after a small delay.
+  /// This method mimics the behavior of [sendMagicLinkEmail] without making
+  /// actual API calls. It introduces a small delay to simulate network latency
+  /// and returns consistent mock data.
   ///
-  /// The [email] parameter represents the recipient's email address.
-  /// Returns a `Map<String, dynamic>` containing a mock temporary token and message.
+  /// Parameters:
+  /// [email] - The recipient's email address (must not be empty)
   ///
-  /// Throws an [ArgumentError] if the email is empty.
+  /// Returns:
+  /// A [Future] that completes after a short delay with mock response data
+  ///
+  /// Throws:
+  /// [ArgumentError] if the email is empty
   Future<Map<String, dynamic>> sendMagicLinkEmailStub(String email) async {
     if (email.isEmpty) {
       throw ArgumentError('Email cannot be empty.');
     }
 
-    // Simulate network latency.
     await Future.delayed(const Duration(milliseconds: 100));
 
-    // Return a stubbed response.
     return {
       'email': email,
       'tempToken': 'dummy-temp-token',
