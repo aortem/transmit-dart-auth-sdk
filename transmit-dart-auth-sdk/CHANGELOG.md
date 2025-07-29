@@ -40,7 +40,7 @@
     `example/cognito-dart-auth-sdk-sample-app/…` →  
     `example/cognito-dart-auth-sdk-flutter-mobile-app/…`.
 
-- Update to Dart 3.8.1
+- Update to Dart 3.8.2
 
 ## 0.0.1-pre+4
 
