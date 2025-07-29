@@ -1,84 +1,112 @@
 import 'dart:convert';
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-import 'package:transmit_dart_auth_sdk/src/methods/webauthn/aortem_tranmit_webauth_exception.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/webauthn/aortem_transmt_webauthn_endpoints.dart';
-import 'package:transmit_dart_auth_sdk/src/models/aortem_transmit_webauthn_data.dart';
-
-/// Handles WebAuthn cross-device authentication operations.
-class WebAuthnService {
-  /// API key for authenticating requests.
+/// Handles the termination of ongoing WebAuthn cross-device authentication or registration flows.
+///
+/// This class provides functionality to:
+/// - Abort active cross-device WebAuthn operations
+/// - Clean up server-side resources
+/// - Prevent dangling authentication states
+///
+/// Security Considerations:
+/// - Always call abort for incomplete flows to prevent resource leaks
+/// - Tickets become invalid after aborting
+/// - No sensitive data is returned from abort operations
+///
+/// Typical Usage:
+/// ```dart
+/// final abortHandler = AortemTransmitWebAuthnCrossDeviceAbort(
+///   apiKey: 'your_api_key',
+///   baseUrl: 'https://api.authservice.com',
+/// );
+///
+/// await abortHandler.abortCrossDeviceSession(
+///   crossDeviceTicketId: 'ticket_123',
+/// );
+/// ```
+class AortemTransmitWebAuthnCrossDeviceAbort {
+  /// The API key used for authenticating abort requests
   final String apiKey;
 
-  /// Base URL for the Transmit Security API.
+  /// The base URL for the WebAuthn cross-device API endpoints
   final String baseUrl;
 
+  /// Creates a new cross-device abort handler instance.
   ///
-  /// - [apiKey]: Required for API authentication.
-  /// - [baseUrl]: The API's base URL.
+  /// [apiKey]: Required authentication key for API requests
+  /// [baseUrl]: Required root URL for the service
+  AortemTransmitWebAuthnCrossDeviceAbort({
+    required this.apiKey,
+    required this.baseUrl,
+  });
 
-  WebAuthnService({required this.baseUrl, required this.apiKey});
-
-  /// **WebAuthn Cross Device Status Method**
-  Future<WebAuthnStatusResponse> checkCrossDeviceStatus({
-    required String userId,
-    String? sessionToken,
+  /// Aborts an ongoing WebAuthn cross-device operation.
+  ///
+  /// This method:
+  /// - Validates the cross-device ticket ID
+  /// - Makes an authenticated API request to abort the session
+  /// - Cleans up server-side resources
+  /// - Returns nothing on success (204 No Content)
+  ///
+  /// Throws:
+  /// - [ArgumentError] if [crossDeviceTicketId] is empty
+  /// - [Exception] for API errors or network failures
+  ///
+  /// [crossDeviceTicketId]: The unique identifier for the ongoing cross-device session
+  ///                        (obtained during flow initialization)
+  Future<void> abortCrossDeviceSession({
+    required String crossDeviceTicketId,
   }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError("User ID cannot be empty.");
+    // Validate required parameter
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
     }
 
-    final Uri url = Uri.parse("$baseUrl${WebAuthnEndpoints.crossDeviceStatus}");
-    final Map<String, String> headers = {
-      'Authorization': 'Bearer $apiKey',
-      'Content-Type': 'application/json',
+    final String url = "$baseUrl/webauthn-cross-device-abort";
+
+    // Configure request headers
+    final headers = {
+      "Authorization": "Bearer $apiKey",
+      "Content-Type": "application/json",
     };
-    final Map<String, String> queryParams = {'user_id': userId};
-    if (sessionToken != null) {
-      queryParams['session_token'] = sessionToken;
-    }
 
-    final response = await http.get(
-      url.replace(queryParameters: queryParams),
-      headers: headers,
-    );
+    // Prepare request body
+    final body = jsonEncode({"cross_device_ticket_id": crossDeviceTicketId});
 
-    if (response.statusCode == 200) {
-      return WebAuthnStatusResponse.fromJson(json.decode(response.body));
-    } else {
-      throw WebAuthnException("Failed to get status: ${response.body}");
+    try {
+      // Execute API request
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: body,
+      );
+
+      // Handle successful abort (204 No Content)
+      if (response.statusCode != 204) {
+        throw Exception(
+          "Failed to abort cross-device session: ${response.statusCode} - ${response.body}",
+        );
+      }
+    } catch (e) {
+      throw Exception("Error while aborting cross-device session: $e");
     }
   }
 
-  /// **WebAuthn Cross Device Abort Method**
-  Future<WebAuthnAbortResponse> abortCrossDeviceOperation({
-    required String userId,
-    String? sessionToken,
+  /// Mock implementation for testing abort functionality.
+  ///
+  /// Simulates successful session abortion with:
+  /// - Input validation identical to real implementation
+  /// - No network calls
+  /// - Immediate success response
+  ///
+  /// [crossDeviceTicketId]: The mock ticket identifier (must not be empty)
+  Future<void> mockAbortCrossDeviceSession({
+    required String crossDeviceTicketId,
   }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError("User ID cannot be empty.");
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
     }
-
-    final Uri url = Uri.parse("$baseUrl${WebAuthnEndpoints.crossDeviceAbort}");
-    final Map<String, String> headers = {
-      'Authorization': 'Bearer $apiKey',
-      'Content-Type': 'application/json',
-    };
-    final Map<String, dynamic> body = {'user_id': userId};
-    if (sessionToken != null) {
-      body['session_token'] = sessionToken;
-    }
-
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: json.encode(body),
-    );
-
-    if (response.statusCode == 200) {
-      return WebAuthnAbortResponse.fromJson(json.decode(response.body));
-    } else {
-      throw WebAuthnException("Failed to abort operation: ${response.body}");
-    }
+    // Simulate successful abort with no return value
+    return;
   }
 }

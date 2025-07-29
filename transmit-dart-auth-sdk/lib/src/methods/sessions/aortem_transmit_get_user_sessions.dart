@@ -1,94 +1,111 @@
 import 'dart:convert';
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-/// Manages user sessions, including retrieving and revoking active sessions.
-class UserSessionManager {
-  /// API key for authenticating requests.
+/// Provides comprehensive session management capabilities for user authentication sessions.
+///
+/// This class enables:
+/// - Retrieval of all active sessions for a user
+/// - Revocation of user sessions (single or all)
+/// - Both production and mock implementations for testing
+///
+/// The implementation follows security best practices including:
+/// - Input validation
+/// - Proper error handling
+/// - Clear response parsing
+///
+/// Example usage:
+/// ```dart
+/// final sessionManager = AortemTransmitGetUserSessions(
+///   apiKey: 'your_api_key',
+///   baseUrl: 'https://api.authservice.com',
+/// );
+///
+/// // Get active sessions
+/// final sessions = await sessionManager.getUserSessions(userId: 'user_123');
+///
+/// // Revoke all sessions
+/// final result = await sessionManager.revokeUserSessions(userId: 'user_123');
+/// ```
+class AortemTransmitGetUserSessions {
+  /// The API key used for authenticating requests
   final String apiKey;
 
-  /// Base URL for the Transmit Security API.
+  /// The base URL for the session management API
   final String baseUrl;
 
-  /// Constructs an instance of `UserSessionManager`.
+  /// Creates a new session manager instance.
   ///
-  /// - [apiKey]: Required for API authentication.
-  /// - [baseUrl]: The API's base URL.
-  UserSessionManager({required this.apiKey, required this.baseUrl});
+  /// [apiKey]: The authentication key for API requests
+  /// [baseUrl]: The root URL for the session service
+  AortemTransmitGetUserSessions({required this.apiKey, required this.baseUrl});
 
-  /// Retrieves all active sessions for a given user.
+  /// Retrieves all active sessions for the specified user.
   ///
-  /// - [userId]: Unique identifier of the user whose sessions should be fetched.
+  /// This method:
+  /// - Validates the user ID
+  /// - Makes an authenticated GET request
+  /// - Returns a list of session objects containing:
+  ///   - Session ID
+  ///   - Device information
+  ///   - IP address
+  ///   - Last activity timestamp
   ///
-  /// Returns a list of session details, including timestamps and device information.
+  /// Throws [ArgumentError] if userId is empty.
+  /// Throws [Exception] for API errors or malformed responses.
   ///
-  /// Throws:
-  /// - `ArgumentError` if [userId] is empty.
-  /// - `Exception` if the API request fails.
+  /// [userId]: The unique identifier of the user (required)
+  ///
+  /// Returns [Future<List<Map<String, dynamic>>>] containing session details
   Future<List<Map<String, dynamic>>> getUserSessions({
     required String userId,
   }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError("User ID must not be empty.");
-    }
+    _validateUserId(userId);
 
-    final String url = '$baseUrl/getUserSessions?userId=$userId';
-    final headers = _buildHeaders();
+    final url = Uri.parse('$baseUrl/v1/sessions/$userId');
+    final response = await http.get(url, headers: _buildHeaders());
 
-    try {
-      final response = await http.get(Uri.parse(url), headers: headers);
-
-      if (response.statusCode == 200) {
-        return List<Map<String, dynamic>>.from(jsonDecode(response.body));
-      } else {
-        throw Exception(
-          "Failed to retrieve user sessions: ${response.statusCode} - ${response.body}",
-        );
-      }
-    } catch (error) {
-      throw Exception("Error retrieving user sessions: $error");
-    }
+    return _handleListResponse(response, 'Failed to retrieve user sessions');
   }
 
-  /// Revokes all active sessions for a given user.
+  /// Revokes all active sessions for the specified user.
   ///
-  /// - [userId]: Unique identifier of the user whose sessions should be revoked.
+  /// This method:
+  /// - Validates the user ID
+  /// - Makes an authenticated DELETE request
+  /// - Returns a confirmation object containing:
+  ///   - Success status
+  ///   - Operation details
+  ///   - Timestamp
   ///
-  /// Returns a confirmation response containing details about revoked sessions.
+  /// Throws [ArgumentError] if userId is empty.
+  /// Throws [Exception] for API errors or malformed responses.
   ///
-  /// Throws:
-  /// - `ArgumentError` if [userId] is empty.
-  /// - `Exception` if the API request fails.
+  /// [userId]: The unique identifier of the user (required)
+  ///
+  /// Returns [Future<Map<String, dynamic>>] containing revocation confirmation
   Future<Map<String, dynamic>> revokeUserSessions({
     required String userId,
   }) async {
-    if (userId.isEmpty) {
-      throw ArgumentError("User ID must not be empty.");
-    }
+    _validateUserId(userId);
 
-    final String url = '$baseUrl/revokeUserSessions';
-    final headers = _buildHeaders();
-    final body = jsonEncode({'userId': userId});
+    final url = Uri.parse('$baseUrl/v1/sessions/$userId');
+    final response = await http.delete(url, headers: _buildHeaders());
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: body,
-      );
-
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        throw Exception(
-          "Failed to revoke sessions: ${response.statusCode} - ${response.body}",
-        );
-      }
-    } catch (error) {
-      throw Exception("Error revoking user sessions: $error");
-    }
+    return _handleMapResponse(response, 'Failed to revoke user sessions');
   }
 
-  /// Mock implementation for retrieving user sessions (for testing purposes).
+  /// Mock implementation for retrieving user sessions (testing purposes).
+  ///
+  /// Simulates the API response with realistic mock data:
+  /// - Two sample sessions with different devices
+  /// - Current timestamps
+  /// - Valid session IDs
+  ///
+  /// Validates input identically to the real implementation.
+  ///
+  /// [userId]: The mock user identifier (must not be empty)
+  ///
+  /// Returns [Future<List<Map<String, dynamic>>>] with mock session data
   Future<List<Map<String, dynamic>>> mockGetUserSessions({
     required String userId,
   }) async {
@@ -96,21 +113,32 @@ class UserSessionManager {
 
     return [
       {
-        'sessionId': 'abc123',
+        'session_id': 'abc123',
         'device': 'iPhone 14',
-        'ipAddress': '192.168.1.1',
-        'lastActive': DateTime.now().toIso8601String(),
+        'ip_address': '192.168.1.1',
+        'last_active': DateTime.now().toIso8601String(),
       },
       {
-        'sessionId': 'xyz789',
+        'session_id': 'xyz789',
         'device': 'MacBook Pro',
-        'ipAddress': '192.168.1.2',
-        'lastActive': DateTime.now().toIso8601String(),
+        'ip_address': '192.168.1.2',
+        'last_active': DateTime.now().toIso8601String(),
       },
     ];
   }
 
-  /// Mock implementation for revoking user sessions (for testing purposes).
+  /// Mock implementation for revoking sessions (testing purposes).
+  ///
+  /// Simulates successful session revocation with:
+  /// - Success status
+  /// - Mock count of revoked sessions
+  /// - Current timestamp
+  ///
+  /// Validates input identically to the real implementation.
+  ///
+  /// [userId]: The mock user identifier (must not be empty)
+  ///
+  /// Returns [Future<Map<String, dynamic>>] with mock revocation confirmation
   Future<Map<String, dynamic>> mockRevokeUserSessions({
     required String userId,
   }) async {
@@ -118,22 +146,74 @@ class UserSessionManager {
 
     return {
       'success': true,
-      'message': 'User sessions revoked successfully.',
-      'revokedSessions': 3,
+      'message': 'All sessions revoked successfully.',
+      'revoked_sessions': 3,
       'timestamp': DateTime.now().toIso8601String(),
     };
   }
 
-  /// Helper method to construct request headers.
+  // =============================================
+  // 🔹 Private Helper Methods
+  // =============================================
+
+  /// Builds standard request headers with authentication.
   Map<String, String> _buildHeaders() => {
     'Authorization': 'Bearer $apiKey',
     'Content-Type': 'application/json',
   };
 
-  /// Helper method to validate user ID input.
+  /// Validates that a user ID is not empty.
+  ///
+  /// Throws [ArgumentError] if validation fails.
   void _validateUserId(String userId) {
-    if (userId.isEmpty) {
-      throw ArgumentError("User ID must not be empty.");
+    if (userId.trim().isEmpty) {
+      throw ArgumentError('User ID must not be empty.');
     }
+  }
+
+  /// Handles list-type API responses with proper error checking.
+  ///
+  /// [response]: The HTTP response to process
+  /// [errorPrefix]: Custom prefix for error messages
+  ///
+  /// Throws [Exception] for non-200 status or malformed responses.
+  /// Returns parsed list of maps for successful responses.
+  List<Map<String, dynamic>> _handleListResponse(
+    http.Response response,
+    String errorPrefix,
+  ) {
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
+      if (decoded is List) {
+        return List<Map<String, dynamic>>.from(decoded);
+      }
+      throw Exception('$errorPrefix: Unexpected response format');
+    }
+    throw Exception(
+      '$errorPrefix (Status ${response.statusCode}): ${response.body}',
+    );
+  }
+
+  /// Handles map-type API responses with proper error checking.
+  ///
+  /// [response]: The HTTP response to process
+  /// [errorPrefix]: Custom prefix for error messages
+  ///
+  /// Throws [Exception] for non-200 status or malformed responses.
+  /// Returns parsed map for successful responses.
+  Map<String, dynamic> _handleMapResponse(
+    http.Response response,
+    String errorPrefix,
+  ) {
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
+      if (decoded is Map<String, dynamic>) {
+        return decoded;
+      }
+      throw Exception('$errorPrefix: Unexpected response format');
+    }
+    throw Exception(
+      '$errorPrefix (Status ${response.statusCode}): ${response.body}',
+    );
   }
 }

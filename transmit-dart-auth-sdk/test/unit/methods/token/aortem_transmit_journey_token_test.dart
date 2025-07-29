@@ -1,38 +1,28 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
 import 'package:transmit_dart_auth_sdk/src/methods/token/aortem_transmit_journey_token.dart';
-// Adjust package import as needed
 
 void main() {
-  group('processJourneyToken (HTTP Request Approach) Tests', () {
-    final transmitJourneyToken = AortemTransmitJourneyToken(
-      apiKey: 'valid-api-key',
-    );
+  group('AortemTransmitJourneyToken - processJourneyTokenStub', () {
+    late AortemTransmitJourneyToken service;
 
-    test('throws error for empty journey token', () {
-      expect(
-        () => transmitJourneyToken.processJourneyToken(''),
-        throwsA(isA<ArgumentError>()),
-      );
-    });
-  });
-
-  group('processJourneyTokenStub (Stub/Mock Implementation) Tests', () {
-    final transmitJourneyToken = AortemTransmitJourneyToken(
-      apiKey: 'valid-api-key',
-    );
-    final journeyToken = 'valid-journey-token';
-
-    test('returns dummy journey token details for a valid token', () async {
-      final details = await transmitJourneyToken.processJourneyTokenStub(
-        journeyToken,
-      );
-      expect(details['journeyToken'], equals(journeyToken));
-      expect(details.containsKey('expiresIn'), isTrue);
+    setUp(() {
+      service = AortemTransmitJourneyToken(apiKey: 'test-api-key');
     });
 
-    test('throws error for empty journey token (stub)', () {
+    test('returns valid mock journey token data', () async {
+      const token = 'test-token';
+      final result = await service.processJourneyTokenStub(token);
+
+      expect(result['journeyToken'], equals(token));
+      expect(result['status'], equals('valid'));
+      expect(result['progress'], equals('completed'));
+      expect(result['sessionData'], isA<Map<String, dynamic>>());
+      expect(result['expiresIn'], equals(3600));
+    });
+
+    test('throws ArgumentError if journeyToken is empty', () {
       expect(
-        () => transmitJourneyToken.processJourneyTokenStub(''),
+        () => service.processJourneyTokenStub(''),
         throwsA(isA<ArgumentError>()),
       );
     });

@@ -81,10 +81,9 @@ class ApiClient {
   }) async {
     final url = Uri.parse('$baseUrl$endpoint');
     try {
-      final request =
-          http.Request("DELETE", url)
-            ..headers.addAll({'Authorization': 'Bearer $apiKey'})
-            ..body = body ?? ''; // Only add body if provided
+      final request = http.Request("DELETE", url)
+        ..headers.addAll({'Authorization': 'Bearer $apiKey'})
+        ..body = body ?? ''; // Only add body if provided
 
       final streamedResponse = await httpClient.send(request);
       final response = await http.Response.fromStream(streamedResponse);

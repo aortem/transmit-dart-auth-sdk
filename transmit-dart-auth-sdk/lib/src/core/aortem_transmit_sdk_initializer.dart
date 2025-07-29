@@ -1,77 +1,64 @@
-import 'dart:convert';
-import 'package:ds_standard_features/ds_standard_features.dart'
-    as http; // Ensure the correct HTTP package is used
+import 'package:ds_standard_features/ds_standard_features.dart' as http;
+import 'package:transmit_dart_auth_sdk/src/models/tansmit_region.dart';
 
-/// A service class for handling authentication with the Transmit Security API.
+import 'aortem_transmit_api_client.dart';
+
+/// Configuration class for Transmit Authentication Service.
 ///
-/// This class provides methods to authenticate users using an API key.
-/// It sends credentials to the authentication endpoint and retrieves an
-/// authentication token upon successful login.
-class AortemTransmitAuth {
-  /// The API key required for authentication with the Transmit Security API.
+/// This class holds the necessary configuration parameters to initialize
+/// and communicate with the Transmit Authentication API.
+///
+/// Example:
+/// ```dart
+/// final config = TransmitAuthConfig(
+///   apiKey: 'your-api-key',
+///   serviceId: 'your-service-id',
+///   region: TransmitRegion.global,
+/// );
+/// ```
+class TransmitAuthConfig {
+  /// The API key used for authenticating requests to the Transmit service.
+  ///
+  /// This key should be kept secure and not exposed in client-side code.
   final String apiKey;
 
-  /// The base URL of the Transmit Security API.
-  ///
-  /// Defaults to `'https://api.transmitsecurity.com'`.
-  final String baseUrl;
+  /// The unique identifier for your service within the Transmit platform.
+  final String serviceId;
 
-  /// The HTTP client used for making requests.
+  /// The region where your Transmit service is hosted.
   ///
-  /// This allows dependency injection for testing and flexibility.
-  final http.Client client;
+  /// Defaults to [TransmitRegion.global] if not specified.
+  final TransmitRegion region;
 
-  /// Creates an instance of [AortemTransmitAuth].
+  /// Creates a new [TransmitAuthConfig] instance.
   ///
-  /// - Requires a non-empty [apiKey] for authentication.
-  /// - Optionally accepts a custom [baseUrl] for API calls.
-  /// - Allows dependency injection of an HTTP [client] for testing.
-  ///
-  /// Throws an [ArgumentError] if [apiKey] is empty.
-  AortemTransmitAuth({
+  /// [apiKey]: Required API key for authentication
+  /// [serviceId]: Required service identifier
+  /// [region]: Optional region specification (defaults to global)
+  const TransmitAuthConfig({
     required this.apiKey,
-    this.baseUrl = 'https://api.transmitsecurity.com',
-    http.Client? client, // Optional client for mocking in tests
-  }) : client = client ?? http.Client() {
-    if (apiKey.isEmpty) {
-      throw ArgumentError('API key cannot be empty.');
-    }
-  }
+    required this.serviceId,
+    this.region = TransmitRegion.global,
+  });
 
-  /// Authenticates a user with the provided [username] and [password].
+  /// Computes the base URL for API requests based on the configured region and service ID.
   ///
-  /// Sends a POST request to the Transmit Security authentication endpoint
-  /// and returns a `Map<String, dynamic>` containing authentication details:
-  /// - `token`: The authentication token upon successful login.
-  /// - `userId`: The ID of the authenticated user.
-  /// - Other metadata related to authentication.
+  /// The URL follows the format: `https://{region-host}/{serviceId}/v1`
   ///
-  /// Throws:
-  /// - [ArgumentError] if [username] or [password] is empty.
-  /// - [Exception] if authentication fails (e.g., invalid credentials or API errors).
-  Future<Map<String, dynamic>> authenticate(
-    String username,
-    String password,
-  ) async {
-    if (username.isEmpty || password.isEmpty) {
-      throw ArgumentError('Username and password cannot be empty.');
-    }
+  /// Returns the fully constructed base URL as a String.
+  String get baseUrl => "https://${region.host}/$serviceId/v1";
 
-    final url = Uri.parse('$baseUrl/authenticate');
-    final response = await client.post(
-      // Use client.post instead of http.post to allow mocking
-      url,
-      headers: {
-        'Authorization': 'Bearer $apiKey',
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({'username': username, 'password': password}),
+  /// Creates an [ApiClient] instance configured with this authentication setup.
+  ///
+  /// [client]: Optional custom HTTP client. If not provided, the default client
+  ///           from the underlying HTTP package will be used.
+  ///
+  /// Returns a new [ApiClient] instance ready to make authenticated requests.
+  ApiClient createClient({http.Client? client}) {
+    return ApiClient(
+      baseUrl: baseUrl, // ✅ FIX: Added baseUrl here
+      apiKey: apiKey,
+      client: client,
     );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body) as Map<String, dynamic>;
-    } else {
-      throw Exception('Authentication failed: ${response.body}');
-    }
   }
 }
