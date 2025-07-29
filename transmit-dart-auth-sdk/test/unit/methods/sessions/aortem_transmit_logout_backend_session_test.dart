@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/sessions/aortem_transmit_logout_backend_session.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/sessions/transmit_logout_backend_session.dart';
 
 void main() {
   group('AortemTransmitLogoutBackendSession (Mock)', () {

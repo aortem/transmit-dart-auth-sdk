@@ -1,7 +1,7 @@
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
 import 'package:transmit_dart_auth_sdk/src/models/tansmit_region.dart';
 
-import 'aortem_transmit_api_client.dart';
+import 'transmit_api_client.dart';
 
 /// Configuration class for Transmit Authentication Service.
 ///

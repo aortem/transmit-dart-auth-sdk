@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_sdk_initializer.dart';
+import 'package:transmit_dart_auth_sdk/src/core/transmit_sdk_initializer.dart';
 import 'package:transmit_dart_auth_sdk/src/models/tansmit_region.dart';
 
 void main() {

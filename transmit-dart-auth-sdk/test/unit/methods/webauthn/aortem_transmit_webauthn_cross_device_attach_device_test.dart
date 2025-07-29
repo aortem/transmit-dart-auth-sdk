@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/webauthn/aortem_transmit_webauthn_cross_device_attach_device.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/webauthn/transmit_webauthn_cross_device_attach_device.dart';
 
 void main() {
   group('AortemTransmitWebAuthnCrossDeviceAttachDevice', () {

@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/authorization/aortem_transmit_flexible_authorization.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/authorization/transmit_flexible_authorization.dart';
 
 void main() {
   group('AortemTransmitAuthorization', () {

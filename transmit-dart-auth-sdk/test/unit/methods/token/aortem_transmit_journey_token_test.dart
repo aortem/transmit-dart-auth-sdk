@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/token/aortem_transmit_journey_token.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/token/transmit_journey_token.dart';
 
 void main() {
   group('AortemTransmitJourneyToken - processJourneyTokenStub', () {

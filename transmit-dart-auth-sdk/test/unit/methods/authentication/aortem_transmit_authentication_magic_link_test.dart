@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/authentication/aortem_transmit_authentication_magic_link.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/authentication/transmit_authentication_magic_link.dart';
 
 void main() {
   group('AortemTransmitAuthenticateMagicLink', () {

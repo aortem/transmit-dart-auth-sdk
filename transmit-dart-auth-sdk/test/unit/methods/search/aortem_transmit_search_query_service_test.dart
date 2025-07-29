@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/search/aortem_transmit_search_query_service.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/search/transmit_search_query_service.dart';
 
 void main() {
   group('AortemTransmitSearchQueryService', () {

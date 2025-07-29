@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/sessions/aortem_transmit_get_user_sessions.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/sessions/transmit_get_user_sessions.dart';
 
 void main() {
   group('AortemTransmitGetUserSessions (Mock)', () {

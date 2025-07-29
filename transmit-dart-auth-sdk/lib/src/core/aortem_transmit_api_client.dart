@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:ds_standard_features/ds_standard_features.dart' as http;
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_errors.dart';
+import 'package:transmit_dart_auth_sdk/src/core/transmit_errors.dart';
 
 /// A generic API client for making HTTP requests.
 ///

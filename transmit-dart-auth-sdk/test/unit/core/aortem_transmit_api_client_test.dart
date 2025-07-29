@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/core/aortem_transmit_api_client.dart';
+import 'package:transmit_dart_auth_sdk/src/core/transmit_api_client.dart';
 
 void main() {
   group('ApiClient', () {

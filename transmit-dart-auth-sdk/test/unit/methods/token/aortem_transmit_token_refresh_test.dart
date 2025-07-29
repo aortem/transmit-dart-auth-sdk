@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/token/aortem_transmit_token_refresh.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/token/transmit_token_refresh.dart';
 
 void main() {
   group('AortemTransmitTokenRefresh', () {

@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/authentication/aortem_transmit_authenticate_session.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/authentication/transmit_authenticate_session.dart';
 
 void main() {
   group('AortemTransmitAuthenticateSession', () {

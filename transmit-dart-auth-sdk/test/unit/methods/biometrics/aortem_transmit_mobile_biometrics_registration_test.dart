@@ -1,5 +1,5 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/biometrics/aortem_transmit_mobile_biometrics_registration.dart';
+import 'package:transmit_dart_auth_sdk/src/methods/biometrics/transmit_mobile_biometrics_registration.dart';
 
 void main() {
   group('AortemTransmitMobileBiometricsRegistration', () {
