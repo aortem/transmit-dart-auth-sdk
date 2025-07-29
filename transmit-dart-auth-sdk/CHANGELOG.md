@@ -1,4 +1,10 @@
-# Changelog
+## 0.0.2
+
+### Added
+- **Example App Enhancements**
+  - Added `transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/pubspec.lock`.
+  - Added `transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/pubspec.yaml`.
+  - Added entrypoint: `transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/lib/main.dart`.
 
 ## 0.0.1
 
