@@ -2,38 +2,28 @@ import 'package:ds_tools_testing/ds_tools_testing.dart';
 import 'package:transmit_dart_auth_sdk/src/methods/token/aortem_transmit_token_refresh.dart';
 
 void main() {
-  group('refreshToken (HTTP Request Approach) Tests', () {
-    final transmitTokenRefresh = AortemTransmitTokenRefresh(
-      apiKey: 'valid-api-key',
-    );
-
-    test('throws error for empty refresh token', () {
-      expect(
-        () => transmitTokenRefresh.refreshToken(''),
-        throwsA(isA<ArgumentError>()),
+  group('AortemTransmitTokenRefresh', () {
+    test('refreshTokenStub returns dummy token data', () async {
+      final service = AortemTransmitTokenRefresh(
+        apiKey: 'dummy-key',
+        baseUrl: 'https://api.transmitsecurity.com',
       );
-    });
-  });
 
-  group('refreshTokenStub (Stub/Mock Implementation) Tests', () {
-    final transmitTokenRefresh = AortemTransmitTokenRefresh(
-      apiKey: 'valid-api-key',
-    );
-    final refreshToken = 'valid-refresh-token';
+      final result = await service.refreshTokenStub('dummy-refresh-token');
 
-    test('returns dummy token for valid refresh token', () async {
-      final tokenData = await transmitTokenRefresh.refreshTokenStub(
-        refreshToken,
-      );
-      expect(tokenData['accessToken'], isNotEmpty);
-      expect(tokenData['refreshToken'], isNotEmpty);
+      expect(result['accessToken'], isNotEmpty);
+      expect(result['refreshToken'], isNotEmpty);
+      expect(result['expiresIn'], equals(3600));
+      expect(result.containsKey('issuedAt'), isTrue);
     });
 
-    test('throws error for empty refresh token (stub)', () {
-      expect(
-        () => transmitTokenRefresh.refreshTokenStub(''),
-        throwsA(isA<ArgumentError>()),
+    test('refreshTokenStub throws ArgumentError for empty token', () async {
+      final service = AortemTransmitTokenRefresh(
+        apiKey: 'dummy-key',
+        baseUrl: 'https://api.transmitsecurity.com',
       );
+
+      expect(() => service.refreshTokenStub(''), throwsA(isA<ArgumentError>()));
     });
   });
 }

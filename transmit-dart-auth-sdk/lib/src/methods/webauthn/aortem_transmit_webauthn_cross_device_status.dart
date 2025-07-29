@@ -1,94 +1,130 @@
 import 'dart:convert';
-import '../../core/aortem_transmit_api_client.dart';
-import '../../core/aortem_transmit_errors.dart';
+import 'package:ds_standard_features/ds_standard_features.dart' as http;
 
-/// A service class for retrieving the status of a WebAuthn cross-device authentication or registration operation.
+/// Handles monitoring the status of ongoing WebAuthn cross-device operations.
 ///
-/// This class communicates with the API client to check the current status of an ongoing
-/// WebAuthn authentication or registration session.
+/// This class provides functionality to:
+/// - Check the current state of cross-device authentication/registration flows
+/// - Monitor operation expiration times
+/// - Track progress of pending operations
+/// - Support both production and testing environments
 ///
-/// Example usage:
+/// Security Considerations:
+/// - Status checks don't modify the operation state
+/// - Ticket IDs should be treated as sensitive data
+/// - Expiration times should be respected client-side
+///
+/// Typical Usage:
 /// ```dart
-/// final apiClient = ApiClient(apiKey: 'your-api-key');
-/// final webAuthnStatus = WebAuthnCrossDeviceStatus(apiClient: apiClient);
+/// final statusChecker = AortemTransmitWebAuthnCrossDeviceStatus(
+///   apiKey: 'your_api_key',
+///   baseUrl: 'https://api.authservice.com',
+/// );
 ///
-/// final response = await webAuthnStatus.getStatus(userIdentifier: 'user_123');
-/// print(response);
+/// final status = await statusChecker.getStatus(
+///   crossDeviceTicketId: 'ticket_123',
+/// );
 /// ```
-class WebAuthnCrossDeviceStatus {
-  /// The API client responsible for making HTTP requests.
-  final ApiClient apiClient;
+class AortemTransmitWebAuthnCrossDeviceStatus {
+  /// The API key used for authenticating status requests
+  final String apiKey;
 
-  /// The API endpoint for retrieving WebAuthn cross-device authentication status.
-  static const String endpoint = '/webauthn-cross-device-status';
+  /// The base URL for the WebAuthn cross-device API endpoints
+  final String baseUrl;
 
-  /// Creates an instance of [WebAuthnCrossDeviceStatus] with a required [apiClient].
-  WebAuthnCrossDeviceStatus({required this.apiClient});
+  /// Creates a new cross-device status checker instance.
+  ///
+  /// [apiKey]: Required authentication key for API requests
+  /// [baseUrl]: Required root URL for the service
+  AortemTransmitWebAuthnCrossDeviceStatus({
+    required this.apiKey,
+    required this.baseUrl,
+  });
 
-  /// Retrieves the current status of a WebAuthn cross-device authentication or registration operation.
+  /// Retrieves the current status of a cross-device WebAuthn operation.
   ///
-  /// - [userIdentifier]: The unique identifier of the user.
-  /// - [sessionId]: (Optional) The session ID for a specific authentication process.
-  /// - [useMock]: If `true`, returns a mock response instead of making an actual API request.
+  /// This method:
+  /// - Validates the cross-device ticket ID
+  /// - Makes an authenticated API request to check status
+  /// - Returns operation metadata including:
+  ///   - Current status (pending, completed, expired, etc.)
+  ///   - Time remaining until expiration
+  ///   - Last update timestamp
   ///
-  /// Throws an [ArgumentError] if `userIdentifier` is empty.
-  /// Throws an [ApiException] if the API request fails.
+  /// Throws:
+  /// - [ArgumentError] if [crossDeviceTicketId] is empty
+  /// - [Exception] for API errors with specific status codes
   ///
-  /// Example:
-  /// ```dart
-  /// final response = await webAuthnStatus.getStatus(
-  ///   userIdentifier: 'user_123',
-  ///   sessionId: 'session_456',
-  /// );
-  /// print(response);
-  /// ```
+  /// [crossDeviceTicketId]: The unique identifier for the ongoing operation
+  ///                        (obtained during flow initialization)
+  ///
+  /// Returns [Future<Map<String, dynamic>>] containing:
+  /// - status: String indicating current operation state
+  /// - cross_device_ticket_id: Echo of provided ticket ID
+  /// - expires_in: Milliseconds remaining until expiration
+  /// - last_updated: ISO-8601 timestamp of last status change
   Future<Map<String, dynamic>> getStatus({
-    required String userIdentifier,
-    String? sessionId,
-    bool useMock = false,
+    required String crossDeviceTicketId,
   }) async {
-    if (userIdentifier.isEmpty) {
-      throw ArgumentError('User identifier cannot be empty');
+    // Validate required parameter
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
     }
 
-    if (useMock) {
-      return _mockResponse();
-    }
+    final url =
+        '$baseUrl/v1/auth/webauthn/cross-device/status'
+        '?cross_device_ticket_id=$crossDeviceTicketId';
 
-    final queryParams = {
-      'userIdentifier': userIdentifier,
-      if (sessionId != null) 'sessionId': sessionId,
+    // Configure request headers
+    final headers = {
+      'Authorization': 'Bearer $apiKey',
+      'Content-Type': 'application/json',
     };
 
-    final url = '$endpoint?${Uri(queryParameters: queryParams).query}';
+    // Execute API request
+    final response = await http.get(Uri.parse(url), headers: headers);
 
-    try {
-      final response = await apiClient.get(endpoint: url);
-      return jsonDecode(response.body) as Map<String, dynamic>;
-    } catch (e) {
-      throw ApiException('Failed to retrieve cross-device status: $e');
+    // Handle response
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 400) {
+      throw Exception("Invalid crossDeviceTicketId provided.");
+    } else if (response.statusCode == 404) {
+      throw Exception("Cross-device operation not found.");
+    } else {
+      throw Exception(
+        "Failed to get cross-device status [${response.statusCode}]: ${response.body}",
+      );
     }
   }
 
-  /// Returns a mock response for testing without making an actual API call.
+  /// Mock implementation for testing status checks.
   ///
-  /// This method simulates the response for an ongoing WebAuthn cross-device authentication process.
+  /// Simulates status responses with:
+  /// - Input validation identical to real implementation
+  /// - No network calls
+  /// - Realistic mock data including timestamps
   ///
-  /// Example response:
-  /// ```json
-  /// {
-  ///   "sessionId": "mock-session-id",
-  ///   "status": "pending",
-  ///   "expiresIn": 300,
-  ///   "message": "Waiting for user authentication"
-  /// }
-  /// ```
-  Map<String, dynamic> _mockResponse() {
+  /// [crossDeviceTicketId]: The mock ticket identifier (must not be empty)
+  ///
+  /// Returns [Future<Map<String, dynamic>>] with mock status data:
+  /// - status: Always returns 'pending' for mock
+  /// - cross_device_ticket_id: Echo of provided ID
+  /// - expires_in: Fixed 30 second expiration
+  /// - last_updated: Current timestamp
+  Future<Map<String, dynamic>> mockGetStatus({
+    required String crossDeviceTicketId,
+  }) async {
+    if (crossDeviceTicketId.isEmpty) {
+      throw ArgumentError("crossDeviceTicketId must not be empty.");
+    }
+
     return {
-      'sessionId': 'mock-session-id',
       'status': 'pending',
-      'expiresIn': 300,
-      'message': 'Waiting for user authentication',
+      'cross_device_ticket_id': crossDeviceTicketId,
+      'expires_in': 30000,
+      'last_updated': DateTime.now().toIso8601String(),
+      'mock_data': true, // Explicit flag indicating mock response
     };
   }
 }

@@ -4,25 +4,29 @@ import 'package:ds_standard_features/ds_standard_features.dart' as http;
 /// A service for handling access token refresh operations with the Transmit Security API.
 ///
 /// This class provides functionality to refresh expired access tokens using a valid refresh token.
+/// It supports both real API calls and a mock implementation for testing.
 class AortemTransmitTokenRefresh {
   /// The API key used for authentication with the Transmit Security API.
   final String apiKey;
 
   /// The base URL of the Transmit Security API.
-  ///
-  /// Defaults to `'https://api.transmitsecurity.com'`.
   final String baseUrl;
+
+  /// The HTTP client used for making requests (dependency injection supported).
+  final http.Client httpClient;
 
   /// Creates an instance of [AortemTransmitTokenRefresh].
   ///
   /// - Requires a non-empty [apiKey] for authentication.
   /// - Optionally accepts a custom [baseUrl] for API calls.
+  /// - Optionally accepts a custom [httpClient] for testing.
   ///
   /// Throws an [ArgumentError] if [apiKey] is empty.
   AortemTransmitTokenRefresh({
     required this.apiKey,
     this.baseUrl = 'https://api.transmitsecurity.com',
-  }) {
+    http.Client? httpClient,
+  }) : httpClient = httpClient ?? http.Client() {
     if (apiKey.isEmpty) {
       throw ArgumentError('API key cannot be empty.');
     }
@@ -30,70 +34,65 @@ class AortemTransmitTokenRefresh {
 
   /// Refreshes the access token using the provided [refreshToken].
   ///
-  /// This method sends a request to the Transmit API to generate a new access token
+  /// Sends a request to the Transmit API to generate a new access token
   /// using a valid refresh token.
   ///
-  /// Returns a `Map<String, dynamic>` containing:
-  /// - `accessToken`: The new access token.
-  /// - `refreshToken`: A new refresh token (if provided by the API).
-  /// - `expiresIn`: The validity period of the access token in seconds.
-  /// - `issuedAt`: The timestamp when the token was issued.
+  /// Returns a [Map] containing:
+  /// - `access_token`: The new access token
+  /// - `refresh_token`: A new refresh token (if provided by the API)
+  /// - `expires_in`: Token validity period in seconds
+  /// - `issued_at`: The timestamp when the token was issued
   ///
-  /// Throws:
-  /// - [ArgumentError] if [refreshToken] is empty.
-  /// - [Exception] if the API request fails.
+  /// Throws [ArgumentError] if [refreshToken] is empty.
+  /// Throws [Exception] if the API request fails.
   Future<Map<String, dynamic>> refreshToken(String refreshToken) async {
     if (refreshToken.isEmpty) {
       throw ArgumentError('Refresh token cannot be empty.');
     }
 
     final url = Uri.parse('$baseUrl/token/refresh');
-    final body = {'refreshToken': refreshToken};
+    final body = json.encode({'refreshToken': refreshToken});
 
-    final response = await http.post(
+    final response = await httpClient.post(
       url,
       headers: {
         'Authorization': 'Bearer $apiKey',
         'Content-Type': 'application/json',
       },
-      body: json.encode(body),
+      body: body,
     );
 
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     } else {
       throw Exception(
-        'Token refresh failed: ${response.statusCode} ${response.body}',
+        'Token refresh failed (Status: ${response.statusCode}) - ${response.body}',
       );
     }
   }
 
-  /// Simulates the token refresh process without making an actual API call.
+  /// Mock implementation for token refresh (for testing without API calls).
   ///
-  /// This method is useful for testing purposes and returns a dummy response
-  /// representing a refreshed access token.
-  ///
-  /// Returns a `Map<String, dynamic>` with:
-  /// - `accessToken`: A placeholder new access token.
-  /// - `refreshToken`: A placeholder new refresh token.
-  /// - `expiresIn`: Token expiration time in seconds (e.g., `3600` for 1 hour).
-  /// - `issuedAt`: The timestamp when the new token was issued.
-  ///
-  /// Throws an [ArgumentError] if [refreshToken] is empty.
+  /// Returns a simulated response with:
+  /// - `access_token`
+  /// - `refresh_token`
+  /// - `expires_in`
+  /// - `issued_at`
   Future<Map<String, dynamic>> refreshTokenStub(String refreshToken) async {
     if (refreshToken.isEmpty) {
       throw ArgumentError('Refresh token cannot be empty.');
     }
 
-    // Simulate network latency.
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 150));
 
-    // Return dummy token refresh data.
     return {
-      'accessToken': 'dummy-new-access-token',
-      'refreshToken': 'dummy-new-refresh-token',
-      'expiresIn': 3600, // e.g., 1 hour in seconds.
-      'issuedAt': DateTime.now().toIso8601String(),
+      'access_token':
+          'mock_access_token_${DateTime.now().millisecondsSinceEpoch}',
+      'refresh_token':
+          'mock_refresh_token_${DateTime.now().millisecondsSinceEpoch}',
+      'token_type': 'Bearer',
+      'expires_in': 3600,
+      'issued_at': DateTime.now().toIso8601String(),
     };
   }
 }

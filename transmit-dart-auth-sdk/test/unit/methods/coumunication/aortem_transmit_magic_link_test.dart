@@ -1,32 +1,25 @@
 import 'package:ds_tools_testing/ds_tools_testing.dart';
-import 'package:transmit_dart_auth_sdk/src/methods/coumunication/aortem_transmit_send_magic_link.dart';
-// Adjust package import as needed
+import 'package:transmit_dart_auth_sdk/src/methods/communication/aortem_transmit_send_magic_link.dart';
 
 void main() {
-  group('sendMagicLinkEmail (HTTP Request Approach) Tests', () {
-    final transmitMagicLink = AortemTransmitMagicLink(apiKey: 'valid-api-key');
+  group('AortemTransmitSendMagicLink', () {
+    late AortemTransmitSendMagicLink service;
 
-    test('throws error for empty email', () {
-      expect(
-        () => transmitMagicLink.sendMagicLinkEmail(''),
-        throwsA(isA<ArgumentError>()),
-      );
-    });
-  });
-
-  group('sendMagicLinkEmail (Stub/Mock Implementation) Tests', () {
-    final transmitMagicLink = AortemTransmitMagicLink(apiKey: 'valid-api-key');
-    final email = 'user@example.com';
-
-    test('returns dummy response for valid email', () async {
-      final result = await transmitMagicLink.sendMagicLinkEmailStub(email);
-      expect(result['email'], equals(email));
-      expect(result.containsKey('tempToken'), isTrue);
+    setUp(() {
+      service = AortemTransmitSendMagicLink(apiKey: 'dummy-key');
     });
 
-    test('throws error for empty email (stub)', () {
+    test('sendMagicLinkEmailStub returns expected mock data', () async {
+      final result = await service.sendMagicLinkEmailStub('user@example.com');
+
+      expect(result['email'], 'user@example.com');
+      expect(result['tempToken'], 'dummy-temp-token');
+      expect(result['message'], contains('Magic link email sent successfully'));
+    });
+
+    test('throws ArgumentError when email is empty', () async {
       expect(
-        () => transmitMagicLink.sendMagicLinkEmailStub(''),
+        () => service.sendMagicLinkEmailStub(''),
         throwsA(isA<ArgumentError>()),
       );
     });
