@@ -6,6 +6,11 @@
   - Added `transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/pubspec.yaml`.
   - Added entrypoint: `transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/lib/main.dart`.
 
+### ⚠️ Breaking Changes
+- **Namespace Update**
+  - Removed `aortem` prefix from package name and paths for a cleaner public release.  
+    ⚠️ Consumers using prior versions must update import paths and dependencies accordingly.
+
 ## 0.0.1
 
 ### Added
