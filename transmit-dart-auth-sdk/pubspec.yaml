@@ -5,7 +5,7 @@ repository: https://github.com/aortem/transmit-dart-auth-sdk
 license: BSD-3
 
 environment:
-  sdk: ^3.8.2
+  sdk: ^3.8.3
 
 # Add regular dependencies here.
 
