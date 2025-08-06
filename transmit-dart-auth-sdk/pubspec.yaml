@@ -13,15 +13,14 @@ dependencies:
 #------------------ STANDARD FEATURES---------------------------------
 ## There are three standard libraries.  Each one can be used with a different xxx 
 
-  ds_standard_features: ^0.0.4 #Standard Dart Team Utilities For HTTP //Default
-  build_web_compilers: ^4.0.11
-  jwt_generator: ^0.0.3
+  ds_standard_features: ^0.0.8 #Standard Dart Team Utilities For HTTP //Default
+  jwt_generator: ^0.0.4
 
 
 #------------------ TESTING FEATURES---------------------------------
 
 dev_dependencies:
-  ds_tools_testing: ^0.0.4 #Standard Dart Team Testing Tools
+  ds_tools_testing: ^0.0.6 #Standard Dart Team Testing Tools
   git_hooks: any
 
 # Optional Local Hooks for development.
