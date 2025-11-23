@@ -1,94 +1,65 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aortem/logos/main/Aortem-logo-small.png" />
-    <img align="center" alt="Aortem Logo" src="https://raw.githubusercontent.com/aortem/logos/main/Aortem-logo-small.png" />
-  </picture>
-</p>
+# Transmit Dart Auth SDK
 
-<h2 align="center">Transmit_dart_auth_sdk</h2>
+## Overview
 
-<!-- x-hide-in-docs-end -->
-<p align="center" class="github-badges">
-  <!-- Release Badge -->
-  <a href="https://github.com/aortem/Transmit_dart_auth_sdk/tags">
-    <img alt="Github Tag" src="https://img.shields.io/github/v/tag/aortem/transmit-dart-auth-sdk?style=for-the-badge" />
-  </a>
-  <br/>
-  <!-- Dart-Specific Badges -->
-  <a href="https://pub.dev/packages/Transmit_dart_auth_sdk">
-    <img alt="Pub Version" src="https://img.shields.io/pub/v/transmit_dart_auth_sdk.svg?style=for-the-badge" />
-  </a>
-  <a href="https://dart.dev/">
-    <img alt="Built with Dart" src="https://img.shields.io/badge/Built%20with-Dart-blue.svg?style=for-the-badge" />
-  </a>
-  <br/>
-</p>
-<!-- x-hide-in-docs-start -->
+The **Transmit Dart Auth SDK** provides seamless authentication and token management for Transmit’s API services in both server-side Dart applications and Flutter clients. With this SDK, you can:
 
-## **Feature Comparison Chart**
+- Authenticate via API key, OAuth 2.0 (authorization code & client credentials), and JWT bearer flows  
+- Cache, refresh, and revoke access tokens automatically  
+- Store tokens securely with a pluggable storage interface  
+- Attach auth headers to `http` requests with minimal boilerplate  
+- Perform admin operations (service account creation, key rotation) via Transmit’s Management API  
 
-Coming Soon.
-## Available Versions
+Whether you’re building a backend service in Dart or a cross-platform Flutter app, this SDK handles the heavy lifting of Transmit authentication.
 
-Transmit Dart Auth SDK is available in two versions to cater to different needs:
+## Features
 
-1. **Main - Stable Version**: Usually one release a month.  This version attempts to keep stability without introducing breaking changes.
-2. **Sample Apps - FrontEnd Version**: The sample apps are provided in various frontend languages in order to allow maximum flexibility with your frontend implementation with the Dart backend.  Note that new features are first tested in the sample apps before being released in the mainline branch. Use only as a guide for your frontend/backend implementation of Dart.
+- **Multiple Auth Flows**  
+  - API Key header injection  
+  - OAuth 2.0: Authorization Code (PKCE) & Client Credentials  
+  - JWT Bearer for server-to-server interactions  
 
-## Documentation
+- **Token Lifecycle Management**  
+  - Automatic caching & expiry checks  
+  - Silent refresh before token expiration  
+  - Manual revoke and logout helpers  
 
-For detailed guides, API references, and example projects, visit our [Transmit Dart Auth SDK Documentation](https://sdks.aortem.io/transmit-dart-auth-sdk). Start building with  Transmit Dart Auth SDK today and take advantage of its robust features and elegant syntax.
+- **Secure Token Storage**  
+  - Built-in `FileTokenStorage` and `MemoryTokenStorage`  
+  - Pluggable `TokenStorage` interface for custom backends (e.g., keychain, database)  
 
-## Examples
+- **Request Interceptor**  
+  - `AuthHttpClient` wraps `http.Client` and adds `Authorization` headers automatically  
 
-Explore the `/example` directory in this repository to find sample applications demonstrating Transmit Dart Auth SDK's capabilities in real-world scenarios.
+- **Admin API Helpers**  
+  - Create, list, and rotate service account API keys  
+  - Fetch user and service account details  
 
-## Contributing
+- **Platform Support**  
+  - Dart VM (server)  
+  - Flutter Mobile (iOS/Android)  
+  - Flutter Web  
 
-We welcome contributions of all forms from the community! If you're interested in helping improve  Transmit Dart Auth SDK, please fork the repository and submit your pull requests. For more details, check out our [CONTRIBUTING.md](CONTRIBUTING.md) guide.  Our team will review your pull request. Once approved, we will integrate your changes into our primary repository and push the mirrored changes on the main github branch.
+## Getting Started
 
-## Support Tiers
+### 1. Prerequisites
 
-Transmit Dart Auth SDK offers various support tiers for our open-source products with an Initial Response Service Level Agreement (IRSLA):
+- Dart SDK ≥ 2.14.0 or Flutter SDK ≥ 3.0  
+- A Transmit API project with client credentials (Client ID & Client Secret) or an API key  
 
-### Community Support
-- **Cost**: Free
-- **Features**: Access to community forums, basic documentation.
-- **Ideal for**: Individual developers or small startups.
-- **SLA**: NA
+### 2. Configure Your Transmit App
 
-### Standard Support
-- **Cost**: $10/month - Billed Annually.
-- **Features**: Extended documentation.
-- **Ideal for**: Growing startups and small businesses.
-- **SLA**: 10 business days (Monday-Friday) IRSLANA
-- [Subscribe](https://aortem.io/support/)
+- In the Transmit Developer Portal, register your application  
+- Note your **Client ID**, **Client Secret**, and **OAuth Redirect URI**  
+- Generate an **API Key** if you plan to use the API Key flow  
 
-### Enhanced Support
-- **Cost**: $100/month - Billed Annually
-- **Features**: Access to roadmap, 72-hour response SLA, access to feature request.
-- **Ideal for**: Medium-sized enterprises requiring frequent support.
-- **SLA**: 5 business days IRSLA
-- [Subscribe](https://aortem.io/support/)
+## Installation
 
-### Enterprise Support
-- **Cost**: 450/month
-- **Features**: 
-  - 48-hour response SLA, 
-  - Priority feature request:
-  - Comprehensive support for all Aortem Open Source products.
-  - Early access to beta programs.
-- **Ideal for**: Large organizations and enterprises with complex needs.
-- **SLA**: 48-hour IRSLA
-- [Subscribe](https://aortem.io/support/)
+Add the SDK to your project:
 
-*Enterprise Support is designed for businesses, agencies, and partners seeking top-tier support across a wide range of Dart backend and server-side projects.  All Open Source projects that are part of the Aortem Collective are included in the Enterprise subscription, with more projects being added soon.
+```bash
+# Dart:
+dart pub add transmit_dart_auth_sdk
 
-## Licensing
-
-All  Transmit Dart Auth SDK packages are licensed under BSD-3, except for the *services packages*, which uses the ELv2 license, which are licensed from third party software  Inc. In short, this means that you can, without limitation, use any of the client packages in your app as long as you do not offer the SDK's or services as a cloud service to 3rd parties (this is typically only relevant for cloud service providers).  See the [LICENSE](LICENSE.md) file for more details.
-
-
-## Enhance with Transmit Dart Auth SDK
-
-We hope the Transmit Dart Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!  test
+# Flutter:
+flutter pub add transmit_dart_auth_sdk
