@@ -8,7 +8,7 @@
 <!-- x-hide-in-docs-end -->
 <p align="center" class="github-badges">
   <!-- GitHub Tag Badge -->
-  <a href="https://github.com/aortem/Transmit-dart-auth-sdk/tags">
+  <a href="https://github.com/aortem/transmit-dart-auth-sdk/tags">
     <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/aortem/transmit-dart-auth-sdk?style=for-the-badge" />
   </a>
   <!-- Dart-Specific Badges -->
@@ -71,11 +71,12 @@ This implementation does not yet support all functionalities of the Transmit aut
 | 40 | Implement Get User Sessions Method                         | ✅        |
 | 41 | Implement Revoke User Sessions Method                      | ✅        |
 
-## Available Versions
+## Available Versions / Sample Apps
 
-Transmit Dart Auth SDK is available in two versions to cater to different needs:
+Transmit-Dart-Auth-SDK is available in a single version with sample apps:
 
 1. **Main - Stable Version**: Usually one release a month.  This version attempts to keep stability without introducing breaking changes.
+
 2. **Sample Apps - FrontEnd Version**: The sample apps are provided in various frontend languages in order to allow maximum flexibility with your frontend implementation with the Dart backend.  Note that new features are first tested in the sample apps before being released in the mainline branch. Use only as a guide for your frontend/backend implementation of Dart.
 
 ## Documentation
@@ -116,4 +117,4 @@ The **Transmit Dart Auth SDK** is licensed under a dual-license approach:
 
 ## Enhance with Transmit Dart Auth SDK
 
-We hope the Transmit Dart Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!  test
+We hope the Transmit Dart Auth SDK helps you to efficiently build and scale your server-side applications. Join our growing community and start contributing to the ecosystem today!
