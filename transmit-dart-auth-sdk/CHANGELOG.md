@@ -1,3 +1,8 @@
+## 0.0.3
+
+### Updated
+- **Bump Dart SDK Version**
+
 ## 0.0.2
 
 ### Added
