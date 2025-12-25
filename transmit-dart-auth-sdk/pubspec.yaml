@@ -5,7 +5,7 @@ repository: https://github.com/aortem/transmit-dart-auth-sdk
 license: BSD-3
 
 environment:
-  sdk: ^3.8.3
+  sdk: ^3.10.7
 
 # Add regular dependencies here.
 
@@ -13,14 +13,14 @@ dependencies:
 #------------------ STANDARD FEATURES---------------------------------
 ## There are three standard libraries.  Each one can be used with a different xxx 
 
-  ds_standard_features: ^0.0.8 #Standard Dart Team Utilities For HTTP //Default
-  jwt_generator: ^0.0.4
+  ds_standard_features: ^0.1.2
+  jwt_generator: ^0.0.6
 
 
 #------------------ TESTING FEATURES---------------------------------
 
 dev_dependencies:
-  ds_tools_testing: ^0.0.6 #Standard Dart Team Testing Tools
+  ds_tools_testing: ^0.1.1 
   git_hooks: any
 
 # Optional Local Hooks for development.
