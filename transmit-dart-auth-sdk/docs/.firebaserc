@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "aortem-prod"
+  },
+  "targets": {
+    "aortem-prod": {
+      "hosting": {
+        "transmit-dart-auth-sdk-docs": [
+          "transmit-dart-auth-sdk-docs"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+site:
+  title: Transmit Dart Auth SDK Docs
+  start_page: transmit-dart-auth-sdk::index.adoc
+  url: https://transmit-dart-auth-sdk-docs.web.app/
+
+content:
+  sources:
+    - url: ..
+      branches: HEAD
+      start_path: transmit-dart-auth-sdk/docs/components/transmit-dart-auth-sdk
+
+ui:
+  bundle:
+    url: ./ui/antora-ui-custom/ui-bundle
+    snapshot: true

@@ -1,0 +1,25 @@
+﻿= Package Overview
+:page-layout: default
+
+Transmit Dart Auth SDK is published as transmit_dart_auth_sdk at version v0.0.2.
+
+== Source of Truth
+
+* Pubspec: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/pubspec.yaml
+* README: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/README.md
+* Changelog: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/CHANGELOG.md
+
+== Directory Layout
+
+* Repository root: apps/sdks/transmit-dart-auth-sdk
+* Package root: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk
+* Documentation: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/docs
+* Library sources: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/lib
+* Examples: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/example
+* Tests: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/test
+* Local dev tools: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/local_dev_tools
+
+== Primary Source Areas
+
+* Public entrypoint: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/lib/transmit_dart_auth_sdk.dart
+* apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/lib/src
