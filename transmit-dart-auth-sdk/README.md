@@ -44,7 +44,11 @@ Whether you’re building a backend service in Dart or a cross-platform Flutter 
 
 ### 1. Prerequisites
 
+<<<<<<< HEAD
 - Dart SDK ≥ 2.14.0 or Flutter SDK ≥ 3.0  
+=======
+- Dart SDK ≥ 3.9.0 or Flutter SDK ≥ 3.0  
+>>>>>>> development
 - A Transmit API project with client credentials (Client ID & Client Secret) or an API key  
 
 ### 2. Configure Your Transmit App
