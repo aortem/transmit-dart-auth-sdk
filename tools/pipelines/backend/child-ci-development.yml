@@ -69,7 +69,7 @@ analyze_example:
     - when: always
   script:
     - echo "Starting analysis for the example project..."
-    - cd transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-sample-app
+    - cd transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app
     - pwd
     - echo "Listing contents of the current directory..."
     - ls -la
@@ -118,7 +118,7 @@ analyze_example:
     - analyze_main
   artifacts:
     paths:
-      - transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-sample-app/analysis_report.txt
-      - transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-sample-app/error_log.txt
-      - transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-sample-app/filtered_report.txt
+      - transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/analysis_report.txt
+      - transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/error_log.txt
+      - transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/filtered_report.txt
     expire_in: 1h

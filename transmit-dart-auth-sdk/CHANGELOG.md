@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.0.4]
+### Added
+- **Public Entry Points**
+  - Added the clearer `TransmitAuth` and `TransmitClient` aliases for `TransmitSDK`.
+
+### Updated
+- **Dependencies**
+  - Updated direct package constraints to the latest supported releases on pub.dev, including `ds_standard_features` and `jwt_generator`.
+- **Documentation**
+  - Reworked the README and example index to reflect the current backend-first package positioning and maintained sample app paths.
+- **CI Validation**
+  - Aligned development and setup-validation pipelines with the Dart `3.11.4` baseline and the current example layout.
+
 ## [0.0.3]
 ### Updated
 - **Bump Dart SDK Version**

@@ -1,7 +1,7 @@
 ﻿= Package Overview
 :page-layout: default
 
-Transmit Dart Auth SDK is published as transmit_dart_auth_sdk at version v0.0.2.
+Transmit Dart Auth SDK is published as transmit_dart_auth_sdk at version v0.0.4.
 
 == Source of Truth
 

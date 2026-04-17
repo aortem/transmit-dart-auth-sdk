@@ -11,6 +11,21 @@ This page summarizes the stable package release history for Transmit Dart Auth S
 * Pubspec: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/pubspec.yaml
 * Changelog: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/CHANGELOG.md
 
+== v0.0.4
+
+=== Overview
+This release prepares the Transmit package for the next stable publish by tightening the public API surface, refreshing direct dependency constraints, and aligning docs and CI with the current repo layout.
+
+=== Highlights
+* Added clearer `TransmitAuth` and `TransmitClient` entrypoints
+* Refreshed direct dependency constraints
+* Updated docs and CI for the current package structure
+
+=== Improvements
+* Added client-oriented aliases alongside `TransmitSDK` for clearer consumer usage.
+* Updated the README and examples index to match the current backend and example guidance.
+* Aligned setup-validation and development CI with the Dart `3.11.4` baseline.
+
 == v0.0.3
 
 === Overview

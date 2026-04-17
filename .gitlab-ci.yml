@@ -34,7 +34,7 @@ debug_merge_request:
     - echo "CI_PIPELINE_SOURCE is $CI_PIPELINE_SOURCE"
   rules:
     - changes:
-        - transmit-dart-auth-sdk/backend/**/*
+        - transmit-dart-auth-sdk/**/*
         - transmit-dart-auth-sdk/docs/**/*
         - transmit-dart-auth-sdk/example/**/*
         - tools/**/*
@@ -42,6 +42,13 @@ debug_merge_request:
         - "**/*"
       when: always
     - when: never
+
+validation_trigger:
+  stage: validation
+  trigger:
+    include: tools/pipelines/backend/child-ci-setup-validation.yml
+  rules:
+    - when: always
 
 # Validation Conditional Triggers for Docs
 validation_trigger_docs:

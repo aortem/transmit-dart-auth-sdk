@@ -1,3 +1,6 @@
+export 'src/transmit_sdk.dart';
+export 'transmit_auth.dart';
+
 // Core functionality exports
 export 'src/core/transmit_errors.dart';
 export 'src/core/transmit_sdk_initializer.dart';
