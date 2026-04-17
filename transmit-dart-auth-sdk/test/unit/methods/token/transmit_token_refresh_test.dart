@@ -11,10 +11,10 @@ void main() {
 
       final result = await service.refreshTokenStub('dummy-refresh-token');
 
-      expect(result['accessToken'], isNotEmpty);
-      expect(result['refreshToken'], isNotEmpty);
-      expect(result['expiresIn'], equals(3600));
-      expect(result.containsKey('issuedAt'), isTrue);
+      expect(result['access_token'], isNotEmpty);
+      expect(result['refresh_token'], isNotEmpty);
+      expect(result['expires_in'], equals(3600));
+      expect(result.containsKey('issued_at'), isTrue);
     });
 
     test('refreshTokenStub throws ArgumentError for empty token', () async {

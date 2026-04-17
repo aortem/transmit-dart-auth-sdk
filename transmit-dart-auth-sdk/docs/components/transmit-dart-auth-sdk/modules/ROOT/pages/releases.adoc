@@ -1,21 +1,87 @@
-﻿= Releases
+= Releases
 :navtitle: Releases
-:description: Release tracking for Transmit Dart Auth SDK.
+:description: Release highlights and package history for Transmit Dart Auth SDK.
 :sectnums:
 
-This page tracks the current public package version documented for Transmit Dart Auth SDK.
+This page summarizes the stable package release history for Transmit Dart Auth SDK and keeps the public docs aligned with the published SDK versions.
 '''
-
-== v0.0.2
-
-=== Overview
-The current public package version for transmit_dart_auth_sdk is v0.0.2.
 
 === Release Sources
 
 * Pubspec: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/pubspec.yaml
 * Changelog: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/CHANGELOG.md
 
+== v0.0.4
+
+=== Overview
+This release prepares the Transmit package for the next stable publish by tightening the public API surface, refreshing direct dependency constraints, and aligning docs and CI with the current repo layout.
+
+=== Highlights
+* Added clearer `TransmitAuth` and `TransmitClient` entrypoints
+* Refreshed direct dependency constraints
+* Updated docs and CI for the current package structure
+
+=== Improvements
+* Added client-oriented aliases alongside `TransmitSDK` for clearer consumer usage.
+* Updated the README and examples index to match the current backend and example guidance.
+* Aligned setup-validation and development CI with the Dart `3.11.4` baseline.
+
+== v0.0.3
+
+=== Overview
+This release aligns the package with a newer Dart SDK baseline.
+
+=== Highlights
+* Dart SDK bumped for the current stable release line
+
+=== Improvements
+* Updated the package to the newer Dart SDK baseline reflected in `pubspec.yaml`.
+
+== v0.0.2
+
+=== Overview
+This release expands the example app footprint and publishes the cleaned public namespace for the Transmit SDK.
+
+=== Highlights
+* Added Flutter mobile example app package files
+* Removed the older `aortem` namespace from the public package surface
+
+=== Improvements
+* Added the mobile example app `pubspec` and entrypoint files.
+* Cleaned the public package naming and import paths for the stable release line.
+
 === Notes
-* Keep this page aligned with the version declared in pubspec.yaml.
-* Detailed release history and change notes remain in CHANGELOG.md until fuller curated release notes are added here.
+* This release includes breaking namespace changes for consumers using older import paths.
+
+== v0.0.1
+
+=== Overview
+This release establishes the first stable package version with the initial auth, token, MFA, tooling, and CI foundations.
+
+=== Highlights
+* First stable package release
+* Added initial auth and token-management modules
+* Added local dev tools, tests, and CI wiring
+
+=== Improvements
+* Added the CLI entrypoint, unit tests, integration tests, and authentication modules.
+* Reorganized example app paths and CI/CD child pipeline locations.
+* Updated project metadata, dependencies, hooks, and validation rules.
+
+=== Removed
+* Removed deprecated example files and obsolete workflow definitions.
+
+== Pre-release History
+
+=== Overview
+Earlier pre-stable package builds are part of the SDK history and remain documented in the changelog.
+
+=== Included Pre-release Tags
+* `0.0.1-pre+4`
+* `0.0.1-pre+3`
+* `0.0.1-pre+2`
+* `0.0.1-pre+1`
+
+=== Notes
+* Keep this page aligned with the version declared in `pubspec.yaml`.
+* Use `CHANGELOG.md` as the source of truth for exhaustive historical change notes.

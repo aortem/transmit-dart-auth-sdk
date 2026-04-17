@@ -1,69 +1,95 @@
 # Transmit Dart Auth SDK
 
-## Overview
+Backend and trusted-client authentication SDK for Transmit Security in Dart.
 
-The **Transmit Dart Auth SDK** provides seamless authentication and token management for Transmit’s API services in both server-side Dart applications and Flutter clients. With this SDK, you can:
-
-- Authenticate via API key, OAuth 2.0 (authorization code & client credentials), and JWT bearer flows  
-- Cache, refresh, and revoke access tokens automatically  
-- Store tokens securely with a pluggable storage interface  
-- Attach auth headers to `http` requests with minimal boilerplate  
-- Perform admin operations (service account creation, key rotation) via Transmit’s Management API  
-
-Whether you’re building a backend service in Dart or a cross-platform Flutter app, this SDK handles the heavy lifting of Transmit authentication.
-
-## Features
-
-- **Multiple Auth Flows**  
-  - API Key header injection  
-  - OAuth 2.0: Authorization Code (PKCE) & Client Credentials  
-  - JWT Bearer for server-to-server interactions  
-
-- **Token Lifecycle Management**  
-  - Automatic caching & expiry checks  
-  - Silent refresh before token expiration  
-  - Manual revoke and logout helpers  
-
-- **Secure Token Storage**  
-  - Built-in `FileTokenStorage` and `MemoryTokenStorage`  
-  - Pluggable `TokenStorage` interface for custom backends (e.g., keychain, database)  
-
-- **Request Interceptor**  
-  - `AuthHttpClient` wraps `http.Client` and adds `Authorization` headers automatically  
-
-- **Admin API Helpers**  
-  - Create, list, and rotate service account API keys  
-  - Fetch user and service account details  
-
-- **Platform Support**  
-  - Dart VM (server)  
-  - Flutter Mobile (iOS/Android)  
-  - Flutter Web  
-
-## Getting Started
-
-### 1. Prerequisites
-
-<<<<<<< HEAD
-- Dart SDK ≥ 2.14.0 or Flutter SDK ≥ 3.0  
-=======
-- Dart SDK ≥ 3.9.0 or Flutter SDK ≥ 3.0  
->>>>>>> development
-- A Transmit API project with client credentials (Client ID & Client Secret) or an API key  
-
-### 2. Configure Your Transmit App
-
-- In the Transmit Developer Portal, register your application  
-- Note your **Client ID**, **Client Secret**, and **OAuth Redirect URI**  
-- Generate an **API Key** if you plan to use the API Key flow  
+This package exposes a central `TransmitSDK` plus the clearer public aliases `TransmitAuth` and `TransmitClient`. Services are available as properties such as `sendMagicLink`, `authenticatePassword`, `tokenRefresh`, `getUserSessions`, and the WebAuthn helpers.
 
 ## Installation
 
-Add the SDK to your project:
+```yaml
+dependencies:
+  transmit_dart_auth_sdk: ^0.0.4
+```
 
-```bash
-# Dart:
-dart pub add transmit_dart_auth_sdk
+## Recommended Initialization Model
 
-# Flutter:
-flutter pub add transmit_dart_auth_sdk
+Use one of these paths:
+
+1. `TransmitAuth.withApiKey(...)`
+   Preferred for direct API-key-backed integrations.
+2. `TransmitClient.withApiKey(...)`
+   Same behavior with a client-oriented entrypoint name.
+3. `TransmitSDK.fromConfig(...)`
+   Use when you already manage a `TransmitAuthConfig`.
+
+## Preferred Backend Initialization
+
+```dart
+import 'package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart';
+
+Future<void> main() async {
+  final transmit = TransmitAuth.withApiKey(
+    apiKey: 'your-api-key',
+    serviceId: 'your-service-id',
+  );
+
+  final magicLink = await transmit.sendMagicLink.sendMagicLinkEmail(
+    'alice@example.com',
+  );
+
+  final tokens = await transmit.authenticatePassword.authenticatePassword(
+    username: 'alice@example.com',
+    password: 'SuperSecret123!',
+    usernameType: 'email',
+  );
+
+  print(magicLink['message']);
+  print(tokens['access_token']);
+}
+```
+
+## Common Operations
+
+### Magic-link authentication
+
+```dart
+final result = await transmit.sendMagicLink.sendMagicLinkEmail(
+  'alice@example.com',
+);
+
+print(result['message']);
+```
+
+### Password authentication
+
+```dart
+final tokens = await transmit.authenticatePassword.authenticatePassword(
+  username: 'alice@example.com',
+  password: 'SuperSecret123!',
+  usernameType: 'email',
+);
+
+print(tokens['session_id']);
+```
+
+## Service Layout
+
+The main SDK instance exposes grouped services for:
+
+- magic link and OTP flows
+- password, TOTP, biometric, and WebAuthn authentication
+- session inspection and revocation
+- token refresh, reset, revoke, and journey-token flows
+
+You can also import the exported service classes directly if you only need one flow.
+
+## Security Guidance
+
+- Keep Transmit API keys in backend or other trusted environments.
+- Rotate service keys and scope them to the flows you actually use.
+- Do not embed privileged service credentials in public browser or mobile apps.
+- Treat returned tokens and session identifiers as sensitive credentials.
+
+## Examples
+
+See the `example/` directory for current frontend sample apps and integration references.

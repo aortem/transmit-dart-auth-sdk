@@ -1,5 +1,5 @@
-﻿name: transmit-dart-auth-sdk
+name: transmit-dart-auth-sdk
 title: Transmit Dart Auth SDK
-version: v0.0.2
+version: v0.0.4
 nav:
 - modules/ROOT/nav.adoc

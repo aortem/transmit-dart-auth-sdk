@@ -6,7 +6,7 @@ This page maps the public package entrypoint to the current source tree.
 == Package API
 
 * Package: transmit_dart_auth_sdk
-* Version: v0.0.2
+* Version: v0.0.4
 * Package root: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk
 * Import path: package:transmit_dart_auth_sdk/transmit_dart_auth_sdk.dart
 * Entrypoint file: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/lib/transmit_dart_auth_sdk.dart

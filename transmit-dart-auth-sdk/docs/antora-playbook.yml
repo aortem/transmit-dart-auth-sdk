@@ -5,7 +5,7 @@ site:
 
 content:
   sources:
-    - url: ..
+    - url: ../..
       branches: HEAD
       start_path: transmit-dart-auth-sdk/docs/components/transmit-dart-auth-sdk
 
