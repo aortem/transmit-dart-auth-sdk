@@ -135,6 +135,12 @@ class AortemTransmitMobileBiometricsRegistration {
     required String publicKeyId,
     required String os,
   }) async {
+    if (publicKey.trim().isEmpty ||
+        publicKeyId.trim().isEmpty ||
+        os.trim().isEmpty) {
+      throw ArgumentError('publicKey, publicKeyId, and os must not be empty');
+    }
+
     await Future.delayed(
       const Duration(milliseconds: 150),
     ); // Simulate network delay
