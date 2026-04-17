@@ -1,13 +1,23 @@
-<<<<<<< HEAD
-=======
-## 0.0.3
+# Changelog
 
+## [0.0.4]
+### Added
+- **Public Entry Points**
+  - Added the clearer `TransmitAuth` and `TransmitClient` aliases for `TransmitSDK`.
+
+### Updated
+- **Dependencies**
+  - Updated direct package constraints to the latest supported releases on pub.dev, including `ds_standard_features` and `jwt_generator`.
+- **Documentation**
+  - Reworked the README and example index to reflect the current backend-first package positioning and maintained sample app paths.
+- **CI Validation**
+  - Aligned development and setup-validation pipelines with the Dart `3.11.4` baseline and the current example layout.
+
+## [0.0.3]
 ### Updated
 - **Bump Dart SDK Version**
 
->>>>>>> development
-## 0.0.2
-
+## [0.0.2]
 ### Added
 - **Example App Enhancements**
   - Added `transmit-dart-auth-sdk/example/transmit-dart-auth-sdk-flutter-mobile-app/pubspec.lock`.
@@ -19,8 +29,7 @@
   - Removed `aortem` prefix from package name and paths for a cleaner public release.  
     ⚠️ Consumers using prior versions must update import paths and dependencies accordingly.
 
-## 0.0.1
-
+## [0.0.1]
 ### Added
 - **Local Dev Tools**  
   - New scripts in `local_dev_tools/` (`validate_branch.dart`, `validate_commit_msg.dart`) to enforce branch and commit-message conventions.  
@@ -65,12 +74,10 @@
 - Update to Dart 3.9.0
 >>>>>>> development
 
-## 0.0.1-pre+4
-
+## [0.0.1-pre+4]
 - Update Readme
 
-## 0.0.1-pre+3
-
+## [0.0.1-pre+3]
 - Merge development into main, integrated feature branches, and resolved merge conflicts.
 - Update README
 - Refine folder naming conventions
@@ -81,14 +88,12 @@
 - Token management (including sending magic links)
 - Authorization/token operations.
 
-## 0.0.1-pre+2
-
+## [0.0.1-pre+2]
 - Update Readme
 - Update Pubspec
 - Cleanup Repo Code.
 
-## 0.0.1-pre+1
-
+## [0.0.1-pre+1]
 - Add SDK Setup & Initialization
 - Add Authorization Methods with Flexible Options
 - Add Search Query Functionality with Flexible Options
@@ -100,3 +105,4 @@
 - Add Send Magic Link Email Method
 - Add Authenticate Magic Link Method
 - Add Send OTP MethodInitial pre-release version of the transmit Dart Auth SDK.
+

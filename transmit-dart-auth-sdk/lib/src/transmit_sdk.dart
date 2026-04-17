@@ -391,12 +391,6 @@ class TransmitSDK {
       apiKey: apiKey,
       baseUrl: baseUrl,
     );
-    // WebAuthn hosted registration Services
-    hostedWebAuthnRegistrationHint =
-        AortemTransmitHostedWebAuthnRegistrationHint(
-          apiKey: apiKey,
-          baseUrl: _config.baseUrl,
-        );
   }
 
   /// Updates the SDK configuration with new settings.

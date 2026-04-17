@@ -21,7 +21,7 @@ toc::[]
 == Current Public Package
 
 * Package: transmit_dart_auth_sdk
-* Version: v0.0.2
+* Version: v0.0.4
 * Repository root: apps/sdks/transmit-dart-auth-sdk
 * Package root: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk
 * Docs root: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/docs
