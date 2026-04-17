@@ -50,6 +50,8 @@ validation_trigger:
   rules:
     - when: always
 
+<<<<<<< HEAD
+=======
 # Validation Conditional Triggers for Docs
 validation_trigger_docs:
   stage: validation
@@ -61,6 +63,7 @@ validation_trigger_docs:
       when: always
     - when: never
 
+>>>>>>> development
 # # Unit Test Conditional Triggers
 # unit_test_trigger:
 #   stage: unit_testing
@@ -100,4 +103,8 @@ gitlab_github_release:
     include: tools/pipelines/backend/child-ci-release.yml
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
+<<<<<<< HEAD
       when: always
+=======
+      when: always
+>>>>>>> development
