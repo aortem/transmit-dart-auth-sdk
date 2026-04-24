@@ -1,6 +1,6 @@
 name: transmit_dart_auth_sdk
 description: A Dart SDK for Transmit Authentication, enabling secure server-side authentication and user management for Dart-based backend applications.
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/aortem/transmit-dart-auth-sdk
 license: BSD-3
 
@@ -20,12 +20,9 @@ dependencies:
 #------------------ TESTING FEATURES---------------------------------
 
 dev_dependencies:
-<<<<<<< HEAD
-  ds_tools_testing: ^0.0.6 #Standard Dart Team Testing Tools
-=======
   ds_tools_testing: ^0.1.4 #Standard Dart Team Testing Tools
->>>>>>> development
   git_hooks: any
+  lints: ^6.0.0
 
 # Optional Local Hooks for development.
 git_hooks:
