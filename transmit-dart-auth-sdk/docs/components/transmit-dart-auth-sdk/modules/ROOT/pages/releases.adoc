@@ -11,6 +11,24 @@ This page summarizes the stable package release history for Transmit Dart Auth S
 * Pubspec: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/pubspec.yaml
 * Changelog: apps/sdks/transmit-dart-auth-sdk/transmit-dart-auth-sdk/CHANGELOG.md
 
+== v0.0.5
+
+=== Overview
+This release cleans up release metadata after merge-conflict resolution and aligns the test tooling baseline with the current SDK workspace.
+
+=== Highlights
+* Removed unresolved merge-conflict markers from package metadata and release notes.
+* Aligned `ds_tools_testing` with the current release used across the SDK workspace.
+* Kept the published package metadata clean for the next pub.dev release.
+
+=== Fixes
+* Cleaned package metadata that still contained merge-conflict markers.
+* Cleaned release notes that still contained merge-conflict markers.
+
+=== Improvements
+* Updated the testing dependency baseline to the current `ds_tools_testing` release.
+* Kept release documentation aligned with the `0.0.5` version declared in `pubspec.yaml`.
+
 == v0.0.4
 
 === Overview
