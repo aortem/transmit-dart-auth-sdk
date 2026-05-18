@@ -8,7 +8,7 @@ This package exposes a central `TransmitSDK` plus the clearer public aliases `Tr
 
 ```yaml
 dependencies:
-  transmit_dart_auth_sdk: ^0.0.4
+  transmit_dart_auth_sdk: ^0.0.5
 ```
 
 ## Recommended Initialization Model

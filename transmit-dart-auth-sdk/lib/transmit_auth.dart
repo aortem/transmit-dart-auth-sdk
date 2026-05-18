@@ -12,10 +12,8 @@ final class TransmitAuth extends TransmitSDK {
   }) : super.withApiKey();
 
   /// Creates a [TransmitAuth] instance from a prebuilt configuration object.
-  TransmitAuth.fromConfig({
-    required super.config,
-    super.client,
-  }) : super.fromConfig();
+  TransmitAuth.fromConfig({required super.config, super.client})
+    : super.fromConfig();
 }
 
 /// Alternative naming alias for consumers that prefer a client-oriented entry point.
@@ -29,8 +27,6 @@ final class TransmitClient extends TransmitSDK {
   }) : super.withApiKey();
 
   /// Creates a [TransmitClient] instance from a prebuilt configuration object.
-  TransmitClient.fromConfig({
-    required super.config,
-    super.client,
-  }) : super.fromConfig();
+  TransmitClient.fromConfig({required super.config, super.client})
+    : super.fromConfig();
 }
