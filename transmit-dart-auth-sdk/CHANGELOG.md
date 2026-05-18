@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.5]
+### Fixed
+- Removed unresolved merge-conflict markers from package metadata and release notes.
+- Aligned the testing dependency baseline with the current `ds_tools_testing` release used across the SDK workspace.
+
 ## [0.0.4]
 ### Added
 - **Public Entry Points**
@@ -68,11 +73,7 @@
     `example/cognito-dart-auth-sdk-sample-app/…` →  
     `example/cognito-dart-auth-sdk-flutter-mobile-app/…`.
 
-<<<<<<< HEAD
-- Update to Dart 3.8.3
-=======
 - Update to Dart 3.9.0
->>>>>>> development
 
 ## [0.0.1-pre+4]
 - Update Readme

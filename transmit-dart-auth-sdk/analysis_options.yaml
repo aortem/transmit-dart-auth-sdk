@@ -10,18 +10,28 @@
 # 'package:lints/core.yaml'. These are just the most critical lints
 # (the recommended set includes the core lints).
 # The core lints are also what is used by pub.dev for scoring packages.
-
-
-
-# Uncomment the following section to specify additional rules.
+include: package:lints/recommended.yaml
 
 linter:
   rules:
-     - public_member_api_docs
+    - public_member_api_docs
 
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+analyzer:
+  exclude:
+    - build/**
+    - doc/**
+    - docs/**
+    - example/**
+    - examples/**
+    - samples/**
+    - test/**/fixtures/**
+    - lib/**.g.dart
+    - lib/**.freezed.dart
+  errors:
+    todo: ignore
+    dead_code: ignore
+    unused_import: ignore
+    use_null_aware_elements: ignore
 
 # For more information about the core and recommended set of lints, see
 # https://dart.dev/go/core-lints

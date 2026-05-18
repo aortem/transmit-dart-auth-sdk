@@ -39,12 +39,20 @@ class AortemTransmitRegisterTOTP {
   /// The base URL for the TOTP registration API endpoint
   final String baseUrl;
 
+  /// HTTP client used to send registration requests.
+  final http.Client httpClient;
+
   /// Creates a TOTP registration service instance
   ///
   /// ## Parameters
   /// - [apiKey]: Required API key for authentication
   /// - [baseUrl]: Required base URL for the API endpoint
-  AortemTransmitRegisterTOTP({required this.apiKey, required this.baseUrl});
+  /// - [httpClient]: Optional HTTP client for testing or customization
+  AortemTransmitRegisterTOTP({
+    required this.apiKey,
+    required this.baseUrl,
+    http.Client? httpClient,
+  }) : httpClient = httpClient ?? http.Client();
 
   /// Registers a new TOTP authenticator for the current user
   ///
@@ -78,7 +86,7 @@ class AortemTransmitRegisterTOTP {
       'allow_override': allowOverride,
     };
 
-    final response = await http.post(
+    final response = await httpClient.post(
       url,
       headers: {
         'Authorization': 'Bearer $apiKey',
