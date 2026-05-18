@@ -14,6 +14,8 @@ workflow:
 # Debug Stage
 debug_merge_request:
   stage: setup
+  variables:
+    GIT_STRATEGY: none
   script:
     - echo "Basic Merge Request Variables..." 
     - echo "CI_MERGE_REQUEST_IID is '$CI_MERGE_REQUEST_IID'"
