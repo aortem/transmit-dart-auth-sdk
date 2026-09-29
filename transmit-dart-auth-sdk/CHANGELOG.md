@@ -1,3 +1,7 @@
+## 0.0.7
+
+- Validate with Dart 3.13.4 and apply its formatter to package sources and examples.
+
 # Changelog
 
 
